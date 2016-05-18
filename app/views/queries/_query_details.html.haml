@@ -1,0 +1,81 @@
+.panel.panel-default.no-border
+  %form{ 'ng-submit' => 'queryDetailsCtrl.updateQuery()',
+         'name' => 'queryDetailsCtrl.form',
+         'id' => 'form',
+         'novalidate' => '' }
+    = text_field_tag :query_title, '', placeholder: 'Query title', 'ng-model' => 'queryDetailsCtrl.query.item.title', 'ng-blur' => 'queryDetailsCtrl.updateQuery()', class: 'query-title-form'
+  %div{ 'uib-popover' => 'Read Only!',
+        'popover-trigger' => 'mouseenter',
+        'popover-popup-delay' => 500,
+        'popover-placement' => 'right' }
+    %div{ 'ui-ace' => '{mode: \'pgsql\', onLoad: queryDetailsCtrl.aceLoaded}',
+          'ng-model' => 'queryDetailsCtrl.query.item.version.body' }
+  .panel-heading
+    %span.btn-group
+      = link_to queries_path, class: 'btn btn-sm btn-default', 'uib-tooltip' => 'Home', 'tooltip-append-to-body' => 'true', 'tooltip-popup-delay' => 800 do
+        %span.glyphicon.glyphicon-home.glyphicons-lg.glyphicon-low
+      %button.btn.btn-sm.btn-primary{ 'ng-click' => 'queryDetailsCtrl.runQuery()',
+                                      'uib-tooltip' => 'Run Query',
+                                      'tooltip-append-to-body' => 'true',
+                                      'tooltip-popup-delay' => 800 }
+        %span.glyphicon.glyphicon-play.glyphicons-lg.glyphicon-low
+      %button.btn.btn-sm.btn-info{ 'ng-click' => 'queryDetailsCtrl.openRepl()',
+                                   'uib-tooltip' => 'Edit',
+                                   'tooltip-append-to-body' => 'true',
+                                   'tooltip-popup-delay' => 800 }
+        %span.glyphicon.glyphicon-edit.glyphicons-lg.glyphicon-low
+      %a.btn.btn-sm.btn-danger{ 'ng-disabled' => '!queryDetailsCtrl.query.item.id',
+                                'ng-click' => 'queryDetailsCtrl.deleteQuery()',
+                                'ng-confirm-click' => 'Are you sure you want to delete this query?',
+                                'uib-tooltip' => 'Delete',
+                                'tooltip-append-to-body' => 'true',
+                                'tooltip-popup-delay' => 800 }
+        %span.glyphicon.glyphicon-trash.glyphicons-lg.glyphicon-low
+    %span.btn-group#query-btns.pull-right
+      %button.btn.btn-sm.btn-warning{ 'uib-tooltip' => 'Click to comment',
+                                      'tooltip-append-to-body' => 'true',
+                                      'tooltip-placement' => 'left',
+                                      'tooltip-popup-delay' => 800,
+                                      'uib-popover-template' => "'comments-template'",
+                                      'popover-is-open' => 'queryDetailsCtrl.commentDialogOpen',
+                                      'popover-title' => 'Comment',
+                                      'ng-click' => 'queryDetailsCtrl.toggleCommentDialog()' }
+        %span.glyphicon.glyphicon-comment.glyphicons-lg.glyphicon-low
+.row
+  .col-md-4
+    %table.table.table-striped.table-fixed.table-condensed.white-background.small-font
+      %thead
+        %tr
+          %th Parameter
+          %th Default Value
+          %th Type
+      %tbody
+        %tr{'ng-repeat' => 'parameter in queryDetailsCtrl.query.item.version.parameters | orderBy: parameter.name', id: 'pd-{{$index}}'}
+          %td{style: 'max-width: 150px'}
+            .ellipsis{ 'ng-bind' => 'parameter.name',
+                       'popover' => "'{{parameter.name}}'",
+                       'popover-trigger' => 'mouseenter',
+                       'popover-popup-delay' => 1000,
+                       'popover-placement' => 'right' }
+          %td
+            %span{'ng-bind' => 'parameter.default'}
+          %td
+            %span{'ng-bind' => 'parameter.type'}
+  .col-md-4
+    .panel.panel-default.tag-panel.small-font
+      .panel-heading.bold Tags
+      %tags-input{ 'ng-model' => 'queryDetailsCtrl.query.item.tags',
+                   'template' => 'tag-template',
+                   'on-tag-added' => 'queryDetailsCtrl.updateQuery()',
+                   'on-tag-removed' => 'queryDetailsCtrl.updateQuery()' }
+        %auto-complete{'source' => 'queryDetailsCtrl.loadTags($query)'}
+  .col-md-4
+    .panel.panel-default.tag-panel.small-font
+      .panel-heading.bold Roles
+      %tags-input{ 'ng-model' => 'queryDetailsCtrl.query.item.roles',
+                   'template' => 'role-template',
+                   'on-tag-added' => 'queryDetailsCtrl.updateQuery()',
+                   'on-tag-removed' => 'queryDetailsCtrl.updateQuery()',
+                   'placeholder' => 'Add a role',
+                   'add-from-autocomplete-only' => 'true' }
+        %auto-complete{'source' => 'queryDetailsCtrl.loadRoles($query)'}

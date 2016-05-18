@@ -1,0 +1,10 @@
+development:
+  namespace: aleph
+test: &test
+  inline: true
+staging:
+  namespace: aleph_staging
+production:
+  namespace: aleph_production
+playground:
+  namespace: aleph_playground

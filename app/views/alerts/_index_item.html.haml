@@ -1,0 +1,25 @@
+.index-item
+  .row
+    .col-md-6
+      %strong
+        %a{ 'ng-href' => '/alerts/{{alert.id}}',
+            'uib-tooltip' => "Show details for '{{alert.query_title}}'",
+            'tooltip-delay' => 700,
+            'tooltip-placement' => 'top' }
+          .ellipsis{ 'ng-bind' => 'alert.query_title' }
+    .col-md-2
+      %a{ 'href' => '#',
+          'ng-bind' => 'alert.latest_query_version.author_name',
+          'ng-click' => "alertIdxCtrl.pagination.setSearch('author:' + alert.latest_query_version.author_name, true)",
+          'uib-tooltip' => "Filter by {{alert.latest_query_version.author_name}}",
+          'tooltip-delay' => 700,
+          'tooltip-placement' => 'top' }
+    .col-md-2
+      %span{ 'ng-bind' => 'alert.last_alert_result.created_at | date:alertIdxCtrl.dateFormat: "UTC"' }
+    .col-md-2
+      %span.label{ 'ng-bind' => 'alert.status',
+                   'ng-class' => 'alert.status',
+                   'ng-click' => "alertIdxCtrl.pagination.setSearch('status:' + alert.status, false)",
+                   'uib-tooltip' => 'Filter by status {{alert.status}}',
+                   'tooltip-delay' => 700,
+                   'tooltip-placement' => 'top' }

@@ -1,0 +1,66 @@
+.alerts-index
+  .limit-title
+    max-width: 180px
+
+  .scrollable
+    overflow: auto
+    min-width: 100%
+    max-height: 400px
+
+  .label
+    background-color: $pending-alert-color
+
+    &.Pending
+      background-color: $pending-alert-color
+
+    &.Paused
+      background-color: $paused-alert-color
+
+    &.Passing
+      background-color: $passing-alert-color
+
+    &.Failing
+      background-color: $failing-alert-color
+
+    &.Errored
+      background-color: $errored-alert-color
+
+.alert-show
+  .extra-padding
+    padding: 20px
+
+  .sm-margin
+    margin-top: 5px
+
+  .selected
+    background-color: $light-yellow
+    &:hover
+      background-color: $light-yellow
+
+  .throbber-loader
+    display: block
+    margin-bottom: 20px
+
+  .alert-edit, .alert-info
+    background-color: $gray-lighter
+    border: 1px solid $gray-light
+    padding: 20px
+
+    h5
+      line-height: 1.6
+
+    .form-group
+      padding: 30px 0
+
+      &.top
+        padding: 10px 0 30px
+
+      &.middle
+        padding-bottom: 0px
+        marging-bottom: 0px
+
+    .short-input
+      max-width: 100px
+
+
+

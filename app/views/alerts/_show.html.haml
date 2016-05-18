@@ -1,0 +1,90 @@
+.alert-show
+  .row
+    .col-md-8
+      .extra-padding
+        .alert-edit
+          .form-group.top
+            %form{ name: 'titleForm', id: 'titleForm', novalidate: '' }
+              %input{ 'type' => 'text',
+                      'ng-model' => 'alertShowCtrl.alert.item.query_title',
+                      'class' => 'form-control',
+                      'placeholder' => 'Alert title' }
+          %div{ 'uib-popover' => 'Read Only!',
+                'popover-trigger' => 'mouseenter',
+                'popover-popup-delay' => 500,
+                'popover-placement' => 'right' }
+            %div{ 'ui-ace' => '{mode: \'pgsql\', onLoad: alertShowCtrl.aceLoaded}',
+                  'ng-model' => 'alertShowCtrl.query.item.version.body' }
+          %button.btn.btn-sm.btn-info{ 'ng-click' => 'alertShowCtrl.editAlert()' }
+            %span.glyphicon.glyphicon-edit.glyphicons-lg.glyphicon-low
+            &nbsp; Edit Alert Query
+          .form-group.middle
+            %textarea.form-control{ 'ng-model' => 'alertShowCtrl.alert.item.description',
+                                    'placeholder' => 'Description' }
+          .form-inline
+            %form{ name: 'alertForm', id: 'alertForm', novalidate: '' }
+              .form-group
+                %label Email &nbsp;
+                %input{ 'type' => 'text',
+                        'ng-model' => 'alertShowCtrl.alert.item.email',
+                        'placeholder' => 'Person to notify',
+                        'class' => 'form-control' }
+              .form-group
+                %label &nbsp; if the result is &nbsp;
+                %select{ 'ng-model' => 'alertShowCtrl.alert.item.comparator',
+                         'class' => 'form-control' }
+                  %option{value: '<'} &lt;
+                  %option{value: '>'} &gt;
+                  %option{value: '='} =
+              .form-group
+                %input{ 'type' => 'text',
+                        'ng-model' => 'alertShowCtrl.alert.item.target',
+                        'placeholder' => 'Target',
+                        'class' => 'form-control short-input' }
+          .alert.alert-danger{ 'ng-if' => 'alertShowCtrl.alert.item.status == "Failing"' }
+            This alert is failing!
+          .alert.alert-danger{ 'ng-if' => 'alertShowCtrl.alert.item.status == "Errored"' }
+            This alert has errored:
+            %br {{alertShowCtrl.alert.item.error_message}}
+          .pending-alert{ 'ng-if' => 'alertShowCtrl.alert.item.status == "Pending"' }
+            Alert Running...
+            .throbber-loader.animate-if
+          .result-box.animate-if{ 'ng-if' => 'alertShowCtrl.alert.item.last_alert_result.sample_data',
+                                  'ng-hide' => 'alertShowCtrl.alert.item.status == "Pending"' }
+            Latest result for this alert:
+            .scrollable
+              %table.table.table-hover.table-condensed.table-fixed
+                %thead
+                  %tr
+                    %th{ 'ng-repeat' => 'column in alertShowCtrl.alert.item.last_alert_result.headers track by $index',
+                         'ng-bind' => 'column' }
+                %tbody
+                  %tr.data{ 'ng-repeat' => 'row in alertShowCtrl.alert.item.last_alert_result.sample_data track by $index' }
+                    %td{ 'ng-repeat' => 'column in row track by $index',
+                         'ng-bind' => 'column' }
+          %span.btn-group
+            %button.btn.btn-primary{ 'ng-click' => 'alertShowCtrl.saveAlert()',
+                                     'ng-disabled' => 'alertShowCtrl.alert.isPristine()' }
+              %span.glyphicon.glyphicon-floppy-disk.glyphicons-lg.glyphicon-low
+            %button.btn.btn-danger{ 'ng-disabled' => '!alertShowCtrl.isPersisted()',
+                                    'ng-click' => 'alertShowCtrl.deleteAlert()' }
+              %span.glyphicon.glyphicon-trash.glyphicons-lg.glyphicon-low
+            %button.btn.btn-default{ 'ng-click' => 'alertShowCtrl.togglePaused()',
+                                     'ng-disabled' => '!alertShowCtrl.isPersisted()' }
+              %span.glyphicon.glyphicon-pause.glyphicons-lg.glyphicon-low{ 'ng-if' => 'alertShowCtrl.alert.item.status !== "Paused"',
+                                                                           'uib-popover' => 'Pause alert',
+                                                                           'popover-trigger' => 'mouseenter',
+                                                                           'popover-popup-delay' => 500,
+                                                                           'popover-placement' => 'right' }
+              %span.glyphicon.glyphicon-play.glyphicons-lg.glyphicon-low{ 'ng-if' => 'alertShowCtrl.alert.item.status === "Paused"',
+                                                                          'uib-popover' => 'Un-pause alert',
+                                                                          'popover-trigger' => 'mouseenter',
+                                                                          'popover-popup-delay' => 500,
+                                                                          'popover-placement' => 'right' }
+          = link_to alerts_path, class: 'btn btn-default pull-right' do
+            Back to Alerts
+    .col-md-4
+      .extra-padding
+        .alert-info
+          %h3 Welcome to Aleph Alerting
+          %h5 Alerts run just after you save them, then at 6am Pacific daily. Alert queries must return a single row and a single column. This result is compared to the conditions you specify, emailing you if it meets them.

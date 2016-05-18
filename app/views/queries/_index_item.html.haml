@@ -1,0 +1,37 @@
+.index-item
+  .row
+    .col-md-1.summary-badges
+      %span.badge#versions{ 'ng-bind' => 'query.summary.versions',
+                            'uib-tooltip' => '{{query.summary.versions}} versions' }
+      %span.badge#comments{ 'ng-bind' => 'query.summary.comments',
+                            'uib-tooltip' => '{{query.summary.comments}} comments' }
+    .col-md-3
+      %strong
+        %a{ 'ng-href' => '/queries/{{query.id}}',
+            'uib-tooltip' => "Show details for '{{query.title}}'",
+            'tooltip-delay' => 700,
+            'tooltip-placement' => 'top' }
+          .ellipsis{ 'ng-bind' => 'query.title' }
+    .col-md-4
+      %div#author
+        %a{ 'href' => '#',
+            'ng-bind' => 'query.latest_author_name',
+            'ng-click' => "queryIdxCtrl.pagination.setSearch('author:' + query.latest_author_name, true)",
+            'uib-tooltip' => "Filter by {{query.latest_author_name}}",
+            'tooltip-delay' => 700,
+            'tooltip-placement' => 'top' }
+      %div#updated-at
+        %span{ 'ng-bind' => 'query.updated_at | date:dateFormat: "UTC"' }
+      %div#created-at
+        %span{ 'ng-bind' => 'query.created_at | date:dateFormat: "UTC"' }
+    .col-md-2
+      %span.label.tag{ 'ng-repeat' => 'tag in query.tags | limitTo:5 | orderBy',
+                       'ng-bind' => 'tag',
+                       'ng-class' => 'tag',
+                       'ng-click' => "queryIdxCtrl.pagination.setSearch('tags:' + tag, false)",
+                       'uib-tooltip' => 'Filter by {{tag}}',
+                       'tooltip-delay' => 700,
+                       'tooltip-placement' => 'top'}
+    .col-md-2
+      %span.label.tag.roles{ 'ng-repeat' => 'role in query.roles | limitTo:5 | orderBy',
+                             'ng-bind' => 'role' }

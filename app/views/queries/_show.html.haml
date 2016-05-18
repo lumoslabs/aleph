@@ -1,0 +1,28 @@
+.show-query
+  .row.top10
+    .col-md-10
+      %uib-tabset{ type: 'pills' }
+        %uib-tab{ heading: 'Query',
+                  active: 'queryShowCtrl.tabs.query.active',
+                  select: 'queryShowCtrl.setTabInUrl("query")' }
+          .under-pills-space
+          %query-details{ 'query' => 'queryShowCtrl.query',
+                          'result-runner' => 'queryShowCtrl.resultRunner' }
+        %uib-tab{ heading: 'Results',
+                  active: 'queryShowCtrl.tabs.results.active',
+                  select: 'queryShowCtrl.setTabInUrl("results")' }
+          .under-pills-space
+          %results{ 'query' => 'queryShowCtrl.query',
+                    'results' => 'queryShowCtrl.results',
+                    'result-runner' => 'queryShowCtrl.resultRunner' }
+        %uib-tab{ heading: 'Visualizations',
+                  active: 'queryShowCtrl.tabs.visualizations.active',
+                  select: 'queryShowCtrl.setTabInUrl("visualizations")' }
+          .under-pills-space
+          %visualization{ 'query-version-id' => 'queryShowCtrl.queryVersionId' ,
+                          'query-id' => 'queryShowCtrl.queryId',
+                          'results' => 'queryShowCtrl.results' }
+    .col-md-2
+      %query-version-sidebar{ 'query' => 'queryShowCtrl.query',
+                              'versions' => 'queryShowCtrl.queryVersions',
+                              'component-callbacks' => 'queryShowCtrl.componentCallbacks' }

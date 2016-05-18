@@ -1,0 +1,30 @@
+.snippets-index
+  .panel-heading
+    .row
+      .col-sm-4
+        .btn-group
+          %button.btn.btn-default.btn-sm{ 'ng-click' => 'snippetIdxCtrl.addNewSnippet()',
+                                          'ng-disabled' => 'snippetIdxCtrl.savableSnippetsExist()' }
+            %span.glyphicon.glyphicon-plus.glyphicons-xs.glyphicon-low
+            New Snippet
+          %button.btn.btn-warning.btn-sm{ 'ng-click' => 'snippetIdxCtrl.snippets.save()',
+                                          'ng-disabled' => '!snippetIdxCtrl.savableSnippetsExist()' }
+            %span.glyphicon.glyphicon-floppy-saved.glyphicons-xs.glyphicon-low
+            Save All
+          %button.btn.btn-primary.btn-sm{ 'ng-click' => 'snippetIdxCtrl.snippets.revert()',
+                                          'ng-disabled' => '!snippetIdxCtrl.revertableSnippetsExist()' }
+            %span.glyphicon.glyphicon-refresh.glyphicons-xs.glyphicon-low
+            Revert All
+      .col-sm-6
+        .input-group.input-group-sm
+          %label.input-group-addon
+            %i.glyphicon.glyphicon-search
+          %input.form-control{ 'ng-model' => 'snippetIdxCtrl.search',
+                               'placeholder' => 'Search snippets',
+                               'type' => 'text',
+                               'ng-model' => 'searchText' }
+  .panel-body
+    .row{ 'ng-repeat' => 'snippets in snippetIdxCtrl.snippets.collection | filter:searchText | groupBy:2 | orderBy:snippetIdxCtrl.updatedAt:true' }
+      .col-sm-6.top17{ 'ng-repeat' => 'snippet in snippets | orderBy:snippetIdxCtrl.updatedAt:true',
+                       'ng-class' => "{ 'grayed-out' : snippetIdxCtrl.shouldGrayout(snippet) }" }
+        = render partial: 'snippets/index_item'

@@ -1,0 +1,29 @@
+.sort-bar
+  .row
+    .col-md-1
+      %strong SUMMARY
+    .col-md-3
+      %strong
+        %a{ 'ng-click' => 'queryIdxCtrl.pagination.setSort("title")', 'title' => 'Sort By Title' }
+          TITLE
+          .glyphicon.glyphicon-sort.tiny-icon
+    .col-md-4
+      %div#author
+        %strong
+          %a{ 'ng-click' => 'queryIdxCtrl.pagination.setSort("author")', 'title' => 'Sort By Author' }
+            AUTHOR
+            .glyphicon.glyphicon-sort.tiny-icon
+      %div#updated-at
+        %strong
+          %a{ 'ng-click' => 'queryIdxCtrl.pagination.setSort("updated_at")', 'title' => 'Sort By Updated' }
+            UPDATED
+            .glyphicon.glyphicon-sort.tiny-icon
+      %div#created-at
+        %strong
+          %a{ 'ng-click' => 'queryIdxCtrl.pagination.setSort("created_at")', 'title' => 'Sort By Created' }
+            CREATED
+            .glyphicon.glyphicon-sort.tiny-icon
+    .col-md-2
+      %strong TAGS
+    .col-md-2
+      %strong ROLES

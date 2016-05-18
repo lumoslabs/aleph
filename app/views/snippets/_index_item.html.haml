@@ -1,0 +1,20 @@
+.input-group.input-group-sm
+  %span.input-group-addon Name:
+  %input.form-control{ 'ng-model' => 'snippet.item.name',
+                       'type' => 'text',
+                       'placeholder' => 'Enter snippet name' }
+  %span.input-group-btn
+    %button.btn.btn-warning.btn-sm{ 'ng-click' => 'snippet.save()',
+                                    'ng-disabled' => '!snippetIdxCtrl.isValidForSave(snippet)' }
+      %span.glyphicon.glyphicon-floppy-saved.glyphicons-xs.glyphicon-low
+      Save
+    %button.btn.btn-primary.btn-sm{ 'ng-click' => 'snippet.revert()',
+                                    'ng-disabled' => 'snippet.isPristine()' }
+      %span.glyphicon.glyphicon-refresh.glyphicons-xs.glyphicon-low
+      Revert
+    %a.btn.btn-danger.btn-sm{ 'ng-disabled' => '!snippet.isPersisted()',
+                              'ng-click' => 'snippetIdxCtrl.deleteSnippet(snippet)' }
+      %span.glyphicon.glyphicon-trash.glyphicons-lg.glyphicon-low
+      Delete
+.ace.snippet-content{ 'ui-ace' => "{mode: \'pgsql\', onLoad: snippetIdxCtrl.aceLoaded}",
+                      'ng-model' => 'snippet.item.content' }

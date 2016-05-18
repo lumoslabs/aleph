@@ -1,0 +1,105 @@
+// css for the query items
+.index-items
+  ul
+    list-style-type: none
+    padding-left: 0
+
+  .item-header
+    border-radius: 10px 10px 0px 0px
+    padding: 5px
+
+  .item-container
+    border: 2px solid transparent
+    margin: 3px 0px 3px 0px
+    padding: 10px
+    background-color: white
+    border-radius: 5px
+    transition: background-color 1s ease
+    background-color: rgba(white, $opacity-high)
+    &:hover
+      background-color: white
+
+  .selected
+    border: 2px lighten($highlight-blue, 70%) solid
+    background: white
+
+// css for each individual query index item
+.index-item
+  font-size: small
+
+.query-index
+  #author
+    float: left
+    display: inline
+    width: 120px
+
+  #updated-at
+    display: inline
+    width: 100px
+    padding-right: 10px
+
+  #created-at
+    display: inline
+    width: 100px
+    padding-left: 10px
+
+// sidebar
+.index-sidebar
+  position: fixed
+  top: 58px
+  width: 17%
+  bottom: 10%
+  right: 0
+  z-index: 1000
+  display: block
+  padding: 20px
+  overflow-x: hidden
+  overflow-y: auto
+  padding-top: 0
+  padding-bottom: 0
+  padding-right: 50px
+  padding-left: 15px
+  font-size: small
+  line-height: 24px
+
+  tags-input
+    .tags
+      border-radius: 3px
+
+    .input
+      background-color: transparent
+
+  .menu-label
+    opacity: $opacity-high
+    font-size: small
+    color: white
+
+  .lower
+    padding: -3px
+
+  .query-preview
+    border: 1px $gray-lighter dotted
+    font-family: Menlo, Courier New, Courier
+    font-size: 11px
+    height: 150px
+    width: 100%
+    overflow: auto
+    outline: none
+    line-height: 1.5
+    background-color: rgba(white, $opacity-mid)
+    border-radius: 5px
+
+    -webkit-box-shadow: none
+    -moz-box-shadow: none
+    box-shadow: none
+
+  .right5
+    margin-right: 5px
+
+  .btn-format
+    width: 99%
+    border: 0px
+    border-radius: 3px
+
+  .btn-format[disabled]
+    opacity: $opacity-low

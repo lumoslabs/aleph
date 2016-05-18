@@ -1,0 +1,47 @@
+!(angular => {
+  'use strict';
+
+  function SchemaCompleterImports(aceSqlParse, SchemaColumns, MatcherRunner, SCHEMA_MATCHERS) {
+
+    return class SchemaCompleter {
+
+      constructor() {
+        this._columns = new SchemaColumns();
+        this._columns.initCollection().then(columns => {
+          this._matcherRunner = new MatcherRunner(SCHEMA_MATCHERS, _.map(columns, o => o.item));
+        });
+      }
+
+      getCompletions(editor, session, pos, prefix, callback) {
+        if (prefix.length === 0) { callback(null, []); return; }
+
+        let parsedSql = aceSqlParse(session, pos);
+        let currentClause = parsedSql.currentClause;
+        let isSubstring = this._makeIsSubstringFn(parsedSql.fromClause);
+        let matchingTables = _(this._columns.uniqueTables).filter(isSubstring);
+        let matchingSchemas = _(this._columns.uniqueSchemas).filter(isSubstring);
+
+        if (_.exists(this._matcherRunner)) {
+          let matches = this._matcherRunner.execute(currentClause, {
+            tableRestrict: matchingTables,
+            schemaRestrict: matchingSchemas
+          }, prefix);
+
+          callback(null, matches);
+        }
+      }
+
+      // private methods
+
+      _makeIsSubstringFn(check) {
+        return string => _.exists(check) ? check.indexOf(string) > -1 : false;
+      }
+    };
+  }
+
+
+  SchemaCompleterImports.$inject = ['aceSqlParse', 'SchemaColumns', 'MatcherRunner', 'SCHEMA_MATCHERS'];
+  angular.module('alephServices.schemaCompleter', ['aleph.schemaCompleterConfig'])
+    .service('SchemaCompleter', SchemaCompleterImports);
+
+}(angular));

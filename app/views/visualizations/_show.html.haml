@@ -1,0 +1,83 @@
+.panel.visualization
+  .info-box{ 'ng-if' => '!vizShowCtrl.sourceRenderer.latestResult()' }
+    %h3 Welcome to Aleph Visualizations
+    %h5 Looks like you need some valid results, huh?
+  .info-box{ 'ng-if' => '!vizShowCtrl.visualization.hasSource() && vizShowCtrl.sourceRenderer.latestResult()' }
+    %h3 Welcome to Aleph Visualizations
+    %h5 Pick a type of chart to begin:
+    .btn-group{ 'uib-dropdown' => '',
+                'is-open' => false }
+      %button.btn.btn-success{ 'uib-dropdown-toggle' => '',
+                               'type' => 'button' }
+        .glyphicon.glyphicon-stats
+        Create Chart
+        %span.caret
+      %ul{ 'uib-dropdown-menu' => '',
+           'role' => 'menu' }
+        %li{ 'ng-repeat' => 'presetName in vizShowCtrl.presetDisplayList()',
+             'role' => 'menuitem' }
+          %a{ 'href' => '',
+              'ng-click' => 'vizShowCtrl.selectPreset(presetName)',
+              'ng-bind' => 'presetName' }
+  %span{ 'ng-switch' => 'vizShowCtrl.sourceRenderer.latestResult().status',
+         'ng-if' => 'vizShowCtrl.visualization.hasSource() && vizShowCtrl.sourceRenderer.latestResult()' }
+    %span{ 'ng-switch-when' => 'complete' }
+      .row
+        .col-md-12
+          .btn-group.pull-right
+            .btn-group{ 'uib-dropdown' => '',
+                        'is-open' => false }
+              %button.btn.btn-xs.btn-warning{ 'uib-dropdown-toggle' => '',
+                                              'type' => 'button',
+                                              'ng-show' => 'vizShowCtrl.visualizations.collection.length > 0' }
+                %small Current:
+                %strong{ 'ng-bind' => 'vizShowCtrl.visualization.item.title || vizShowCtrl.titlePlaceholder' }
+                %span.caret
+              %ul.uib-dropdown-menu{ 'role' => 'menu' }
+                %li{ 'ng-repeat' => 'visualization in vizShowCtrl.visualizations.items()',
+                     'role' => 'menuitem' }
+                  %a{ 'href' => '',
+                      'ng-click' => 'vizShowCtrl.selectVisualization(visualization)',
+                      'ng-bind' => 'visualization.title' }
+                    %span.glyphicon.glyphicon-pushpin.glyphicons-sm.glyphicon-low{ 'ng-if' => 'visualization.id === vizShowCtrl.visualization.item.id' }
+            .btn-group{ 'uib-dropdown' => '',
+                        'is-open' => false }
+              %button.btn.btn-xs.btn-success{ 'uib-dropdown-toggle' => '',
+                                              'type' => 'button' }
+                .glyphicon.glyphicon-stats.glyphicons-xs.glyphicon-low
+                %small New
+                %span.caret
+              %ul.uib-dropdown-menu{ 'role' => 'menu' }
+                %li{ 'ng-repeat' => 'presetName in vizShowCtrl.presetDisplayList()',
+                     'role' => 'menuitem' }
+                  %a{ 'href' => '',
+                      'ng-click' => 'vizShowCtrl.selectPreset(presetName)',
+                      'ng-bind' => 'presetName'}
+            %button.btn.btn-xs.btn-info{ 'ng-click' => 'vizShowCtrl.toggleEditor()' }
+              .glyphicon.glyphicon-edit.glyphicons-xs.glyphicon-low
+              %small Edit
+            %button.btn.btn-xs.btn-success{ 'ng-click' => 'vizShowCtrl.save()',
+                                            'ng-hide' => 'vizShowCtrl.visualization.isPristine()' }
+              .glyphicon.glyphicon-floppy-save.glyphicons-xs.glyphicon-low
+              %small Save
+            %button.btn.btn-xs.btn-danger{ 'ng-click' => 'vizShowCtrl.destroy()',
+                                           'ng-hide' => '!vizShowCtrl.visualization.isPersisted()',
+                                           'ng-confirm-click' => 'Are you sure you want to delete this visualization?' }
+              .glyphicon.glyphicon-trash.glyphicons-xs.glyphicon-low
+              %small Delete
+          #html-editor{ 'ui-ace' => '{mode: \'html\', theme: \'monokai\' , onLoad: vizShowCtrl.aceLoaded}',
+                        'ng-model' => 'vizShowCtrl.visualization.item.html_source' ,
+                        'ng-show' => 'vizShowCtrl.editorSelected' }
+      #chart-panel{ 'ng-bind-html' => 'vizShowCtrl.renderedSource()',
+                    'ng-show' => 'vizShowCtrl.sourceRenderer.isValid()' }
+    %span{ 'ng-switch-when' => 'failed' }
+      This query failed with the message:
+      %br
+      %span{ 'style' => 'font-weight: bold; white-space: pre-wrap;' }
+        {{vizShowCtrl.sourceRenderer.latestResult().error_message}}
+    %span{ 'ng-switch-when' => 'enqueued' }
+      Waiting to run.
+      %br
+      Enqueued at {{vizShowCtrl.sourceRenderer.latestResult().updated_at | date:'EEE yyyy-MM-dd hh:mm:ss a' : 'UTC'}}.
+    %span{ 'ng-switch-when' => 'running' } Running since {{vizShowCtrl.sourceRenderer.latestResult().updated_at | date:'EEE yyyy-MM-dd hh:mm:ss a' : 'UTC'}}!
+    %span{ 'ng-switch-default' => true } Unknown status: "{{vizShowCtrl.sourceRenderer.latestResult().status}}"

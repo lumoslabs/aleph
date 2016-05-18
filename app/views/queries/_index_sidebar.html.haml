@@ -1,0 +1,58 @@
+.index-sidebar
+  .row
+    .input-group.input-group-sm
+      .input-group-btn
+        %button.btn.btn-inverse.btn-sm{ 'ng-click' => 'queryIdxCtrl.pagination.clearSearch()' }
+          %i.glyphicon.glyphicon-remove{ 'ng-if' => 'queryIdxCtrl.pagination.searchText' }
+          %i.glyphicon.glyphicon-search{ 'ng-if' => '!queryIdxCtrl.pagination.searchText' }
+      %input.form-control{ 'placeholder' => 'Search Queries',
+                           'id' => 'fulltext-search',
+                           'ng-model' => 'queryIdxCtrl.pagination.searchText',
+                           'ng-model-options' => '{debounce: 400}',
+                           'ng-change' => 'queryIdxCtrl.pagination.triggerSearch()' }
+  .row.top30
+    %span.menu-label
+      .octicon.octicon-three-bars
+      Menu Actions
+  .row.top5
+    %button.btn.btn-default.btn-sm.btn-format.right5{ 'ng-click' => 'queryIdxCtrl.openRepl()' }
+      %span.glyphicon.glyphicon-plus.glyphicons-xs.glyphicon-low
+      New Query
+  .row.top5
+    %button.btn.btn-warning.btn-sm.btn-format{ 'ng-click' => 'queryIdxCtrl.deselectAll()',
+                                               'ng-show' => 'queryIdxCtrl.selectedQueries.length > 0 && queryIdxCtrl.pagination.isPristine()' }
+      %span.glyphicon.glyphicon-remove.glyphicons-xs.glyphicon-low
+      Deselect
+  .row.top15{ 'ng-if' => 'queryIdxCtrl.selectedQueries.length > 1' }
+    %span.menu-label
+      .octicon.octicon-tag
+      Batch Update Tags
+    %tags-input{ 'ng-model' => 'queryIdxCtrl.tagsSelectionInput.selectedTags',
+                 'template' => 'tag-template',
+                 'placeholder' => 'Batch add tag',
+                 'on-tag-added' => 'queryIdxCtrl.tagsSelectionInput.add($tag)',
+                 'on-tag-removed' => 'queryIdxCtrl.tagsSelectionInput.remove($tag)' }
+      %auto-complete{ 'source' => 'queryIdxCtrl.loadTags($query)' }
+  .row.top10{ 'ng-if' => 'queryIdxCtrl.selectedQueries.length > 1' }
+    %span.menu-label
+      .octicon.octicon-organization
+      Batch Update Roles
+    %tags-input{ 'ng-model' => 'queryIdxCtrl.rolesSelectionInput.selectedTags',
+                 'template' => 'role-template',
+                 'placeholder' => 'Batch add role',
+                 'on-tag-added' => 'queryIdxCtrl.rolesSelectionInput.add($tag)',
+                 'on-tag-removed' => 'queryIdxCtrl.rolesSelectionInput.remove($tag)',
+                 'add-from-autocomplete-only' => 'true' }
+      %auto-complete{ 'source' => 'queryIdxCtrl.loadRoles($query)'}
+  .row.top5{ 'ng-if' => 'queryIdxCtrl.pagination.isDirty()' }
+    %button.btn.btn-primary.btn-xs.btn-format-xs.right5{ 'ng-click' => 'queryIdxCtrl.revert()' }
+      %span.glyphicon.glyphicon-refresh.glyphicons-xs.glyphicon-low
+      Revert
+    %button.btn.btn-danger.btn-xs.btn-format-xs{ 'ng-click' => 'queryIdxCtrl.save()' }
+      %span.glyphicon.glyphicon-floppy-saved.glyphicons-xs.glyphicon-low
+      Save
+  .row.top10{ 'ng-if' => 'queryIdxCtrl.selectedQueries.length === 1' }
+    %span.menu-label
+      .octicon.octicon-eye.menu-label
+      Query Preview
+    %textarea.query-preview.top5{ 'ng-bind' => 'queryIdxCtrl.selectedQueries[0].latest_body', 'readonly' => '' }

@@ -1,0 +1,29 @@
+.panel.panel-default
+  .panel-heading
+    .metadata
+      .pull-right
+        %button.btn.btn-sm.btn-primary#runQuery{ 'ng-disabled' => '!resultsCtrl.query.item.id',
+                                                 'ng-click' => 'resultsCtrl.runQuery()' }
+          Run
+          %span.glyphicon.glyphicon-play.glyphicons-lg.glyphicon-low
+      %dl.query-metadata
+        %dt Version:
+        %dd{ 'ng-bind' => 'resultsCtrl.query.item.version.version' }
+        %br
+        %dt Created:
+        %dd{ 'ng-bind' => 'resultsCtrl.query.item.version.created_at | date: "yyyy-MM-dd hh:mm:ss" : "UTC"' }
+        %br
+        %dt Author:
+        %dd{ 'ng-bind' => 'resultsCtrl.query.item.version.author_name' }
+      %details{ 'ng-if' => 'resultsCtrl.query.item.version.parameters.length > 0' }
+        %summary Specify Substitution Parameters For This Run
+        %ul
+          %li.parameter{ 'ng-repeat' => 'parameter in resultsCtrl.query.item.version.parameters' }
+            %label{ 'for' => 'parameter-{{parameter.name}}',
+                    'ng-bind' => 'parameter.name' }:
+            %input{ 'id' => 'parameter-{{parameter.name}}',
+                    'placeholder' => '{{parameter.default}}',
+                    'ng-model' => 'resultsCtrl.resultRunner.substitutionValues[parameter.name]' }
+  %ul.list-group
+    %li.result.list-group-item.panel.panel-default.result-panel{ 'ng-repeat' => 'result in resultsCtrl.results.collection | orderBy: "item.created_at" : true' }
+      %result{'result' => 'result', 'results' => 'resultsCtrl.results'}

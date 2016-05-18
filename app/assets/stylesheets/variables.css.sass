@@ -1,0 +1,110 @@
+//== Colors
+//
+//## Gray and brand colors for use across Bootstrap.
+
+$gray-base:              #000 !default
+$gray-darker:            lighten($gray-base, 13.5%) !default
+$gray-dark:              lighten($gray-base, 20%) !default
+$gray:                   lighten($gray-base, 33.5%) !default
+$gray-light:             lighten($gray-base, 70%) !default
+$gray-lighter:           lighten($gray-base, 93.5%) !default
+
+$brand-primary:         #7B8F8A !default
+$brand-success:         #668284 !default
+$brand-info:            #5bc0de !default
+$brand-warning:         #816E7D !default
+$brand-danger:          #D66869 !default
+
+//== Scaffolding
+//## Settings for some of the most global styles.
+$body-bg:               #fff !default
+$text-color:            #222 !default
+
+//** Global textual link color.
+$link-color:            #222 !default
+$link-hover-color:      #D79000 !default
+$link-hover-decoration: none !default
+
+//== Typography
+@import url("https://fonts.googleapis.com/css?family=Lato:300italic,400italic,700italic,400,300,700")
+
+$font-family-sans-serif:  "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif !default
+$font-family-serif:       $font-family-sans-serif !default
+
+$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default
+$font-family-base:        $font-family-serif !default
+
+$font-size-base:          14px !default
+$font-size-large:         ceil(($font-size-base * 1.5)) !default
+$font-size-small:         ceil(($font-size-base * 0.9)) !default
+
+//== Navbar
+
+$navbar-height:                    35px !default
+$navbar-margin-bottom:             15px !default
+
+//=== Inverted navbar
+$navbar-inverse-bg:                         #E6EDEE
+$navbar-inverse-color:                      #222
+$navbar-inverse-border:                     transparent !default
+
+// Inverted navbar links
+$navbar-inverse-link-color:                 #222 !default
+$navbar-inverse-link-hover-color:           #222 !default
+$navbar-inverse-link-hover-bg:              $navbar-inverse-bg
+$navbar-inverse-link-active-color:          #222 !default
+$navbar-inverse-link-active-bg:             darken($navbar-inverse-bg, 6.5%) !default
+$navbar-inverse-link-disabled-color:        #222 !default
+$navbar-inverse-link-disabled-bg:           transparent !default
+
+// Inverted navbar brand label
+$navbar-inverse-brand-color:                $navbar-inverse-link-color !default
+$navbar-inverse-brand-hover-color:          #222 !default
+$navbar-inverse-brand-hover-bg:             $navbar-inverse-bg !default
+
+// Inverted navbar toggle
+$navbar-inverse-toggle-hover-bg:            darken($navbar-inverse-bg, 10%) !default
+$navbar-inverse-toggle-icon-bar-bg:         #222 !default
+$navbar-inverse-toggle-border-color:        darken($navbar-inverse-bg, 10%) !default
+
+// Aleph default colors
+$red:          #CE1836
+$light-blue:   #5bc0de
+$orange:       #F85931
+$blue:         #009989
+$green:        #A3A948
+$purple:       #91204D
+$yellow:       #EDB92E
+$maroon:       #990000
+$tan:          #E6BEA3
+$deep-green:   #009900
+$light-yellow: #FFFFCC
+$woods-green:  #3F8000
+
+// Misc colors
+$background-outer: #ECF7F4
+$slate-blue: #80A6BF
+$highlight-blue: #00026D
+//$highlight-blue: tomato
+
+// Tag colors
+$engagement-tag-color:         $red
+$conversion-tag-color:         $blue
+$approved-tag-color:           $orange
+$maturity-tag-color:           $green
+$funnel-tag-color:             $purple
+$payments-tag-color:           $yellow
+$games-tag-color:              $maroon
+$customer-support-tag-color:   $tan
+$official-tag-color:           $woods-green
+
+// Alert colors
+$passing-alert-color: $deep-green
+$failing-alert-color: $red
+$pending-alert-color: $light-blue
+$paused-alert-color:  $yellow
+$errored-alert-color: $red
+
+$opacity-high: 0.8
+$opacity-mid: 0.5
+$opacity-low: 0.2

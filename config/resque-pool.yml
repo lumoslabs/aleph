@@ -1,0 +1,15 @@
+queues_common: &queues_common
+  query_exec: <%= ENV['ALEPH_QUERY_EXEC_WORKER_POOL'] %>
+  alert_exec: <%= ENV['ALEPH_ALERT_EXEC_WORKER_POOL'] %>
+
+production:
+  <<: *queues_common
+
+staging:
+  <<: *queues_common
+
+development:
+  <<: *queues_common
+
+playground:
+  <<: *queues_common
