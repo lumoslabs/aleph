@@ -1,0 +1,22 @@
+.sort-bar
+  .row
+    .col-md-6
+      %strong
+        %a{ 'ng-click' => 'alertIdxCtrl.pagination.setSort("title")', 'title' => 'Sort By Title' }
+          TITLE
+          .glyphicon.glyphicon-sort.tiny-icon
+    .col-md-2
+      %strong
+        %a{ 'ng-click' => 'alertIdxCtrl.pagination.setSort("author")', 'title' => 'Sort By Author' }
+          AUTHOR
+          .glyphicon.glyphicon-sort.tiny-icon
+    .col-md-2
+      %strong
+        %a{ 'ng-click' => 'alertIdxCtrl.pagination.setSort("updated_at")', 'title' => 'Sort By Last Run' }
+          LAST RUN
+          .glyphicon.glyphicon-sort.tiny-icon
+    .col-md-2
+      %strong
+        %a{ 'ng-click' => 'alertIdxCtrl.pagination.setSort("status")', 'title' => 'Sort By Status' }
+          STATUS
+          .glyphicon.glyphicon-sort.tiny-icon

@@ -1,0 +1,56 @@
+.schema-index
+  .dirty-bg
+    background-color: $gray-lighter
+
+  .schema-table-row
+    background-color: white
+    border-radius: 5px
+
+  .schema-table-header
+    background-color: lighten($slate-blue, 25%)
+    font-style: oblique
+    font-size: large
+    padding: 5px
+    border-radius: 5px 5px 0px 0px
+    border-bottom: 1px solid $slate-blue
+
+  .padding3
+    padding: 3px
+
+  .margin2
+    margin: 2px
+
+  // remove border and shadow on input forms
+  input
+    border: none
+    box-shadow: none
+
+  input:focus
+    outline: none
+
+  // sidebar
+  .summary-sidebar
+    position: fixed
+    top: 70px
+    width: 18%
+    bottom: 10%
+    right: 0
+    z-index: 1000
+    display: block
+    padding: 20px
+    overflow-x: hidden
+    overflow-y: auto
+    padding-top: 0
+    padding-bottom: 0
+    color: white
+    font-style: italic
+    font-weight: bold
+    border-top-left-radius: 5px
+    border-bottom-left-radius: 5px
+
+    a
+      cursor: pointer
+      color: white
+
+    a:hover
+      color: lighten(tomato, 20%)

@@ -1,0 +1,40 @@
+---
+# send to travis container infrastructure
+# http://docs.travis-ci.com/user/workers/container-based-infrastructure
+sudo: false
+language: ruby
+cache:
+  - bundler
+  - apt
+rvm:
+  - ruby-2.1.6
+
+addons:
+  postgresql: "9.1"
+
+env:
+  global:
+    - TZ=America/Los_Angeles
+    - LOCALE=en_US
+    - LC_CTYPE=en_US.UTF-8s
+    - RAILS_ENV=test
+    - ALEPH_CONFIG_PATH=config/example
+    - CHROME_BIN=chromium-browser
+    - BASIC_REDSHIFT_USERNAME=username
+    - ADMIN_REDSHIFT_USERNAME=username
+
+  matrix:
+    - TEST_SUITE="rspec spec --color --format documentation"
+    - TEST_SUITE="rake karma:run"
+
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+
+before_script:
+  - npm install
+  - cp config/database.yml.travis config/database.yml;
+  - bundle exec rake db:create
+  - bundle exec rake db:migrate
+
+script: "bundle exec $TEST_SUITE"

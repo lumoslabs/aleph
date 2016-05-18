@@ -1,0 +1,12 @@
+{
+  "template": [
+    "<script>",
+    "var DATASET = SerializedStorage.get('DATASET');",
+    "var COLUMNS = SerializedStorage.get('COLUMNS');",
+    "var HEADERS = SerializedStorage.get('HEADERS');",
+    "var PANEL = '<%= panel %>';",
+    "var RESULT_ID = <%= result_id %>;",
+    "<%= body %>",
+    "</script>"
+  ]
+}

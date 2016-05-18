@@ -1,0 +1,13 @@
+.DS_Store
+/.bundle
+/.env
+/.env.*
+/log/*.log
+/results/*.csv
+public/assets/**
+/public/local_result_csvs
+node_modules
+coverage
+tmp
+log
+config/attribute-map.yml

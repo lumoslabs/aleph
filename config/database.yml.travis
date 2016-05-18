@@ -1,0 +1,10 @@
+ssa_common: &ssa_common
+  adapter: postgresql
+  encoding: utf8
+  host: localhost
+  pool: 5
+  username: postgres
+
+test:
+  <<: *ssa_common
+  database: aleph_test

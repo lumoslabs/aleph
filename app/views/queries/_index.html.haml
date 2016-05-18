@@ -1,0 +1,15 @@
+.query-index
+  .col-md-10.index-items.top10
+    %ul{ 'infinite-scroll' => 'queryIdxCtrl.pagination.loadMore()',
+         'infinite-scroll-distance' => '0.5' }
+      %li.item-header
+        = render partial: 'queries/index_sort_bar'
+      %li.item-container{ 'ng-repeat' => 'query in queryIdxCtrl.pagination.items()',
+                          'selection-model' => '',
+                          'selection-model-mode' => 'multiple',
+                          'selection-model-selected-items' => 'queryIdxCtrl.selectedQueries',
+                          'selection-model-cleanup-strategy' => 'deselect',
+                          'selection-model-on-change' => 'queryIdxCtrl.onSelection()' }
+        = render partial: 'queries/index_item'
+  .col-md-2
+    = render partial: 'queries/index_sidebar'

@@ -1,0 +1,157 @@
+body
+  background-color: #DFFFF7
+  &:after
+    background: image-url('/bg_big.svg')
+    background-size: cover
+    content: ''
+    opacity: $opacity-mid
+    top: 0
+    left: 0
+    bottom: 0
+    right: 0
+    position: fixed
+    z-index: -1
+
+@-webkit-keyframes fade-out
+  from
+    opacity: 1.0
+
+  to
+    opacity: 0.0
+
+// Standard syntax
+@keyframes fade-out
+  from
+    opacity: 1.0
+
+  to
+    opacity: 0.0
+
+.glyphicon-low
+  top: 3px
+
+.glyphicon-med
+  top: 2px
+
+.popover
+  padding: 0px
+  margin: 0px
+  font-size: 11px
+  font-family: Menlo, Courier New, Courier
+  max-width: 600px
+
+.ellipsis
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+.small-font
+  font-size: small
+
+.info-box
+  background-color: $gray-lighter
+  border: 1px solid $gray-light
+  padding: 20px
+
+  h5
+    line-height: 1.6
+
+.white-background
+  background-color: #FFFFFF
+
+
+// nav, navbar, brand, and logo
+a.navbar-text
+  margin: 0
+  padding: 7.5px 15px
+
+a.navbar-text.active
+  background-color: rgba(210, 230, 255, $opacity-mid)
+  border-radius: 5px
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus
+  background-color: transparent
+
+.navbar-brand
+  font-family: Futura, Trebuchet MS, Arial, sans-serif
+  font-style: oblique
+
+.navbar.transparent.navbar-inverse
+  background: rgba($navbar-inverse-bg, $opacity-mid)
+  //background: $navbar-inverse-bg
+
+.brand-logo
+  height: 25px
+  padding-top: 9px
+  padding-right: 7px
+  opacity: $opacity-mid
+
+.navbar
+  border: none
+
+.navbar-static-top
+  border-width: 0 0 0 0
+
+.navbar-inverse
+  border-color: transparent
+
+.under-pills-space
+  height: 15px
+
+.nav-pills > li > a
+  padding: 5px 10px 5px 10px
+
+.nav-pills > li.active > a
+  border: 1px solid lighten($navbar-inverse-bg, 10%)
+
+  &:focus
+  &:visited
+    color: black
+    background-color: white
+
+.navbar-static-top
+  margin-bottom: 0px
+
+// utility classes
+.top5
+  margin-top: 5px
+
+.top7
+  margin-top: 7px
+
+.top10
+  margin-top: 10px
+
+.top15
+  margin-top: 15px
+
+.top17
+  margin-top: 17px
+
+.top30
+  margin-top: 30px
+
+.no-margin
+  margin: 0px
+
+.no-padding
+  padding: 0px
+
+.input-xs
+  height: 22px
+  padding: 2px 4px
+  font-size: small
+  line-height: 1.5 //If Placeholder of the input is moved up, rem/modify this.
+  border-radius: 3px
+
+.no-list-style
+  list-style: none
+
+.looks-like-clickable
+  cursor: pointer
+  &:hover
+    opacity: $opacity-mid
+    color: tomato
+  &:active
+    opacity: $opacity-high

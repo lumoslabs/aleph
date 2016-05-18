@@ -1,0 +1,78 @@
+!!!
+%html{'ng-app' => 'aleph', 'ng-strict-di' => true}
+  %base{href: '/'}
+  %head
+    %title{ 'ng-bind' => 'pageTitleManager.title' }
+    %script
+      = render partial: 'application/rollbar'
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application'
+    = favicon_link_tag '/favicon.ico'
+    %script#queryIndex{type: 'text/ng-template'}
+      = render partial: 'queries/index'
+    %script#queryRepl{type: 'text/ng-template'}
+      = render partial: 'queries/repl'
+    %script#showQuery{type: 'text/ng-template'}
+      = render partial: 'queries/show'
+    %script#queryDetails{type: 'text/ng-template'}
+      = render partial: 'queries/query_details'
+    %script#results{type: 'text/ng-template'}
+      = render partial: 'queries/results'
+    %script#result{type: 'text/ng-template'}
+      = render partial: 'results/show'
+    %script#visualization{type: 'text/ng-template'}
+      = render partial: 'visualizations/show'
+    %script#schemaIndex{type: 'text/ng-template'}
+      = render partial: 'schemas/index'
+    %script#tag-template{type: 'text/ng-template'}
+      = render partial: 'queries/tag_template'
+    %script#role-template{type: 'text/ng-template'}
+      = render partial: 'queries/role_template'
+    %script#query-version-sidebar{type: 'text/ng-template'}
+      = render partial: 'queries/query_version_sidebar'
+    %script#alertIndex{type: 'text/ng-template'}
+      = render partial: 'alerts/index'
+    %script#alertShow{type: 'text/ng-template'}
+      = render partial: 'alerts/show'
+    %script#snippetIndex{type: 'text/ng-template'}
+      = render partial: 'snippets/index'
+    %script#comments-template{type: 'text/ng-template'}
+      = render partial: 'queries/comments'
+    :javascript
+      window.flash = #{flash.to_hash.to_json};
+  %body{ 'ng-controller' => 'BodyController',
+         'ng-init' => "ServerConfigurations.setConfigs('#{app_config}')" }
+    -# note: ApplicationController::ALLOWABLE_CONFIGS determines which configs the server chooses to expose
+    %treasure-overlay-spinner{ 'active' => 'SpinnerState.isActive()' }
+      %nav.transparent.navbar.navbar-inverse.navbar-static-top{role: :navigation, 'ng-controller' => 'NavBarController'}
+        %div.container-fluid
+          %div.navbar-header
+            %a.pull-left{href: '#'}
+              %img.brand-logo{src: '/aleph.png'}
+            %a.navbar-brand{href: '/'} ALEPH
+          %a.navbar-text{href: '/queries', 'ng-class' => "{active: pathIncludes('queries')}"}
+            %span.glyphicon.glyphicon-question-sign.glyphicons-lg.glyphicon-low
+            &nbsp;Queries
+          %a.navbar-text{href: '/alerts', 'ng-class' => "{active: pathIncludes('alerts')}"}
+            %span.glyphicon.glyphicon-bell.glyphicons-lg.glyphicon-low
+            &nbsp;Alerts
+          %a.navbar-text{href: '/snippets', 'ng-class' => "{active: pathIncludes('snippets')}"}
+            %span.glyphicon.glyphicon-scissors.glyphicons-lg.glyphicon-low
+            &nbsp;Snippets
+          %a.navbar-text{href: '/schemas', 'ng-class' => "{active: pathIncludes('schemas')}"}
+            %span.glyphicon.glyphicon-list.glyphicons-lg.glyphicon-med
+            &nbsp;Schemas
+          %ul.nav.navbar-nav.navbar-right
+            %li
+              - if user_signed_in?
+                %p.navbar-text #{current_user.name}
+            %li
+              = link_to('Logout', destroy_user_session_path, :method => :delete)
+      .alert-bar{ 'ng-controller' => 'AlertBarController' }
+        %uib-alert.alert-fade-out.ellipsis{ 'ng-repeat' => 'alert in alerts',
+                                            'type' => '{{alert.type}}',
+                                            'close' => 'dismiss()',
+                                            'dismiss-on-timeout' => 9000,
+                                            'ng-bind' => 'alert.message' }
+      %div.content.container-fluid
+        = yield

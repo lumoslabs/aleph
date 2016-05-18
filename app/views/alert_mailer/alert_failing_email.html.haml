@@ -1,0 +1,17 @@
+%head
+  %meta{content: 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}
+%body
+  - if @alert.status == 'Errored'
+    %h1= "Your Aleph alert '#{@alert.query_title}' suffered from an error"
+    %p= "#{@alert.error_message}"
+  - else
+    %h1= "Your Aleph alert '#{@alert.query_title}' has triggered"
+    %p= "You asked to be notified if the result was #{@alert.comparator} #{@alert.target}"
+    %p= "The query returned #{@alert.last_alert_result.sample_data.join(', ')} for #{@alert.last_alert_result.headers.join(', ')}"
+  - if @alert.description && !@alert.description.empty?
+    %h3 Alert description:
+    %p= "#{@alert.description}"
+    %br
+  = link_to('Go to this alert', alert_url(@alert.id))
+  %br
+  = link_to("Go to this alert's query", query_url(@alert.query.id))

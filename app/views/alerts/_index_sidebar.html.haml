@@ -1,0 +1,20 @@
+.index-sidebar
+  .row
+    .input-group.input-group-sm
+      .input-group-btn
+        %button.btn.btn-inverse.btn-sm{ 'ng-click' => 'alertIdxCtrl.pagination.clearSearch()' }
+          %i.glyphicon.glyphicon-remove{ 'ng-if' => 'alertIdxCtrl.pagination.searchText' }
+          %i.glyphicon.glyphicon-search{ 'ng-if' => '!alertIdxCtrl.pagination.searchText' }
+      %input.form-control{ 'placeholder' => 'Search Alerts',
+                           'id' => 'fulltext-search',
+                           'ng-model' => 'alertIdxCtrl.pagination.searchText',
+                           'ng-model-options' => '{debounce: 400}',
+                           'ng-change' => 'alertIdxCtrl.pagination.triggerSearch()' }
+  .row.top30
+    %span.menu-label
+      .octicon.octicon-three-bars
+      Menu Actions
+  .row.top5
+    %a.btn.btn-default.btn-sm.btn-format{href: 'alerts/new'}
+      %span.glyphicon.glyphicon-plus.glyphicons-sm.glyphicon-low
+      New Alert

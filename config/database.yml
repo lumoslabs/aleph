@@ -1,0 +1,40 @@
+production_common: &production_common
+  adapter: postgresql
+  encoding: utf8
+  host: <%= ENV['ALEPH_DB_HOST'] %>
+  password: <%= ENV['ALEPH_DB_PASSWORD'] %>
+  port: 5432
+  pool: 5
+  username:  <%= ENV['ALEPH_DB_USERNAME'] %>
+  database:  <%= ENV['ALEPH_DB_DATABASE'] %>
+
+dev_common: &dev_common
+  adapter: postgresql
+  encoding: utf8
+  host: localhost
+  password: password
+  pool: 5
+  username: postgres
+
+sqlite_common: &sqlite_common
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
+production:
+  <<: *production_common
+
+staging:
+  <<: *production_common
+
+development:
+  <<: *dev_common
+  database: aleph_development
+
+test:
+  <<: *dev_common
+  database: aleph_test
+
+playground:
+  <<: *sqlite_common
+  database: db/aleph.playground.sqlite3

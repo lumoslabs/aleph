@@ -1,0 +1,45 @@
+.panel-heading
+  .btn-group.actions.pull-right{ 'ng-if' => 'resultCtrl.result.item.status == "complete" || resultCtrl.result.item.status == "failed"' }
+    %a.btn.btn-xs.btn-warning.btn-delete{ 'ng-disabled' => '!resultCtrl.result.item',
+                                          'ng-click' => 'resultCtrl.deleteResult()',
+                                          'ng-confirm-click' => 'Are you sure you want to delete this result?' } Delete Result
+    %a.btn.btn-xs.btn-default.btn-csv{ 'ng-disabled' => 'resultCtrl.result.item.status != "complete"',
+                                       'target' => '_self',
+                                       'ng-click' => 'resultCtrl.getCsv()' } Download CSV
+  .run_duration{ 'ng-if' => 'resultCtrl.result.item.status == "complete" || resultCtrl.result.item.status == "failed"'}
+    Started: {{resultCtrl.result.item.started_at | date: 'yyyy-MM-dd hh:mm:ss' : 'UTC'}}
+    %br
+    Ended: {{resultCtrl.result.item.completed_at | date: 'yyyy-MM-dd hh:mm:ss' : 'UTC'}}
+    %br
+    Run duration: {{resultCtrl.result.item.run_duration | humanReadableDuration }}
+  %span.pull-right{ 'ng-if' => 'resultCtrl.result.item.status == "processing"' } {{resultCtrl.result.item.row_count}} rows returned so far, still processing full result and csv
+  %details{ 'ng-if' => 'resultCtrl.resultHasParameters()' }
+    %summary Parameters
+    %dl
+      %div{ 'ng-repeat' => 'parameter in resultCtrl.result.item.parameters | objectDotKeys | orderBy: parameter' }
+        %dt{ 'ng-bind' => 'parameter + ":"' }
+        %dd{ 'ng-bind' => 'resultCtrl.result.item.parameters[parameter]' }
+  %span{ 'ng-if' => 'resultCtrl.result.item.status == "complete" || resultCtrl.result.item.status == "processing"' }
+    .row-count
+      %strong {{resultCtrl.result.item.row_count}} rows returned
+    .scrollable{ 'ng-class' => "{ 'high-row-count': resultCtrl.result.item.row_count > 10, 'med-row-count': resultCtrl.result.item.row_count > 2 && resultCtrl.result.item.row_count <= 10 }" }
+      %table.table.table-hover.table-condensed.table-fixed.query-results{ 'ng-if' => 'resultCtrl.result.item.sample_data' }
+        %thead
+          %tr
+            %th{ 'ng-repeat' => 'column in resultCtrl.result.item.headers track by $index',
+                 'ng-bind' => 'column' }
+        %tbody
+          %tr.data{ 'ng-repeat' => 'row in resultCtrl.result.item.sample_data track by $index' }
+            %td{ 'ng-repeat' => 'column in row track by $index', 'ng-bind' => 'column' }
+          %tr{ 'ng-if' => 'resultCtrl.result.item.sample_data.length !== resultCtrl.result.item.row_count' }
+            %td{ 'ng-repeat' => 'column in resultCtrl.result.item.sample_data[0] track by $index' } ...
+    .too-many-rows.alert-warning{ 'ng-if' => 'resultCtrl.result.item.sample_data.length !== resultCtrl.result.item.row_count' }
+      %strong {{resultCtrl.result.item.sample_data.length}} rows displayed above. {{resultCtrl.result.item.row_count - resultCtrl.result.item.sample_data.length}} additional rows not displayed; please download the CSV to see them all.
+  %span{ 'ng-if' => 'resultCtrl.result.item.status == "failed"' }
+    This query failed with the message:
+    %br
+    %span{ style: 'font-weight: bold; white-space: pre-wrap;' }
+      {{resultCtrl.result.item.error_message}}
+  %span{ 'ng-if' => 'resultCtrl.result.item.status == "enqueued"' }
+    Waiting to run. Enqueued for {{resultCtrl.result.item.enqueue_duration | humanReadableDuration}}
+  %span{ 'ng-if' => 'resultCtrl.result.item.status == "running"' } Running for {{resultCtrl.result.item.run_duration | humanReadableDuration}}

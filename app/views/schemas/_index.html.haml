@@ -1,0 +1,47 @@
+.schema-index
+  .panel-heading
+    .row
+      .col-sm-6.no-padding.no-margin
+        .input-group.input-group-sm
+          .input-group-btn
+            %button.btn.btn-inverse.btn-sm{ 'ng-click' => 'schemaIdxCtrl.pagination.clearSearch()' }
+              %i.glyphicon.glyphicon-remove{ 'ng-if' => 'schemaIdxCtrl.pagination.searchText' }
+              %i.glyphicon.glyphicon-search{ 'ng-if' => '!schemaIdxCtrl.pagination.searchText' }
+          %input.form-control{ 'placeholder' => 'Search Schemas',
+                               'id' => 'fulltext-search',
+                               'ng-model' => 'schemaIdxCtrl.pagination.searchText',
+                               'ng-model-options' => '{debounce: 400}',
+                               'ng-change' => 'schemaIdxCtrl.pagination.triggerSearch()',
+                               'typeahead-on-select' => 'schemaIdxCtrl.pagination.triggerSearch()',
+                               'uib-typeahead' => 'tavs for tavs in schemaIdxCtrl.typeAheadValues($viewValue) | limitTo: 15' }
+  .panel-body{ 'infinite-scroll' => 'schemaIdxCtrl.pagination.loadMore()',
+               'infinite-scroll-distance' => '0.5' }
+    .row
+      .col-sm-10.no-padding.no-margin
+        .no-list-style{ 'ng-repeat' => "(schema, tables) in schemaIdxCtrl.pagination.collection() | groupBy: 'item.schema'" }
+          %li.schema-table-row.top17{ 'ng-repeat' => " (table, columns) in tables | groupBy: 'item.table'" }
+            .schema-table-header
+              {{schema}}.{{table}}
+            .padding3
+              .row.margin2{ 'ng-repeat' => 'column in columns' }
+                .col-sm-4
+                  %span{ 'ng-bind' => 'column.item.column' }
+                .col-sm-1
+                  %span{ 'ng-bind' => 'column.item.type' }
+                .col-sm-7
+                  %form{ 'ng-submit' => 'column.save()' }
+                    %input.input-xs.form-control{ 'placeholder' => 'Add column description',
+                                                  'ng-blur' => 'column.save()',
+                                                  'ng-model' => 'column.item.comment_text',
+                                                  'ng-class' => "{ 'dirty-bg': column.isDirty() }" }
+      .col-sm-2.summary-sidebar
+        %h4 Schema Directory
+        %p
+        .no-list-style{ 'ng-repeat' => "(schema, tables) in schemaIdxCtrl.directory() | groupBy: 'schema'" }
+          %details
+            %summary
+              %a{ 'ng-click' => "schemaIdxCtrl.pagination.setSearch('schema:' + schema + ' match_type:exact')",
+                  'ng-bind' => 'schema' }
+            %li{ 'ng-repeat' => 'row in tables', style: 'padding-left: 10px; list-style-type: circle' }
+              %a{ 'ng-click' => "schemaIdxCtrl.pagination.setSearch(schema + '.' + row.table)" }
+                .ellipsis{ 'ng-bind' => 'row.table' }

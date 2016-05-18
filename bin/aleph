@@ -1,0 +1,71 @@
+#!/usr/bin/env ruby
+require 'highline/import'
+require 'optparse'
+require 'bundler'
+# need to load aleph_foreman.rb first and foremost since things depend on it
+load File.join(File.dirname(__FILE__), 'executables', 'bundle_runner.rb')
+Dir["#{File.dirname(__FILE__)}/executables/**/*.rb"].each { |f| load(f) }
+
+class CommandParser
+  COMMANDS = %w(playground web_server worker clock deps import_env_variables seed_playground_db init_db update_db).freeze
+  attr_reader :command, :options, :banner
+
+  def initialize
+    @options = {}
+    @banner = nil
+
+    @op = OptionParser.new do |opts|
+      opts.banner = 'Usage: aleph <command> [options]'
+
+      opts.on('-r', '--rails-env RAILS_ENV', 'Specify RAILS_ENV') do |re|
+        @options[:rails_env] = re
+      end
+
+      opts.on('-d', '--dotenv DOTENV_FILE', 'Specify a dotenv file') do |de|
+        @options[:dotenv] = de
+      end
+
+      opts.on('-c', '--config-path CONFIG_PATH', 'Path to the folder which contains your configuration files') do |c|
+        @options[:config_path]  = c
+      end
+
+      opts.on('-w', '--worker-processes WEB_WORKERS', 'Number of workers for the web server') do |w|
+        @options[:worker_processes]  = w
+      end
+
+      opts.on('-h', '--help', 'Halp!') do |h|
+        @need_help = h
+      end
+
+      @banner = opts
+    end
+  end
+
+  def parse!
+    @op.parse!
+    @command = ARGV[0]
+
+    AlephExecutables::Utils.inform("Acceptable commands are #{COMMANDS.inspect}", @banner) if @need_help
+    AlephExecutables::Utils.fail("Missing command. Acceptable commands are #{COMMANDS.inspect}", @banner) unless @command
+    AlephExecutables::Utils.fail("Not a valid command. Acceptable commands are #{COMMANDS.inspect}", @banner) unless COMMANDS.include?(@command)
+  end
+end
+
+class Commander
+  def self.run!(command, options = {})
+    klass = Object.const_get("::AlephExecutables::#{command.split('_').collect(&:capitalize).join}")
+    klass.new(options).execute!
+  end
+end
+
+# get us to the root!
+bin = File.expand_path(File.dirname(__FILE__))
+bin_arr = bin.split('/')
+bin_arr.pop
+root = bin_arr.join('/')
+Dir.chdir root
+
+# parse opts and run executables
+cp = CommandParser.new
+cp.parse!
+Commander.run!(cp.command, cp.options.merge(banner: cp.banner))

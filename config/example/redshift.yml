@@ -1,0 +1,16 @@
+redshift_common: &redshift_common
+  host: warehouse.pub.yourcompany.com
+  database: warehouse
+  port: '1234'
+
+production:
+  <<: *redshift_common
+
+staging:
+  <<: *redshift_common
+
+test:
+  <<: *redshift_common
+
+development:
+  <<: *redshift_common

@@ -1,0 +1,13 @@
+{
+  "Custom": "custom.html",
+  "Line Chart": "line.html",
+  "Spline Chart": "spline.html",
+  "Scatter Plot": "scatter.html",
+  "Step Chart": "area_step.html",
+  "Bar Chart": "bar.html",
+  "Stacked Bar Chart": "stacked_bar.html",
+  "Area Chart": "area.html",
+  "Stacked Area Chart": "stacked_area.html",
+  "Spline Area Chart": "spline_area.html",
+  "Stacked Spline Area Chart": "stacked_spline_area.html"
+}

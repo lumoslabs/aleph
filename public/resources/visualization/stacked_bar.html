@@ -1,0 +1,18 @@
+c3.generate({
+  bindto: PANEL,
+  data: {
+    x: HEADERS[0],
+    columns: COLUMNS,
+    type: 'bar',
+    groups: [HEADERS.splice(1)]
+  },
+  axis: {
+    x: {
+      type: 'category',
+      categories: COLUMNS[0],
+      tick: {
+        culling: true
+      }
+    }
+  }
+});

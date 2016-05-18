@@ -1,0 +1,79 @@
+.query-repl
+  .modal-header
+    .row
+      .col-md-12.zero-padding
+        .input-group.input-group-sm
+          %input.input-sm#query-title{ 'placeholder' => 'Enter query title here',
+                                       'ng-model' => 'queryRepl.query.item.title',
+                                       'ng-readonly' => 'queryRepl.query.isPersisted()',
+                                       'ng-class' => "{'label-like': queryRepl.query.isPersisted()}" }
+          .input-group-btn
+            %button.btn.btn-sm.btn-primary{ 'ng-click' => 'queryRepl.runQuery()',
+                                            'ng-disabled' => '!queryRepl.validToRun()'} Run
+            %span{ 'style' => 'display: inline-block',
+                   'tooltip-enable' => '!queryRepl.validToSave()',
+                   'uib-tooltip' => '{{queryRepl.saveToolTipText()}}',
+                   'tooltip-trigger' => 'queryRepl.mouseenter'}
+              %button.btn.btn-sm.btn-info{ 'ng-click' => 'queryRepl.save()',
+                                           'ng-disabled' => '!queryRepl.validToSave()'} Save
+            %button.btn.btn-sm.btn-warning{ 'ng-click' => 'queryRepl.exit()' } Exit
+  .modal-body
+    .row
+      .col-md-6
+        .ace{ 'ui-ace' => '{mode: \'pgsql\', onLoad: queryRepl.aceLoaded}',
+              'ng-model' => 'queryRepl.query.item.version.body' }
+        %table.table.table-fixed.table-condensed.parameters-table
+          %thead
+            %tr
+              %th Parameter
+              %th Value
+              %th Type
+              %th Action
+          %tbody
+            %tr{ 'ng-repeat' => 'parameter in queryRepl.query.item.version.parameters | orderBy: parameter.name', 'id' => 'pd-{{$index}}' }
+              %td
+                %input.name{ 'type' => 'text', 'ng-model' => 'parameter.name' }
+              %td
+                %input.default{ 'type' => 'text',
+                                'placeholder' => '{{parameter.default}}',
+                                'ng-model' => 'queryRepl.resultRunner.substitutionValues[parameter.name]' }
+              %td
+                %select.type{ 'ng-model' => 'parameter.type' }
+                  %option raw
+                  %option string
+                  %option number
+                  %option date
+                  %option timestamp
+              %td
+                %a.btn.btn-xs.btn-default{ 'ng-click' => 'queryRepl.query.item.version.parameters.splice($index, 1)' } Remove
+          %tfoot
+            %tr
+              %td
+                %button.btn.btn-xs.btn-primary{ 'ng-click' => 'queryRepl.query.detectParameters()' } Detect Parameters
+              %td{colspan: 2}
+              %td
+                %button.btn.btn-xs.btn-default{ 'ng-click' => 'queryRepl.query.addParameter()' } Add
+      .col-md-6
+        %ul.list-group
+          %li.list-group-item.result-list-item{ 'ng-repeat' => 'result in queryRepl.results.collection | orderBy: "item.created_at" : true' }
+            .error-messsage.animate-if{ 'ng-if' => 'result.item.status == "failed"' }
+              %span{ 'ng-bind' => 'result.item.error_message' }
+            .throbber-loader.animate-if{ 'ng-if' => '!result.item.sample_data && result.item.status != "failed"' }
+            %span{ 'ng-if' => 'result.item.status == "enqueued"' }
+              Enqueued for {{result.item.enqueue_duration | humanReadableDuration}}
+            %span{ 'ng-if' => 'result.item.status == "running"' } Running for {{result.item.run_duration | humanReadableDuration}}
+            .result-box.animate-if{ 'ng-if' => 'result.item.sample_data' }
+              %div{ 'ng-if' => 'result.item.status === "complete"' }
+                {{result.item.row_count}} rows returned
+                %span.glyphicon.glyphicon-cloud-download.glyphicons-xs.looks-like-clickable.pull-right{ 'title' => 'Download result',
+                                                                                                        'target' => '_blank',
+                                                                                                        'ng-click' => 'queryRepl.getCsv(result.item.id)' }
+              %span{ 'ng-if' => 'result.item.status === "processing"' } {{result.item.row_count}} rows returned so far, full result still processing
+              .scrollable
+                %table.table.table-hover.table-condensed.table-fixed
+                  %thead
+                    %tr
+                      %th{ 'ng-repeat' => 'column in result.item.headers track by $index', 'ng-bind' => 'column' }
+                  %tbody
+                    %tr.data{ 'ng-repeat' => 'row in result.item.sample_data track by $index' }
+                      %td{ 'ng-repeat' => 'column in row track by $index', 'ng-bind' => 'column' }

@@ -1,0 +1,17 @@
+{
+  "name": "karmacoma",
+  "dependencies": {
+    "karma": "~0.12.0",
+    "karma-jasmine": "~0.2.0"
+  },
+  "devDependencies": {
+    "isparta": "^3.1.0",
+    "istanbul": "^0.3.22",
+    "karma-babel-preprocessor": "^5.2.2",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-cli": "^0.1.0",
+    "karma-coverage": "douglasduteil/karma-coverage#next",
+    "karma-coveralls": "^1.1.2",
+    "karma-sourcemap-loader": "^0.3.6"
+  }
+}

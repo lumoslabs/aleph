@@ -1,0 +1,46 @@
+.sidebar
+  .row
+    .current-version
+      %strong Current Version: {{qvSidebarCtrl.query.item.version.version}}
+      %p
+      .octicon.octicon-calendar
+      {{qvSidebarCtrl.query.item.version.created_at | date:dateFormat: "UTC"}}
+      %br
+      .octicon.octicon-pencil
+      {{qvSidebarCtrl.query.item.version.author_name}}
+  .row{ 'ng-if' => 'qvSidebarCtrl.githubIsEnabled()' }
+    .github-links
+      %span.octicon.octicon-mark-github
+      %a{'ng-href' => '{{qvSidebarCtrl.githubHistory}}'} Git History
+      %br
+      %span.octicon.octicon-mark-github
+      %a{'ng-href' => '{{qvSidebarCtrl.githubCommit}}'} Git Commit
+      %br
+      %span.octicon.octicon-mark-github
+      %span{ 'ng-if' => 'qvSidebarCtrl.selectedVersions.length !== 2',
+             'style' => 'opacity:0.5' } Git Compare
+      %a{ 'ng-if' => 'qvSidebarCtrl.selectedVersions.length === 2',
+          'ng-href' => '{{qvSidebarCtrl.githubCompare}}' } Git Compare
+  .row
+    .versions
+      %ul
+        %li{ 'ng-repeat' => 'queryVersion in qvSidebarCtrl.versions.items() | orderBy: "version" : true',
+             'selection-model' => '',
+             'selection-model-mode' => 'multiple',
+             'selection-model-selected-items' => 'qvSidebarCtrl.selectedVersions',
+             'selection-model-cleanup-strategy' => 'deselect',
+             'selection-model-on-change' => 'qvSidebarCtrl.figureGithubUrl()',
+             'uib-popover' => "{{queryVersion.comment}}",
+             'popover-trigger' => 'mouseenter',
+             'popover-append-to-body' => 'true',
+             'popover-placement' => 'left',
+             'popover-popup-delay' => 1000 }
+          %table
+            %tr
+              %td.list-item
+                %a{ 'ng-click' => 'qvSidebarCtrl.loadQueryByVersion(queryVersion.id)' } Version {{queryVersion.version}}
+              %td.summary-badges
+                %span.badge#results{ 'ng-bind' => 'queryVersion.summary.results',
+                                     'uib-tooltip' => '{{queryVersion.summary.results}} results',
+                                     'tooltip-append-to-body' => 'true' }
+                %span.glyphicon.glyphicon-comment.glyphicons-xs.pulsating-comment{ 'ng-if' => 'qvSidebarCtrl.hasComment(queryVersion)' }
