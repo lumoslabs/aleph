@@ -50,12 +50,10 @@ group :development, :test do
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
   gem 'rspec-rails'
+  gem 'coveralls', require: false
 end
 
 group :test do
-  gem 'capybara'
-  gem 'capybara-angular'
-  gem 'capybara-webkit'
   gem 'poltergeist'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
