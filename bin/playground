@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift File.dirname(__FILE__)
+ROOT = File.expand_path('../..',  __FILE__)
 
 require 'highline/import'
 require 'configuration_helper'
@@ -69,5 +70,6 @@ end
 
 if redshift_configured && agree("Ok, aleph is configured. Do you want to run it now?") { |x| x.default = 'no' }
   say 'Check out localhost:3000!'
+  Dir.chdir ROOT
   system 'RAILS_ENV=playground bundle exec foreman start'
 end

@@ -1,0 +1,13 @@
+.DS_Store
+/.bundle
+/.env
+/.env.*
+/log/*.log
+/results/*.csv
+/tmp
+/log
+public/assets/**
+/public/local_result_csvs
+node_modules
+config/attribute-map.yml
+aleph.gemspec
