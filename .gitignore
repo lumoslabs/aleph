@@ -11,4 +11,3 @@ coverage
 tmp
 log
 config/attribute-map.yml
-aleph.gemspec
