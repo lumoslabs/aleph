@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
                   Dir.glob('public/resources/**/*') +
                   Dir.glob('db/migrate/*') +
                   %w(config.ru Rakefile LICENSE README.md ROADMAP.md CHANGELOG.md)
+  s.executables = %w(playground run)
   s.homepage    = 'https://github.com/lumoslabs/aleph'
   s.license     = 'MIT'
 end
