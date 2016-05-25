@@ -7,10 +7,10 @@ Gem::Specification.new do |s|
   s.authors     = ['Andrew Xue', 'Rob Froetscher']
   s.email       = 'andrew@lumoslabs.com'
   s.files       = Dir.glob('{app,bin,lib,config,vendor}/**/*') +
-                  Dir.glob('public/resources/**/*') +
+                  Dir.glob('public/{assets,resources}/**/*') +
                   Dir.glob('db/migrate/*') +
-                  %w(config.ru Rakefile LICENSE README.md ROADMAP.md CHANGELOG.md)
-  s.executables = %w(playground run)
+                  %w(config.ru Rakefile LICENSE README.md ROADMAP.md CHANGELOG.md Gemfile Gemfile.lock Procfile)
+  s.executables = %w(aleph)
   s.homepage    = 'https://github.com/lumoslabs/aleph'
   s.license     = 'MIT'
 end

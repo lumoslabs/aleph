@@ -35,7 +35,7 @@ end
 # -------------------------------------------------
 unless defined? REDSHIFT_DB_CONFIG
   redshift = ingest.slurp('redshift.yml')
-  raise 'Invalid config.yml file' unless redshift && redshift[Rails.env.to_s]
+  raise "Invalid redshift.yml file for env = #{Rails.env.to_s}" unless redshift && redshift[Rails.env.to_s]
   REDSHIFT_DB_CONFIG = {}
   Role.configured_connections.each do |role|
     REDSHIFT_DB_CONFIG[role] = redshift[Rails.env.to_s].merge(

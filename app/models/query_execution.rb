@@ -33,7 +33,7 @@ class QueryExecution
   rescue *RedshiftPG::USER_ERROR_CLASSES => e
     result.mark_failed!(e.message)
   rescue => e
-    result.mark_failed!(e.message)
+    result.mark_failed!(e.message) if result
     raise
   end
 end

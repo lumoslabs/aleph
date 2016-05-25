@@ -49,6 +49,10 @@ module Aleph
 
     config.logger = Logger.new(STDOUT)
     config.log_formatter = ::AlephLogFormatter.new
+
+    config.assets.configure do |env|
+      env.digest_class = Digest::MD5
+    end
   end
 
   Application.config.disable_sql_logging = false

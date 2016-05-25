@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby
-ROOT = File.expand_path('../..',  __FILE__)
-env = ARGV[0] ? "RAILS_ENV=#{ARGV[0]}" : ''
-Dir.chdir ROOT
-system "#{env} bundle exec foreman start"

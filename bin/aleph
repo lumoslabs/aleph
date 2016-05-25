@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+require 'highline/import'
+require 'optparse'
+Dir["#{File.dirname(__FILE__)}/executables/**/*.rb"].each { |f| load(f) }
+
+class CommandParser
+  COMMANDS = %w(run playground).freeze
+  attr_reader :command, :options, :banner
+
+  def initialize
+    @options = {}
+    @banner = 'Usage: aleph <command> [-c|--config-path CONFIG_PATH] [-e|--env RAILS_ENV]'
+
+    @op = OptionParser.new do |opts|
+      opts.banner = @banner
+
+      opts.on('-e', '--env RALS_ENV', 'Specify a rails env') do |e|
+        @options[:rails_env] = e
+      end
+
+      opts.on('-c', '--config-path CONFIG_PATH', 'Path to the folder which contains your configuration files') do |c|
+        @options[:config_path]  = c
+      end
+    end
+  end
+
+  def parse!
+    @op.parse!
+    @command = ARGV[0]
+
+    AlephExecutables::Utils.fail('Need to specify a command', @op.banner) unless @command
+    AlephExecutables::Utils.fail("Not a valid command. Acceptable commands are #{COMMANDS.inspect}", @op.banner) unless COMMANDS.include?(@command)
+  end
+end
+
+class Commander
+  def self.run!(command, options = {})
+    klass = Object.const_get("::AlephExecutables::#{command.capitalize}")
+    klass.new(options).execute!
+  end
+end
+
+spec = Gem::Specification.find_by_name('Aleph')
+GEM_ROOT = spec.gem_dir
+Dir.chdir GEM_ROOT
+
+cp = CommandParser.new
+cp.parse!
+Commander.run!(cp.command, cp.options.merge(banner: cp.banner))
