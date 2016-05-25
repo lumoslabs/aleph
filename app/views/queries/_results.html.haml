@@ -18,7 +18,7 @@
       %details{ 'ng-if' => 'resultsCtrl.query.item.version.parameters.length > 0' }
         %summary Specify Substitution Parameters For This Run
         %ul
-          %li.parameter{ 'ng-repeat' => 'parameter in resultsCtrl.query.item.version.parameters' }
+          %li.parameter{ 'ng-repeat' => "parameter in resultsCtrl.query.item.version.parameters | orderBy: 'name'" }
             %label{ 'for' => 'parameter-{{parameter.name}}',
                     'ng-bind' => 'parameter.name' }:
             %input{ 'id' => 'parameter-{{parameter.name}}',

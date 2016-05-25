@@ -50,7 +50,7 @@
           %th Default Value
           %th Type
       %tbody
-        %tr{'ng-repeat' => 'parameter in queryDetailsCtrl.query.item.version.parameters | orderBy: parameter.name', id: 'pd-{{$index}}'}
+        %tr{'ng-repeat' => "parameter in queryDetailsCtrl.query.item.version.parameters | orderBy: 'name'", id: 'pd-{{$index}}'}
           %td{style: 'max-width: 150px'}
             .ellipsis{ 'ng-bind' => 'parameter.name',
                        'popover' => "'{{parameter.name}}'",
