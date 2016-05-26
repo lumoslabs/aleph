@@ -14,7 +14,11 @@ module AlephExecutables
     end
 
     def write_redshift(host, database, port, user, password)
-      redshift_properties = { host: host, database: database, port: port }
+      redshift_properties = {
+        'host' => host,
+        'database' => database,
+        'port' => port
+      }
       write_yaml('redshift.yml', redshift_properties, environments: [@rails_env.to_sym])
       @env_writer.merge(admin_redshift_username: user, admin_redshift_password: password)
     end

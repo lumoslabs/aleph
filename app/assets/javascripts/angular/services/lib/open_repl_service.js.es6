@@ -3,12 +3,15 @@
 
   class OpenReplService {
 
-    constructor($uibModal, Query) {
+    constructor($uibModal, Query, AceCompleters) {
       this._$modal = $uibModal;
       this._Query = Query;
+      this._AceCompleters = AceCompleters;
     }
 
     open(options = {}) {
+      this._AceCompleters.ensureSchemasData();
+
       let modalInstance = this._$modal.open({
         animation: true,
         templateUrl: 'queryRepl',
@@ -47,7 +50,7 @@
     }
   }
 
-  OpenReplService.$inject = ['$uibModal', 'Query'];
+  OpenReplService.$inject = ['$uibModal', 'Query', 'AceCompleters'];
   angular.module('alephServices.openReplService', []).service('OpenReplService', OpenReplService);
 
 }(angular));

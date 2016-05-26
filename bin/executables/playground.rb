@@ -58,7 +58,7 @@ module AlephExecutables
           config_generator.write_redshift(host, database, port, user, password)
         else
           if agree("Would you like to connect to our sample Redshift cluster?") { |x| x.default = 'yes' }
-            config_generator.write_redshift('aleph.pub.playground', 'warehouse', '5439', 'read_only', '********')
+            config_generator.write_redshift('aleph-public.cdiwpivlvfxt.us-east-1.rds.amazonaws.com', 'aleph_public', '5432', 'read_only', '@lephR3@d0nlee')
           else
             redshift_configured = false
             say "Ok, you can set up your Redshift connection later by editing #{config_path}/redshift.yml"
