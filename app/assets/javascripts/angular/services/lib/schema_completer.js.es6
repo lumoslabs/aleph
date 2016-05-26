@@ -7,9 +7,18 @@
 
       constructor() {
         this._columns = new SchemaColumns();
+        this.loadColumnData();
+      }
+
+      loadColumnData() {
         this._columns.initCollection().then(columns => {
+          this._rawColumnsData = columns;
           this._matcherRunner = new MatcherRunner(SCHEMA_MATCHERS, _.map(columns, o => o.item));
         });
+      }
+
+      isLoaded() {
+        return _.exists(this._rawColumnsData) && this._rawColumnsData.length > 0;
       }
 
       getCompletions(editor, session, pos, prefix, callback) {
