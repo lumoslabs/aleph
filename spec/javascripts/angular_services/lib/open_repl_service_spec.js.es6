@@ -8,6 +8,7 @@ describe('Open Repl Service', () => {
   let query;
   let modalOpenParams;
   let modalResult;
+  let AceCompleters;
 
   function expectQueryCopy(copiedQueryObject, toCopyItem) {
     expect(Query).toHaveBeenCalled();
@@ -30,10 +31,13 @@ describe('Open Repl Service', () => {
     $provide.value('Query', Query);
   }));
 
-  beforeEach(inject((_OpenReplService_, $uibModal, $q) => {
+  beforeEach(inject((_OpenReplService_, _AceCompleters_, $uibModal, $q) => {
     OpenReplService = _OpenReplService_;
     modal = $uibModal;
     q = $q;
+    AceCompleters = _AceCompleters_;
+
+    spyOn(AceCompleters, 'ensureSchemasData');
 
     modalResult = {
       then: (success, failure) => {
@@ -57,6 +61,10 @@ describe('Open Repl Service', () => {
 
       it('calls modal.open', () => {
         expect(modal.open).toHaveBeenCalled();
+      });
+
+      it('ensures schema data for completers', () => {
+        expect(AceCompleters.ensureSchemasData).toHaveBeenCalled();
       });
 
       describe('on resolve', () => {

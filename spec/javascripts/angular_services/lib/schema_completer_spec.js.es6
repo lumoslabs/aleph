@@ -60,14 +60,24 @@ describe('SchemaCompleter', () => {
 
     SchemaCompleter = _SchemaCompleter_;
     callback = jasmine.createSpy('callbackSpy').and.callFake(() => {});
+    spyOn(SchemaCompleter.prototype, 'loadColumnData').and.callThrough();
     schemaCompleter = new SchemaCompleter();
     digest();
   }));
 
   describe('on initialization', () => {
-
     it('creates a SchemaColumns model', () => {
       expect(SchemaColumns).toHaveBeenCalled();
+    });
+
+    it('loads column data', () => {
+      expect(schemaCompleter.loadColumnData).toHaveBeenCalled();
+    });
+  });
+
+  describe('on loadColumnData()', () => {
+    beforeEach(() => {
+      schemaCompleter.loadColumnData();
     });
 
     it('inits the column collection', () => {
@@ -76,6 +86,12 @@ describe('SchemaCompleter', () => {
 
     it('creates a new MatcherRunner', () => {
       expect(MatcherRunner).toHaveBeenCalled();
+    });
+
+    describe('and isLoaded()', () => {
+      it('returns truthy', () => {
+        expect(schemaCompleter.isLoaded()).toBeTruthy();
+      });
     });
   });
 
