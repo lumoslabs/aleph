@@ -24,14 +24,16 @@
               {{schema}}.{{table}}
             .padding3
               .row.margin2{ 'ng-repeat' => 'column in columns' }
-                .col-md-4
+                .col-sm-4
                   %span{ 'ng-bind' => 'column.item.column' }
-                .col-md-1
+                .col-sm-1
                   %span{ 'ng-bind' => 'column.item.type' }
-                .col-md-7
+                .col-sm-7
                   %form{ 'ng-submit' => 'column.save()' }
                     %input.input-xs.form-control{ 'placeholder' => 'Add column description',
-                                                  'ng-model' => 'column.item.comment_text' }
+                                                  'ng-blur' => 'column.save()',
+                                                  'ng-model' => 'column.item.comment_text',
+                                                  'ng-class' => "{ 'dirty-bg': column.isDirty() }" }
       .col-sm-2.summary-sidebar
         %h4 Schema Directory
         %p

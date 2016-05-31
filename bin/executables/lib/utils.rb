@@ -1,6 +1,6 @@
 module AlephExecutables
   class Utils
-    def self.fail(msg, banner)
+    def self.fail(msg, banner = nil)
       msg += "\n#{banner}" if banner
       puts msg;
       exit(false)

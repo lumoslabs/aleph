@@ -3,7 +3,7 @@ require 'yaml'
 
 module AlephExecutables
   class ConfigGenerator
-    attr_reader :env_writer
+    attr_reader :env_writer, :path
 
     def initialize(path, rails_env)
       @path = path
@@ -21,6 +21,10 @@ module AlephExecutables
       }
       write_yaml('redshift.yml', redshift_properties, environments: [@rails_env.to_sym])
       @env_writer.merge(admin_redshift_username: user, admin_redshift_password: password)
+    end
+
+    def write_envs!
+      @env_writer.write!
     end
 
     def write_default_config_yml

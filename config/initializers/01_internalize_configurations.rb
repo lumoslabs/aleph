@@ -1,6 +1,6 @@
 class AlephConfigIngest
   def initialize
-    @config_path = ENV['ALEPH_CONFIG_PATH'] || 'config/examples'
+    @config_path = ENV['ALEPH_CONFIG_PATH'] || '/tmp/aleph/configuration'
     raise "Missing #{@config_path}" unless file_exists?(@config_path)
   end
 

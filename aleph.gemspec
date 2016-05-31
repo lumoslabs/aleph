@@ -7,10 +7,15 @@ Gem::Specification.new do |s|
   s.authors     = ['Andrew Xue', 'Rob Froetscher']
   s.email       = 'andrew@lumoslabs.com'
   s.files       = Dir.glob('{app,bin,lib,config,vendor}/**/*') +
-                  Dir.glob('public/{assets,resources}/**/*') +
+                  # need to find the hidden sprockets manifest in public/assets
+                  Dir.glob('public/assets/**/*', File::FNM_DOTMATCH) +
+                  Dir.glob('public/resources/**/*') +
+                  Dir.glob('public/*.*') +
                   Dir.glob('db/migrate/*') +
+                  Dir.glob('playground_data/*') +
                   %w(config.ru Rakefile LICENSE README.md ROADMAP.md CHANGELOG.md Gemfile Gemfile.lock Procfile)
   s.executables = %w(aleph)
   s.homepage    = 'https://github.com/lumoslabs/aleph'
   s.license     = 'MIT'
+  s.add_dependency 'bundler', '~> 1.7'
 end

@@ -32,7 +32,12 @@
         return _.exists(this.item.comment_id);
       }
 
+      isNew() {
+        return !_.exists(this.item.comment_text) || this.item.comment_text.length === 0;
+      }
+
       isPristine() {
+        if(this.isNew()) return true;
         if(!this.isPersisted()) return false;
         return this.modelState.isPristine(this.item);
       }
@@ -45,19 +50,29 @@
         return !this.isPersisted() || this.modelState.isDirty(this.item);
       }
 
-
       save() {
         let comment = this._toCommentObject();
         let err = AlertFlash.emitError.bind(AlertFlash, 'Failed to save comment, id = ' + comment.id);
 
         if(this.isPersisted()) {
-          return SchemaCommentResource.update(comment).$promise.catch(err);
+          return SchemaCommentResource.update(comment).$promise
+            .then(this._internalizeCommentInfo.bind(this))
+            .catch(err);
         } else if(this.modelState.isDirty(this.item)) {
-          return SchemaCommentResource.create(comment).$promise.catch(err);
+          return SchemaCommentResource.create(comment).$promise
+            .then(this._internalizeCommentInfo.bind(this))
+            .catch(err);
         }
       }
 
       //private methods
+
+      _internalizeCommentInfo(comment) {
+        this._item.comment_id = comment.id;
+        this._item.comment_text = comment.text;
+        this.modelState.snapshotItem(this._item);
+        return comment;
+      }
 
       _toCommentObject() {
         return {
