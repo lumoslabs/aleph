@@ -49,8 +49,9 @@ describe('SchemaColumn', () => {
     });
   });
 
-  describe('when item is persisted', () => {
+  describe('when item is persisted and not new', () => {
     beforeEach(() => {
+      column.isNew = jasmine.createSpy('column.isNew').and.returnValue(false);
       column.isPersisted = jasmine.createSpy('column.isPersisted').and.returnValue(true);
       column.item = { id: 1, a: 'meh_a', b: 'meh_b' };
       column.isPristine();
