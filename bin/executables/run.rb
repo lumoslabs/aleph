@@ -1,7 +1,7 @@
 module AlephExecutables
-  class Run < CapitalistPig
+  class Run < AlephForeman
     def execute!
-      oppress_all!
+      start_all!
     end
   end
 end

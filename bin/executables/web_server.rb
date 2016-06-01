@@ -1,7 +1,7 @@
 module AlephExecutables
-  class WebServer < CapitalistPig
+  class WebServer < AlephForeman
     def execute!
-      oppress!('web')
+      start!('web')
     end
   end
 end

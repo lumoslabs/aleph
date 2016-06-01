@@ -1,7 +1,7 @@
 module AlephExecutables
-  class Worker < CapitalistPig
+  class Worker < AlephForeman
     def execute!
-      oppress!('worker')
+      start!('worker')
     end
   end
 end

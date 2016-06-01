@@ -1,7 +1,7 @@
 module AlephExecutables
-  class Clock < CapitalistPig
+  class Clock < AlephForeman
     def execute!
-      oppress!('clock')
+      start!('clock')
     end
   end
 end
