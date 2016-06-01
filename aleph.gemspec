@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name        = 'Aleph'
+  s.name        = 'aleph'
   s.version     = '0.0.0'
   s.date        = '2016-05-18'
   s.summary     = 'Redshift analytics platform'
