@@ -10,7 +10,7 @@ module AlephExecutables
 
     def execute!
       env_file = Utils.get_env_file(@rails_env)
-      say "Importing #{File.join(@config_path, ImportEnvFile::ENV_YML)} to  #{env_file}"
+      say "Importing #{File.join(@config_path, ImportEnvFile::ENV_YML)} to #{env_file}"
       ImportEnvFile.execute!(@config_path, @rails_env)
     end
   end
