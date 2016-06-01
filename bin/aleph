@@ -9,12 +9,12 @@ class CommandParser
 
   def initialize
     @options = {}
-    @banner = 'Usage: aleph <command> [-c|--config-path CONFIG_PATH] [-re|--rails-env RAILS_ENV] [-pf|--procfile PROCFILE] [-de|--dotenv DOTENV_FILE]'
+    @banner = nil
 
     @op = OptionParser.new do |opts|
-      opts.banner = @banner
+      opts.banner = 'Usage: aleph <command> [options]'
 
-      opts.on('-re', '--rails-env RAILS_ENV', 'Specify a rails env') do |re|
+      opts.on('-re', '--rails-env RAILS_ENV', 'Specify RAILS_ENV') do |re|
         @options[:rails_env] = re
       end
 
@@ -26,13 +26,15 @@ class CommandParser
         @options[:config_path]  = c
       end
 
-      opts.on('-pf', '--procfile PROCFILE', 'Name of the Procfile') do |pf|
+      opts.on('-pf', '--procfile PROCFILE', 'Name of the foreman procfile') do |pf|
         @options[:procfile]  = pf
       end
 
-      opts.on('-h', '--help', 'Ask for help') do |h|
+      opts.on('-h', '--help', 'Halp!') do |h|
         @need_help = h
       end
+
+      @banner = opts
     end
   end
 
@@ -40,9 +42,9 @@ class CommandParser
     @op.parse!
     @command = ARGV[0]
 
-    AlephExecutables::Utils.inform("Acceptable commands are #{COMMANDS.inspect}", @op.banner) if @need_help
-    AlephExecutables::Utils.fail("Missing command. Acceptable commands are #{COMMANDS.inspect}", @op.banner) unless @command
-    AlephExecutables::Utils.fail("Not a valid command. Acceptable commands are #{COMMANDS.inspect}", @op.banner) unless COMMANDS.include?(@command)
+    AlephExecutables::Utils.inform("Acceptable commands are #{COMMANDS.inspect}", @banner) if @need_help
+    AlephExecutables::Utils.fail("Missing command. Acceptable commands are #{COMMANDS.inspect}", @banner) unless @command
+    AlephExecutables::Utils.fail("Not a valid command. Acceptable commands are #{COMMANDS.inspect}", @banner) unless COMMANDS.include?(@command)
   end
 end
 
