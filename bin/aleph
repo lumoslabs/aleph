@@ -4,12 +4,12 @@ require 'optparse'
 Dir["#{File.dirname(__FILE__)}/executables/**/*.rb"].each { |f| load(f) }
 
 class CommandParser
-  COMMANDS = %w(run playground deps import_env_variables seed_playground_db setup_db).freeze
+  COMMANDS = %w(run web_server worker clock playground deps import_env_variables seed_playground_db setup_db).freeze
   attr_reader :command, :options, :banner
 
   def initialize
     @options = {}
-    @banner = 'Usage: aleph <command> [-c|--config-path CONFIG_PATH] [-re|--rails-env RAILS_ENV] [-de|--dotenv DOTENV_FILE]'
+    @banner = 'Usage: aleph <command> [-c|--config-path CONFIG_PATH] [-re|--rails-env RAILS_ENV] [-pf|--procfile PROCFILE] [-de|--dotenv DOTENV_FILE]'
 
     @op = OptionParser.new do |opts|
       opts.banner = @banner
@@ -24,6 +24,10 @@ class CommandParser
 
       opts.on('-c', '--config-path CONFIG_PATH', 'Path to the folder which contains your configuration files') do |c|
         @options[:config_path]  = c
+      end
+
+      opts.on('-pf', '--procfile PROCFILE', 'Name of the Procfile') do |pf|
+        @options[:procfile]  = pf
       end
 
       opts.on('-h', '--help', 'Ask for help') do |h|
