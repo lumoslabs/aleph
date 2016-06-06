@@ -25,8 +25,6 @@ class Role
       @configured_connections ||= determine_configured_connections
     end
 
-    private
-
     def determine_configured_connections
       role_username_keys = ENV.keys.select { |env_key| env_key.include?(USERNAME_POSTFIX) }
       role_password_keys = ENV.keys.select { |env_key| env_key.include?(PASSWORD_POSTFIX) }

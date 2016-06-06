@@ -38,13 +38,13 @@ describe Role do
   end
 
   context 'with username and password ENV keys set' do
-    before do
+    before(:each) do
       ENV[password_key] = 'password'
       ENV[username_key] = 'username'
     end
 
-    describe '#configured_connections' do
-      subject { Role.configured_connections }
+    describe '#determine_configured_connections' do
+      subject { Role.determine_configured_connections }
 
       it 'gives the connections that have username and password keys' do
         expect(subject).to eq([name])
