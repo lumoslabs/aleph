@@ -15,4 +15,4 @@ Without Docker (mac instructions in parenthesis):
 
 * You must be using PostgreSQL 9.2beta3 or later client libraries (https://kkob.us/2014/12/20/homebrew-and-postgresql-9-4/)
 * You must have Redis installed and running (`brew install redis  && redis-server &`)
-* `gem install aleph && aleph playground`
+* `gem install aleph_analytics && aleph playground`
