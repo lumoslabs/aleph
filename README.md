@@ -7,7 +7,7 @@ Aleph is a Redshift analytics platform that focuses on aggregating institutional
 ## Quickstart
 By far the easiest way to get Aleph running is using Docker. If you don't have Docker installed and set up you can do so [here](https://docs.docker.com/mac/step_one/).
 
-* With Docker:*
+*With Docker:*
 
 * `docker run -p 3000:3000 lumos/aleph-demo`
 * In a browser, navigate to the docker host ip (`docker-machine ip`), port 3000
