@@ -1,7 +1,7 @@
 # Aleph
-=======================================
 
 [![Build Status](https://api.travis-ci.org/lumoslabs/aleph.svg?branch=master)](https://magnum.travis-ci.com/lumoslabs/self_service_analytics)
+
 Aleph is a Redshift analytics platform that focuses on aggregating institutional data gathering know-how
 
 ## Quickstart
