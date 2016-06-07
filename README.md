@@ -10,7 +10,7 @@ By far the easiest way to get Aleph running is using Docker. If you don't have D
 *With Docker:*
 
 * `docker run -p 3000:3000 lumos/aleph-demo`
-* In a browser, navigate to the docker host ip (`docker-machine ip`), port 3000
+* `open http://$(docker-machine ip):3000`
 
 *Without Docker (mac instructions in parenthesis):*
 
