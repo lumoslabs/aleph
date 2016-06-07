@@ -79,7 +79,7 @@ module AlephExecutables
     end
 
     def run!
-      say 'Check out localhost:3000!'
+      say 'Check out port 3000!'
       Bundler.with_clean_env do
         system "RAILS_ENV=#{PLAYGROUND_ENV} bundle exec foreman start --env .env.#{PLAYGROUND_ENV}"
       end
