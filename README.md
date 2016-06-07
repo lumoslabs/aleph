@@ -5,7 +5,7 @@ Aleph is a Redshift analytics platform that focuses on aggregating institutional
 
 With Docker:
 
-* `docker run -p 3000:3000 aleph-demo`
+* `docker run -p 3000:3000 lumos/aleph-demo`
 * In a browser, navigate to the docker host ip (`docker-machine ip`), port 3000
 
 Without Docker (mac instructions in parenthesis):
