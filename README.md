@@ -1,10 +1,8 @@
 # Aleph
 
 [![Build Status](https://api.travis-ci.org/lumoslabs/aleph.svg?branch=master)](https://magnum.travis-ci.com/lumoslabs/self_service_analytics)
-[Aleph](http://engineering.lumosity.com/aleph) is a Redshift analytics platform that focuses on aggregating institutional data investigation techniques.
 
-Learn more [here](http://engineering.lumosity.com/aleph)
-Try out the [demo](http://aleph-playground.lumosity.com/queries)
+[Aleph](http://engineering.lumosity.com/aleph) is a Redshift analytics platform that focuses on aggregating institutional data investigation techniques. Try out the [demo](http://aleph-playground.lumosity.com/queries)
 
 ## Quickstart
 By far the easiest way to get Aleph running is using Docker. If you don't have Docker installed and set up you can do so [here](https://docs.docker.com/mac/step_one/).
