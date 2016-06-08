@@ -4,70 +4,29 @@
 
 Aleph is a Redshift analytics platform that focuses on aggregating institutional data investigation techniques.
 
-* [Introduction](http://engineering.lumosity.com/aleph)
-* [Demo](http://aleph-playground.lumosity.com/queries)
-* [Rubygem](https://rubygems.org/gems/aleph_analytics)
-* [Contact/Discuss](https://groups.google.com/forum/#!forum/aleph-user)
+- [Introduction](http://engineering.lumosity.com/aleph)
+- [Demo](http://aleph-playground.lumosity.com/queries)
+- [Contact & Discuss](https://groups.google.com/forum/#!forum/aleph-user)
 
-### Quickstart
-By far the easiest way to get Aleph running is using Docker. If you don't have Docker installed and set up you can do so [here](https://docs.docker.com/mac/step_one/).
+## Quickstart
+The easiest way to get Aleph running is using [Docker](https://docs.docker.com/mac/step_one/).
 
 *Docker Install*
 
 * `docker run -p 3000:3000 lumos/aleph-demo`
 * `open http://$(docker-machine ip):3000`
 
-*Gem Install (mac instructions in parenthesis):*
+*Gem Install*
 
-* You must be using PostgreSQL 9.2beta3 or later client libraries (https://kkob.us/2014/12/20/homebrew-and-postgresql-9-4/)
-* You must have Redis installed and running (`brew install redis  && redis-server &`)
+* You must be using [PostgreSQL 9.2beta3 or later client libraries](https://kkob.us/2014/12/20/homebrew-and-postgresql-9-4/)
+* Install and run Redis: `brew install redis  && redis-server &`
 * `gem install aleph_analytics && aleph playground`
+* To list gem executables, just type `aleph --help`
 
-### Gem executables
-After the gem is installed: `aleph --help`
+## Installation
+There are a number of ways to deploy Aleph.
 
-### Contribute / Develop
-Aleph is Rails on the backend, Angular on the front end. It utilizes Resque workers to run queries against Redshift. Here are few things you should have before developing:
-
-* Redshift cluster
-* Postgres and Redis installed (see Gem install in Quickstart)
-* Git Repo (to maintain query versions)
-* S3 Location (store results)
-
-While the demo/playground version does no use a git repo or S3, we *highly* recommend that you use them in general.
-
-*Setup Postgres*
-
-    createuser -s -P postgres
-    initdb --encoding=utf8 --auth=md5 --auth-host=md5 --auth-local=md5 --username=postgres --pwprompt /usr/local/var/postgres
-* development password should be "password"
-* Restart Postgres
-
-*Setup your db*
-
-    bundle exec rake db:create db:migrate
-    RAILS_ENV=test bundle exec rake db:setup db:test:prepare
-
-*Set up Karma/Jasmine JS unit testing*
-
-    npm install
-
-This command will install what is in package.json and create a node_modules folder
-
-*Testing*
-
-    RAILS_ENV=test bundle exec rspec spec
-    bundle exec rake karma:run
-
-*Running*
-
-    bundle exec foreman start
-You can manage your env variables in a .env file
-
-### Run in Production
-How you want to deploy Aleph is up to you.
-
-At Lumos, we include the Aleph gem in another ruby project's Gemfile and then install that in a docker image:
+At Lumos, we use docker. In the Dockerfile, we include the Aleph gem in a bundle context:
 
     COPY Gemfile /usr/src/app/
     COPY Gemfile.lock /usr/src/app/
@@ -79,12 +38,53 @@ At Lumos, we include the Aleph gem in another ruby project's Gemfile and then in
 
 We then deploy and run the main components of Aleph as separate services using the gem executables:
 
-* web_server: `bundle exec aleph web_server --worker-process 2`
-* query workers: `bundle exec aleph workers`  
-* clock (used to trigger alerts): `bundle exec aleph clock`  
+- web_server - `bundle exec aleph web_server --worker-process 2`
+- query workers - `bundle exec aleph workers`  
+- clock (used to trigger alerts) - `bundle exec aleph clock`  
 
-In general, we have had a lot of luck with docker, so we encourage you to do something similar. Again we *highly* that you have a git repo for your queries and s3 location for you results.
+We *highly* recommend that you have a git repo for your queries and s3 location for you results.
 
-### Help & Discussion
+## Contribute
+Aleph is Rails on the backend, Angular on the front end. It uses Resque workers to run queries against Redshift. Here are few things you should have before developing:
 
-Hit us up [here](https://groups.google.com/forum/#!forum/aleph-user) if you have questions.
+* Redshift cluster
+* Postgres and Redis installed
+* Git Repo (for query versions)
+* S3 Location (store results)
+
+While the demo/playground version does no use a git repo or S3, we *highly* recommend that you use them in general.
+
+### Setup
+*Postgres*
+
+    createuser -s -P postgres
+    initdb --encoding=utf8 --auth=md5 --auth-host=md5 --auth-local=md5 --username=postgres --pwprompt /usr/local/var/postgres
+* development password should be "password"
+* Restart Postgres
+
+*Database*
+
+    bundle exec rake db:create db:migrate
+    RAILS_ENV=test bundle exec rake db:setup db:test:prepare
+
+*Karma/Jasmine*
+
+    npm install
+
+### Testing
+
+    RAILS_ENV=test bundle exec rspec spec
+    bundle exec rake karma:run
+
+### Running
+
+    bundle exec foreman start
+You can manage your env variables in a .env file
+
+## Links
+
+- [Rubygem](https://rubygems.org/gems/aleph_analytics)
+- [aleph-user group](https://groups.google.com/forum/#!forum/aleph-user)
+
+
+Unless otherwise noted, all Aleph source files are made available under the terms of the [MIT License](https://github.com/lumoslabs/aleph/blob/master/LICENSE)
