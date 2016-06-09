@@ -1,7 +1,7 @@
 
 # Publish Gem to RubyGem
 
-1. bump version in aleph.gemspec (plus changes to files, dependencies, etc)
+1. edit version, date, etc in aleph.gemspec
 * `bundle exec rake assets:clobber`
 * `RAILS_ENV=production bundle exec rake assets:precompile`
 * remove the old gem (`rm -rf *.gem` ?)

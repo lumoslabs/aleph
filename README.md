@@ -23,10 +23,25 @@ The easiest way to get Aleph running is using [Docker](https://docs.docker.com/m
 * `gem install aleph_analytics && aleph playground`
 * To list gem executables, just type `aleph --help`
 
+#### Importing environment variables
+
+The Aleph gem has an executable called `import_env_variables` which will take a yaml file named `env.yml` and import values inside as environment variables.
+
+1. Write an `env.yml` file in your configuration path (`/tmp/aleph/configuration` unless you specified otherwise)
+2. `aleph import_env_variables -r {rails_env}`
+
+#### Configuring Redshift
+To connect to your own Redshift
+
+1. Make a `redshift.yml` file in your configuration path
+2. Follow this [example](config/example/redshift.yml) and fill in your `host`, `database`, and `port` information.
+3. Set `ADMIN_REDSHIFT_USERNAME` and `ADMIN_REDSHIFT_PASSWORD` with the user/pw of your Redshift connection (see
+  Importing environment variables" above)
+
 ## Installation
 
 ### Dependencies
-For a proper production installation, Aleph needs an external Redis instance and operational database. The locations of these services can be configured using [environment variables](docs/ENVIRONMENT_VARIABLES.md). More detailed instructions on configuration can be found [here](docs/ADVANCED_CONFIGURATION.md).
+For a proper production installation, Aleph needs an external Redis instance and operational database. The locations of these services can be configured using [environment variables](docs/ENVIRONMENT_VARIABLES.md). More detailed instructions on configuration can be found [here](docs/ADVANCED_CONFIGURATION.md). Example configurations can be found [here](config/example).
 
 ### The app
 There are a number of ways to install and deploy Aleph. The simplest is to set up a Dockerfile that installs aleph as a gem:
