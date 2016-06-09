@@ -28,9 +28,9 @@ The easiest way to get Aleph running is using [Docker](https://docs.docker.com/m
 
 1. Create file `redshift.yml` in your configuration directory
 2. Follow this [example](config/example/redshift.yml) and fill in your `host`, `database`, and `port` information.
-3. Set environment variables `ADMIN_REDSHIFT_USERNAME` and `ADMIN_REDSHIFT_PASSWORD` with the user/pw of your Redshift connection.
-  - Create file `env.yml` in your configuration directory. ([example](config/example/env.yml))
-  - `aleph import_env_variables -r {rails_env}`
+3. Create file `env.yml` in your configuration directory.
+4. Follow this example ([example](config/example/env.yml)) and fill in your `admin_redshift_username` and `admin_redshift_password`
+5. `aleph import_env_variables -r {rails_env}`
 
 Your configuration directory is `/tmp/aleph/configuration` unless you have specified otherwise.
 
