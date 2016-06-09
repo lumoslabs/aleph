@@ -24,9 +24,12 @@ The easiest way to get Aleph running is using [Docker](https://docs.docker.com/m
 * To list gem executables, just type `aleph --help`
 
 ## Installation
-There are a number of ways to install and deploy Aleph.
 
-The simplest is to set up a Dockerfile that installs aleph as a gem:
+### Dependencies
+For a proper production installation, Aleph needs an external Redis instance and operational database. The locations of these services can be configured using [environment variables](docs/ENVIRONMENT_VARIABLES.md). More detailed instructions on configuration can be found [here](docs/ADVANCED_CONFIGURATION.md).
+
+### The app
+There are a number of ways to install and deploy Aleph. The simplest is to set up a Dockerfile that installs aleph as a gem:
 
     FROM ruby:2.1.6
 
@@ -60,6 +63,8 @@ We then deploy and run the main components of Aleph as separate services using t
 At runtime, we inject all the secrets as environment variables.
 
 We *highly* recommend that you have a git repo for your queries and s3 location for you results.
+
+Advanced setup and configuration details (including how to use Aleph roles for data access, using different auth providers, creating users, and more) can be found [here](docs/ADVANCED_CONFIGURATION.md).
 
 ## Contribute
 Aleph is Rails on the backend, Angular on the front end. It uses Resque workers to run queries against Redshift. Here are few things you should have before developing:
