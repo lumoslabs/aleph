@@ -1,3 +1,6 @@
+# Config for your Redshift host, database, and port.
+# Usernames are provided using environment variables
+
 redshift_common: &redshift_common
   host: warehouse.pub.yourcompany.com
   database: warehouse

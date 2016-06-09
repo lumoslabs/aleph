@@ -1,0 +1,9 @@
+# If you are using saml authentication, this is where you map saml attributes
+# to attributes of the user database model
+# The most important to consider mapping is 'role'
+# this is what determines the connection a user uses and the queries they can see
+#
+# format is 'IDP Provider Attribute': 'Database Attribute'
+# idp_name: 'name'
+# idp_email: 'email'
+# idp_role: 'role'

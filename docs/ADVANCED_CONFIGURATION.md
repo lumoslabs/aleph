@@ -1,4 +1,5 @@
 # Advanced Configuration
+Configuration explanations and examples can be found in the example [config directory](../config/example).
 
 ## Redshift
 
