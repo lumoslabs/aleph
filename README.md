@@ -54,13 +54,13 @@ There are a number of ways to install and deploy Aleph. The simplest is to set u
     RUN aleph deps
 
 
-We then deploy and run the main components of Aleph as separate services using the gem executables:
+You can then deploy and run the main components of Aleph as separate services using the gem executables:
 
 - web_server - `aleph web_server --worker-process 2`
 - query workers - `aleph workers`  
 - clock (used to trigger alerts) - `aleph clock`  
 
-At runtime, we inject all the secrets as environment variables.
+At runtime, you can inject all the secrets as environment variables.
 
 We *highly* recommend that you have a git repo for your queries and s3 location for you results.
 
@@ -74,7 +74,7 @@ Aleph is Rails on the backend, Angular on the front end. It uses Resque workers 
 * Git Repo (for query versions)
 * S3 Location (store results)
 
-While the demo/playground version does no use a git repo or S3, we *highly* recommend that you use them in general.
+While the demo/playground version does not use a git repo or S3, we *highly* recommend that you use them in general.
 
 ### Setup
 *Postgres*
