@@ -23,7 +23,43 @@ The easiest way to get Aleph running is using [Docker](https://docs.docker.com/m
 * `gem install aleph_analytics && aleph playground`
 * To list gem executables, just type `aleph --help`
 
-## [Installation](docs/INSTALLATION.md)
+## Installation
+There are a number of ways to install and deploy Aleph.
+
+The simplest is to set up a Dockerfile that installs aleph as a gem:
+
+    FROM ruby:2.1.6
+
+    # we need postgres client libs
+    RUN apt-get update && apt-get install -y postgresql-client --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
+    # make a log location
+    RUN mkdir -p /var/log/aleph
+    ENV SERVER_LOG_ROOT /var/log/aleph
+
+    # make /tmp writeable
+    RUN chmod 777 /tmp
+
+    # bundle install inside the aleph gem
+    RUN gem install aleph_analytics
+
+    # copy our aleph configuration over to the image
+    ENV ALEPH_CONFIG_PATH /etc/aleph/
+    COPY aleph_conifg/. /etc/aleph/.
+
+    # install the aleph dependencies
+    RUN aleph deps
+
+
+We then deploy and run the main components of Aleph as separate services using the gem executables:
+
+- web_server - `aleph web_server --worker-process 2`
+- query workers - `aleph workers`  
+- clock (used to trigger alerts) - `aleph clock`  
+
+At runtime, we inject all the secrets as environment variables.
+
+We *highly* recommend that you have a git repo for your queries and s3 location for you results.
 
 ## Contribute
 Aleph is Rails on the backend, Angular on the front end. It uses Resque workers to run queries against Redshift. Here are few things you should have before developing:
