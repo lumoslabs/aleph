@@ -24,25 +24,47 @@ The easiest way to get Aleph running is using [Docker](https://docs.docker.com/m
 * To list gem executables, just type `aleph --help`
 
 ## Installation
-There are a number of ways to deploy Aleph.
 
-At Lumos, we use docker. In the Dockerfile, we include the Aleph gem in a bundle context:
+### Dependencies
+For a proper production installation, Aleph needs an external Redis instance and operational database. The locations of these services can be configured using [environment variables](docs/ENVIRONMENT_VARIABLES.md). More detailed instructions on configuration can be found [here](docs/ADVANCED_CONFIGURATION.md).
 
-    COPY Gemfile /usr/src/app/
-    COPY Gemfile.lock /usr/src/app/
-    RUN bundle install --binstubs --without development test
-    COPY . /usr/src/app
+### The app
+There are a number of ways to install and deploy Aleph. The simplest is to set up a Dockerfile that installs aleph as a gem:
+
+    FROM ruby:2.1.6
+
+    # we need postgres client libs
+    RUN apt-get update && apt-get install -y postgresql-client --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
+    # make a log location
+    RUN mkdir -p /var/log/aleph
+    ENV SERVER_LOG_ROOT /var/log/aleph
+
+    # make /tmp writeable
+    RUN chmod 777 /tmp
 
     # bundle install inside the aleph gem
-    RUN bundle exec aleph deps
+    RUN gem install aleph_analytics
 
-We then deploy and run the main components of Aleph as separate services using the gem executables:
+    # copy our aleph configuration over to the image
+    ENV ALEPH_CONFIG_PATH /etc/aleph/
+    COPY aleph_conifg/. /etc/aleph/.
 
-- web_server - `bundle exec aleph web_server --worker-process 2`
-- query workers - `bundle exec aleph workers`  
-- clock (used to trigger alerts) - `bundle exec aleph clock`  
+    # install the aleph dependencies
+    RUN aleph deps
+
+
+You can then deploy and run the main components of Aleph as separate services using the gem executables:
+
+- web_server - `aleph web_server --worker-process 2`
+- query workers - `aleph workers`  
+- clock (used to trigger alerts) - `aleph clock`  
+
+At runtime, you can inject all the secrets as environment variables.
 
 We *highly* recommend that you have a git repo for your queries and s3 location for you results.
+
+Advanced setup and configuration details (including how to use Aleph roles for data access, using different auth providers, creating users, and more) can be found [here](docs/ADVANCED_CONFIGURATION.md).
 
 ## Contribute
 Aleph is Rails on the backend, Angular on the front end. It uses Resque workers to run queries against Redshift. Here are few things you should have before developing:
@@ -52,7 +74,7 @@ Aleph is Rails on the backend, Angular on the front end. It uses Resque workers 
 * Git Repo (for query versions)
 * S3 Location (store results)
 
-While the demo/playground version does no use a git repo or S3, we *highly* recommend that you use them in general.
+While the demo/playground version does not use a git repo or S3, we *highly* recommend that you use them in general.
 
 ### Setup
 *Postgres*

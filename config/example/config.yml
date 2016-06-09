@@ -1,29 +1,44 @@
-git_common: &git_common
+common: &common
+
+  # Github config
   github_owner: yourcompany
   github_app_name: aleph
   github_repo: aleph_queries
+
+  # You can configure the type of authorization you will be using here
+  # options are [saml, database, disabled]
+  #
+  # If you choose to use database authenication
+  # you'll want to first start off with authentication disabled
+  # you can then navigate to /admin and create users
+  # once you have users created, youll be able to sign in normally with them
   auth_type: database
 
+  # If you are using SAML auth, you'll need to have:
+  #
+  # saml_issuer: <My App>
+  # saml_name_identifier_format: <"urn:oasis:names:tc:SAML:2.0:nameid-format:transient">
+
 development:
-  <<: *git_common
+  <<: *common
   github_ref: heads/development
   s3_bucket: aleph-development
   s3_folder: results
   auth_type: disabled
 
 test:
-  <<: *git_common
+  <<: *common
   auth_type: disabled
 
 staging:
-  <<: *git_common
+  <<: *common
   github_ref: heads/staging
   s3_bucket: aleph-staging
   s3_folder: results
   auth_type: database
 
 production:
-  <<: *git_common
+  <<: *common
   github_ref: heads/production
   s3_bucket: aleph-production
   s3_folder: results

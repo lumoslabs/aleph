@@ -1,2 +1,5 @@
+# Role hierarchy defines which roles are superior to others
+# The format is for a role key, the values are the superior roles
+# If there is an admin role, which is superior to a general role, the config would be:
 general:
   - admin
