@@ -25,18 +25,17 @@ The easiest way to get Aleph running is using [Docker](https://docs.docker.com/m
 
 #### Importing environment variables
 
-The Aleph gem has an executable called `import_env_variables` which will take a yaml file named `env.yml` and import values inside as environment variables.
+The Aleph gem has an executable called `import_env_variables` which takes a yaml file named `env.yml` in you configuration directory (unless specified `/tmp/aleph/configuration`) and import the values inside as environment variables. Here is an [example](config/example/env.yml). To run:
 
-1. Write an `env.yml` file in your configuration path (`/tmp/aleph/configuration` unless you specified otherwise)
-2. `aleph import_env_variables -r {rails_env}`
+    aleph import_env_variables -r {rails_env}
 
 #### Configuring Redshift
 To connect to your own Redshift
 
-1. Make a `redshift.yml` file in your configuration path
+1. Make a `redshift.yml` file in your configuration directory
 2. Follow this [example](config/example/redshift.yml) and fill in your `host`, `database`, and `port` information.
 3. Set `ADMIN_REDSHIFT_USERNAME` and `ADMIN_REDSHIFT_PASSWORD` with the user/pw of your Redshift connection (see
-  Importing environment variables" above)
+  "Importing environment variables" above)
 
 ## Installation
 
