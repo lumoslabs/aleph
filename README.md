@@ -23,26 +23,7 @@ The easiest way to get Aleph running is using [Docker](https://docs.docker.com/m
 * `gem install aleph_analytics && aleph playground`
 * To list gem executables, just type `aleph --help`
 
-## Installation
-There are a number of ways to deploy Aleph.
-
-At Lumos, we use docker. In the Dockerfile, we include the Aleph gem in a bundle context:
-
-    COPY Gemfile /usr/src/app/
-    COPY Gemfile.lock /usr/src/app/
-    RUN bundle install --binstubs --without development test
-    COPY . /usr/src/app
-
-    # bundle install inside the aleph gem
-    RUN bundle exec aleph deps
-
-We then deploy and run the main components of Aleph as separate services using the gem executables:
-
-- web_server - `bundle exec aleph web_server --worker-process 2`
-- query workers - `bundle exec aleph workers`  
-- clock (used to trigger alerts) - `bundle exec aleph clock`  
-
-We *highly* recommend that you have a git repo for your queries and s3 location for you results.
+## [Installation](docs/INSTALLATION.md)
 
 ## Contribute
 Aleph is Rails on the backend, Angular on the front end. It uses Resque workers to run queries against Redshift. Here are few things you should have before developing:
