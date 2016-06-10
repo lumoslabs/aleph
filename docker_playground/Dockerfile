@@ -19,7 +19,6 @@ ENV SERVER_LOG_ROOT /var/log/aleph
 RUN chmod 777 /tmp
 
 RUN gem install aleph_analytics
-RUN echo -ne '\n \n \n \n \n' | aleph playground
 
 COPY entrypoint.sh ./
 RUN chmod +x entrypoint.sh
