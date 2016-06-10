@@ -9,30 +9,31 @@ Aleph is a Redshift analytics platform that focuses on aggregating institutional
 - [Contact & Discuss](https://groups.google.com/forum/#!forum/aleph-user)
 
 ## Quickstart
-The easiest way to get Aleph running is using [Docker](https://docs.docker.com/mac/step_one/).
+### Aleph Playground Install
 
-*Docker Install*
-
-* `docker run -p 3000:3000 lumos/aleph-demo`
-* `open http://$(docker-machine ip):3000`
-
-*Gem Install*
+Install the gem and connect to your own Redshift cluster; `aleph playground` will prompt you for the configurations it needs.
 
 * You must be using [PostgreSQL 9.2beta3 or later client libraries](https://kkob.us/2014/12/20/homebrew-and-postgresql-9-4/)
 * Install and run Redis: `brew install redis  && redis-server &`
 * `gem install aleph_analytics && aleph playground`
 * To list gem executables, just type `aleph --help`
 
-#### Connecting to your own Redshift
-`aleph playground` should prompt you for information to connect to your own Redshift cluster. However, if you need to do this again later here are some instructions:
+#### Resetting your Redshift connection.
+If you need to do this again, here are some instructions:
 
-1. Create file `redshift.yml` in your configuration directory
-2. Follow this [example](config/example/redshift.yml) and fill in your `host`, `database`, and `port` information.
-3. Create file `env.yml` in your configuration directory.
-4. Follow this example ([example](config/example/env.yml)) and fill in your `admin_redshift_username` and `admin_redshift_password`
-5. `aleph import_env_variables -r {rails_env}`
+1. Edit `redshift.yml` in your configuration directory
+- Create file `env.yml` in your configuration directory.
+- Follow this example ([example](config/example/env.yml)) and fill in your `admin_redshift_username` and `admin_redshift_password`
+- `aleph import_env_variables --rails-env playground`
 
 Your configuration directory is `/tmp/aleph/configuration` unless you have specified otherwise.
+
+### Run the Demo
+
+Requires [Docker](https://docs.docker.com/mac/step_one/).
+
+* `docker run -p 3000:3000 lumos/aleph-demo`
+* `open http://$(docker-machine ip):3000`
 
 ## Installation
 
