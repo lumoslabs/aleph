@@ -1,9 +1,9 @@
 module AlephExecutables
-  class SeedPlaygroundDb
+  class RunDemo
     def initialize(options); end
 
     def execute!
-      Seeder.execute!
+      Playground.run
     end
   end
 end

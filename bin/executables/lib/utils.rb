@@ -22,7 +22,7 @@ module AlephExecutables
         env_str = envs.reject{ |k, v| !v }.map{ |k, v| "#{k.to_s.upcase}=#{v}" }.join(' ')
         cmd = env_str + ' ' + cmd
       end
-      
+
       puts "Running #{cmd} ... "
       Bundler.with_clean_env { system cmd }
     end

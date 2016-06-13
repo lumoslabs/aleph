@@ -7,7 +7,11 @@ load File.join(File.dirname(__FILE__), 'executables', 'bundle_runner.rb')
 Dir["#{File.dirname(__FILE__)}/executables/**/*.rb"].each { |f| load(f) }
 
 class CommandParser
-  COMMANDS = %w(playground web_server worker clock deps import_env_variables seed_playground_db init_db update_db).freeze
+  PLAYGROUND_COMMANDS = %w(setup_demo setup_minimal run_demo).freeze
+  SETUP_COMMANDS = %w(deps import_env_variables)
+  DATABASE_COMMANDS = %w(init_db update_db).freeze
+  RUN_COMMANDS = %w(web_server worker clock).freeze
+  COMMANDS = PLAYGROUND_COMMANDS + SETUP_COMMANDS + DATABASE_COMMANDS + RUN_COMMANDS
   attr_reader :command, :options, :banner
 
   def initialize
@@ -21,16 +25,32 @@ class CommandParser
         @options[:rails_env] = re
       end
 
-      opts.on('-d', '--dotenv DOTENV_FILE', 'Specify a dotenv file') do |de|
-        @options[:dotenv] = de
-      end
-
       opts.on('-c', '--config-path CONFIG_PATH', 'Path to the folder which contains your configuration files') do |c|
         @options[:config_path]  = c
       end
 
       opts.on('-w', '--worker-processes WEB_WORKERS', 'Number of workers for the web server') do |w|
         @options[:worker_processes]  = w
+      end
+
+      opts.on('-H', '--redshift-host REDSHIFT_HOST', 'Redshift Hostname') do |rhost|
+        @options[:redshift_host]  = rhost
+      end
+
+      opts.on('-D', '--redshift-db REDSHIFT_DB', 'Redshift Database Name') do |rdb|
+        @options[:redshift_db]  = rdb
+      end
+
+      opts.on('-p', '--redshift-port REDSHIFT_PORT', 'Redshift Port') do |rport|
+        @options[:redshift_port]  = rport
+      end
+
+      opts.on('-U', '--redshift-user REDSHIFT_USER', 'Redshift User') do |ruser|
+        @options[:redshift_user]  = ruser
+      end
+
+      opts.on('-P', '--redshift-password REDSHIFT_PASSWORD', 'Redshift Password') do |rpw|
+        @options[:redshift_password]  = rpw
       end
 
       opts.on('-h', '--help', 'Halp!') do |h|

@@ -18,12 +18,12 @@ ENV SERVER_LOG_ROOT /var/log/aleph
 # make temp writeable
 RUN chmod 777 /tmp
 
-RUN gem install aleph_analytics --version 0.0.1.alpha
-RUN echo -ne '\n \n \n \n \n' | aleph playground
+RUN gem install aleph_analytics
+RUN aleph setup_demo
 
 COPY entrypoint.sh ./
 RUN chmod +x entrypoint.sh
 
 EXPOSE 3000
 ENTRYPOINT ["./entrypoint.sh"]
-CMD ["aleph", "playground"]
+CMD ["aleph", "run_demo"]
