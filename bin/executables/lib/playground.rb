@@ -7,12 +7,11 @@ module AlephExecutables
 
       config_generator = ConfigGenerator.new(config_path, 'playground')
 
-      # redis envs
       config_generator.merge_envs(redis_url: 'redis://localhost:6379')
       config_generator.merge_envs(aleph_query_exec_worker_pool: 1)
       config_generator.merge_envs(aleph_alert_exec_worker_pool: 1)
-
-      config_generator.write_default_config_yml
+      properties = { 'auth_type' => 'disabled' }
+      config_generator.write_yaml('config.yml', properties, environments: [:playground])
       config_generator.write_redshift(host, db, port, user, password)
       config_generator.write_envs!
 
@@ -24,7 +23,6 @@ module AlephExecutables
       end
 
       seed_db ? db_seed : db_rebuild
-
       puts "Configuration generated in #{config_path}"
     end
 
