@@ -22,14 +22,13 @@ module AlephExecutables
       write_yaml('redshift.yml', redshift_properties, environments: [@rails_env.to_sym])
       @env_writer.merge(admin_redshift_username: user, admin_redshift_password: password)
     end
-
+    
     def write_envs!
       @env_writer.write!
     end
 
-    def write_default_config_yml
-      properties = { 'auth_type' => 'disabled' }
-      write_yaml('config.yml', properties, environments: [@rails_env.to_sym])
+    def merge_envs(h)
+      @env_writer.merge(h)
     end
 
     def write_yaml(file, properties, options = {})

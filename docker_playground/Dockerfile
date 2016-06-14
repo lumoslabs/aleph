@@ -19,11 +19,4 @@ ENV SERVER_LOG_ROOT /var/log/aleph
 RUN chmod 777 /tmp
 
 RUN gem install aleph_analytics
-RUN aleph setup_demo
-
-COPY entrypoint.sh ./
-RUN chmod +x entrypoint.sh
-
 EXPOSE 3000
-ENTRYPOINT ["./entrypoint.sh"]
-CMD ["aleph", "run_demo"]
