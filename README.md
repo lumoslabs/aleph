@@ -42,8 +42,12 @@ You must be using [PostgreSQL 9.2beta3 or later client libraries](https://kkob.u
 
 Aleph should be running at `localhost:3000`
 
-To list gem executables, just type `aleph --help`. More about the gem executables [here](docs/GEM_EXECUTABLES.md).
+## Aleph Gem
+Aleph is packaged as a [Rubygem](https://rubygems.org/gems/aleph_analytics).
 
+To list gem executables, just type `aleph --help`
+
+Find out more about the gem executables [here](docs/GEM_EXECUTABLES.md).
 ## Installation
 
 ### Dependencies
