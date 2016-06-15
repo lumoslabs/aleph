@@ -29,7 +29,7 @@ class CommandParser
         @options[:config_path]  = c
       end
 
-      opts.on('-w', '--worker-processes WEB_WORKERS', 'Number of workers for the web server') do |w|
+      opts.on('-w', '--worker-processes WEB_PROCESSES', 'Number of workers for the web server') do |w|
         @options[:worker_processes]  = w
       end
 
