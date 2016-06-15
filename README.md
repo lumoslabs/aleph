@@ -5,28 +5,53 @@
 Aleph is a Redshift analytics platform that focuses on aggregating institutional data investigation techniques.
 
 - [Introduction](http://engineering.lumosity.com/aleph)
-- [Demo](http://aleph-playground.lumosity.com/queries)
-- [Contact & Discuss](https://groups.google.com/forum/#!forum/aleph-user)
+- [Demo](http://aleph-analytics.io)
+- [Help](https://groups.google.com/forum/#!forum/aleph-user)
 
 ## Quickstart
-The easiest way to get Aleph running is using [Docker](https://docs.docker.com/mac/step_one/).
+If you want to connect to your own Redshift cluster, the follow instructions should get you up and running.
 
-*Docker Install*
+### Docker Install
+The fastest way to get started: [Docker](https://docs.docker.com/mac/step_one/)
 
-* `docker run -p 3000:3000 lumos/aleph-demo`
-* `open http://$(docker-machine ip):3000`
+###### Configure your Redshift and run
 
-*Gem Install*
+      docker run -ti -p 3000:3000 lumos/aleph-playground /bin/bash -c "aleph setup_minimal -H {host} -D {db} -p {port} -U {user} -P  {password}; redis-server & aleph run_demo"
 
-* You must be using [PostgreSQL 9.2beta3 or later client libraries](https://kkob.us/2014/12/20/homebrew-and-postgresql-9-4/)
-* Install and run Redis: `brew install redis  && redis-server &`
-* `gem install aleph_analytics && aleph playground`
-* To list gem executables, just type `aleph --help`
 
+###### Open in browser
+
+      open http://$(docker-machine ip):3000
+
+### Gem Install
+
+You must be using [PostgreSQL 9.2beta3 or later client libraries](https://kkob.us/2014/12/20/homebrew-and-postgresql-9-4/)
+
+###### Install and run Redis
+
+    brew install redis  && redis-server &
+
+###### Install gem
+
+    gem install aleph_analytics
+
+###### Configure your Redshift and run
+
+    aleph setup_minimal -H {host} -D {db} -p {port} -U {user} -P {password}
+    aleph run_demo
+
+Aleph should be running at `localhost:3000`
+
+## Aleph Gem
+Aleph is packaged as a [Rubygem](https://rubygems.org/gems/aleph_analytics).
+
+To list gem executables, just type `aleph --help`
+
+Find out more about the gem executables [here](docs/GEM_EXECUTABLES.md).
 ## Installation
 
 ### Dependencies
-For a proper production installation, Aleph needs an external Redis instance and operational database. The locations of these services can be configured using [environment variables](docs/ENVIRONMENT_VARIABLES.md). More detailed instructions on configuration can be found [here](docs/ADVANCED_CONFIGURATION.md).
+For a proper production installation, Aleph needs an external Redis instance and operational database. The locations of these services can be configured using [environment variables](docs/ENVIRONMENT_VARIABLES.md). More detailed instructions on configuration can be found [here](docs/ADVANCED_CONFIGURATION.md). Example configurations can be found [here](config/example).
 
 ### The app
 There are a number of ways to install and deploy Aleph. The simplest is to set up a Dockerfile that installs aleph as a gem:
