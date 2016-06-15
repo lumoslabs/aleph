@@ -32,6 +32,8 @@ This will setup dependencies by calling `bundle install` inside the gem.
 ##### Import environment variables
 This will import a yaml file called `env.yml` in your `-c CONFIG_PATH` directory as environment variables. Example [here](../config/examples/env.yml).
 
+This is useful if you prefer to keep your secrets in a configuration file instead of dealing with environment variables. 
+
     aleph import_env_variables -c CONFIG_PATH -r RAILS_ENV
 
 - `CONFIG_PATH` is mandatory
@@ -47,7 +49,7 @@ Create the database by calling `rake db:create`.
  - `RAILS_ENV` will default to `development`.
 
 ##### Init Db
-Uupdate the database by calling `rake db:migrate`.
+Update the database by calling `rake db:migrate`.
 
     aleph init_db -r RAILS_ENV
 

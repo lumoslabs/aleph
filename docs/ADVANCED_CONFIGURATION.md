@@ -1,8 +1,6 @@
 # Advanced Configuration
 Configuration examples can be found in the example [config directory](../config/example). The directory for your configurations is specified by the [environment variable](ENVIRONMENT_VARIABLES.md) `ALEPH_CONFIG_PATH`. If this is not set, Aleph will try to find them in `/tmp/aleph/configuration` by default.
 
-Configuration files do not contain secrets; those should be environment variables.
-
 ## Redshift
 This configures your connection to Redshift. It only holds information about the *host*, *database*, and *port*. *Username* and *password* are stored as [environment variables](ENVIRONMENT_VARIABLES.md) on a per role bases (see more about roles below). As you can imagine, this configuration is mandatory.
 
