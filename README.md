@@ -5,7 +5,7 @@
 Aleph is a Redshift analytics platform that focuses on aggregating institutional data investigation techniques.
 
 - [Introduction](http://engineering.lumosity.com/aleph)
-- [Demo](http://aleph-playground.lumosity.com/queries)
+- [Demo](http://aleph-analytics.io)
 - [Help](https://groups.google.com/forum/#!forum/aleph-user)
 
 ## Quickstart
