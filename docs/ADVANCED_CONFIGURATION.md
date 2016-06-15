@@ -1,6 +1,8 @@
 # Advanced Configuration
 Configuration examples can be found in the example [config directory](../config/example). The directory for your configurations is specified by the [environment variable](ENVIRONMENT_VARIABLES.md) `ALEPH_CONFIG_PATH`. If this is not set, Aleph will try to find them in `/tmp/aleph/configuration` by default.
 
+Configuration files do not contain secrets; those should be environment variables.
+
 ## Redshift
 This configures your connection to Redshift. It only holds information about the *host*, *database*, and *port*. *Username* and *password* are stored as [environment variables](ENVIRONMENT_VARIABLES.md) on a per role bases (see more about roles below). As you can imagine, this configuration is mandatory.
 
@@ -13,7 +15,7 @@ This configures your connection to Redshift. It only holds information about the
   - port
 
 ## Github
-Connection details to git are in [environment variables](ENVIRONMENT_VARIABLES.md). This only configures which branch your query versions are maintained on. Configuring git is optional but highly recommended.
+Connection details to git are in [environment variables](ENVIRONMENT_VARIABLES.md). This only configures which branch your query versions are maintained on. Configuring Github is optional but highly recommended.
 
 *File* - [config.yml](../config/example/config.yml)
 
@@ -67,13 +69,17 @@ identity service provider (IDP). E.g Okta
 - auth_type (`saml`/`database`/`disabled`)
 
 #### Database (RailsAdmin) Authorization
-One quirk: you need to have auth_type set to `disabled` to create the first user with role *Admin*. Then you can change to `database` and use that first user to create other users and roles.
+One quirk: you need to have auth_type set to `disabled` to create the first user with role *admin*. Then you can change to `database` and use that first user to create other users and roles.
 
 #### SAML Authorization
-If you are using SAML authorization you can specify additional configuration file `auth-attribute-map.yml`. This file will be ingested as is into `root_dir/config`
+If you are using SAML authorization you can specify additional configuration file `auth-attribute-map.yml`.
+
+This file used for ingesting IDP provided user attributes into the user record; the most important of these is `role`.
+
+Additionally, you need to configure `saml_issuer`, and `saml_name_identifier_format` in [config.yml](../config/example/config.yml) and have the `SAML_IDP_CERT`, `SAML_METADATA_URL`, and `SAML_SSO_TARGET` env variables set.
 
 ## Alert Emails
-You can configure Aleph to email recipients about the status of Alerts. To do this you have to supply `smtp_settings` and a `default_url_host`.
+You can configure Aleph to email recipients about the status of Alerts. To do this you have to supply `smtp_settings` and a `default_url_host`. You will also need to set the `SMTP_PASSWORD` environment variable.
 
 This configurational is optional but important if you want to get the most out of Alerts. The below example file provides a pretty good guide.
 

@@ -8,32 +8,41 @@ Aleph is a Redshift analytics platform that focuses on aggregating institutional
 - [Demo](http://aleph-playground.lumosity.com/queries)
 - [Contact & Discuss](https://groups.google.com/forum/#!forum/aleph-user)
 
-## Quickstart
-### Aleph Playground Install
+## Quickstarted
+If you want to connect to your own Redshift cluster, the follow instructions should get you up and running.
 
-Install the gem and connect to your own Redshift cluster; `aleph playground` will prompt you for the configurations it needs.
+### Docker Install
+The fastest way to get started: [Docker](https://docs.docker.com/mac/step_one/)
 
-* You must be using [PostgreSQL 9.2beta3 or later client libraries](https://kkob.us/2014/12/20/homebrew-and-postgresql-9-4/)
-* Install and run Redis: `brew install redis  && redis-server &`
-* `gem install aleph_analytics && aleph playground`
-* To list gem executables, just type `aleph --help`
+###### Configure your Redshift and run
 
-#### Resetting your Redshift connection.
-If you need to do this again, here are some instructions:
+      docker run -ti -p 3000:3000 lumos/aleph-playground /bin/bash -c "aleph setup_minimal -H {host} -D {db} -p {port} -U {user} -P  {password}; redis-server & aleph run_demo"
 
-1. Edit `redshift.yml` in your configuration directory
-- Create file `env.yml` in your configuration directory.
-- Follow this example ([example](config/example/env.yml)) and fill in your `admin_redshift_username` and `admin_redshift_password`
-- `aleph import_env_variables --rails-env playground`
 
-Your configuration directory is `/tmp/aleph/configuration` unless you have specified otherwise.
+###### Open in browser
 
-### Run the Demo
+      open http://$(docker-machine ip):3000
 
-Requires [Docker](https://docs.docker.com/mac/step_one/).
+### Gem Install
 
-* `docker run -p 3000:3000 lumos/aleph-demo`
-* `open http://$(docker-machine ip):3000`
+You must be using [PostgreSQL 9.2beta3 or later client libraries](https://kkob.us/2014/12/20/homebrew-and-postgresql-9-4/)
+
+###### Install and run Redis
+
+    brew install redis  && redis-server &
+
+###### Install gem
+
+    gem install aleph_analytics
+
+###### Configure your Redshift and run
+
+    aleph setup_minimal -H {host} -D {db} -p {port} -U {user} -P {password}
+    aleph run_demo
+
+Aleph should be running at `localhost:3000`
+
+To list gem executables, just type `aleph --help`. More about the gem executables [here](docs/GEM_EXECUTABLES.md).
 
 ## Installation
 
