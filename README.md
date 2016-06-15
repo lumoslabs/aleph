@@ -6,7 +6,7 @@ Aleph is a Redshift analytics platform that focuses on aggregating institutional
 
 - [Introduction](http://engineering.lumosity.com/aleph)
 - [Demo](http://aleph-playground.lumosity.com/queries)
-- [Contact & Discuss](https://groups.google.com/forum/#!forum/aleph-user)
+- [Help](https://groups.google.com/forum/#!forum/aleph-user)
 
 ## Quickstart
 If you want to connect to your own Redshift cluster, the follow instructions should get you up and running.
