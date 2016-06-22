@@ -77,7 +77,7 @@ There are a number of ways to install and deploy Aleph. The simplest is to set u
 
     # copy our aleph configuration over to the image
     ENV ALEPH_CONFIG_PATH /etc/aleph/
-    COPY aleph_conifg/. /etc/aleph/.
+    COPY aleph_config/. /etc/aleph/.
 
     # install the aleph dependencies
     RUN aleph deps
