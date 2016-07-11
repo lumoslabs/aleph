@@ -57,7 +57,7 @@ class Query < ActiveRecord::Base
 
   def set_roles(roles)
     query_roles.delete_all
-    roles.each { |role| query_roles.build(role: role) }
+    roles.each { |role| query_roles.create(role: role) }
   end
 
   def version
