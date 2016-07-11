@@ -8,6 +8,9 @@ FactoryGirl.define do
       query.query_versions.build(attributes_for(:query_version).merge({query: query}).stringify_keys)
       query.query_versions.first.blob_sha = '123456789abcdef123456789abcdef123456789a'
       query.query_versions.first.user = build(:user)
+    end
+
+    after(:create) do |query, evaluator|
       query.set_roles(evaluator.roles) if evaluator.roles.present?
     end
 
