@@ -15,6 +15,7 @@ class Query < ActiveRecord::Base
   validates_presence_of :title, :latest_body, :query_versions
   validates_associated :query_versions
   before_save :strip_carriage_returns
+  after_save :create_roles
 
   delegate :version, :author_name, :results, to: :latest_query_version, prefix: :latest, allow_nil: true
   delegate :id, to: :latest_query_version, prefix: true, allow_nil: true
@@ -56,8 +57,13 @@ class Query < ActiveRecord::Base
   end
 
   def set_roles(roles)
+    @roles_to_create = roles
+  end
+
+  def create_roles
+    return unless @roles_to_create.present?
     query_roles.delete_all
-    roles.each { |role| query_roles.create(role: role) }
+    @roles_to_create.each { |role| query_roles.create(role: role) }
   end
 
   def version
