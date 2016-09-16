@@ -1,10 +1,13 @@
 'use strict';
 
 describe('Query REPL Controller', () => {
+  let controllerService;
   let QueryReplController;
   let DefaultAceConfigurator;
   let defaultAceConfigurator;
+  let Query;
   let query;
+  let optionQuery;
   let modalInstance;
   let hotkeys;
   let ResultRunner;
@@ -19,13 +22,49 @@ describe('Query REPL Controller', () => {
   let $scope;
   let digest;
 
+  function constructQueryReplController(options) {
+    return controllerService('QueryReplController', {
+      $scope: $scope,
+      $uibModalInstance: modalInstance,
+      NavigationGuard: NavigationGuard,
+      options: options,
+      DefaultAceConfigurator: DefaultAceConfigurator,
+      hotkeys: hotkeys,
+      Results: Results,
+      getResultCsv: getResultCsv,
+      ResultRunner: ResultRunner,
+      Query: Query,
+      KeyBindings: {
+        saveQuery: new KeyBinding('Save Query', {mac: 'command+shift+s', win:'ctrl+shift+s'}),
+        runQuery: new KeyBinding('Run Query', {mac: 'command+shift+k', win:'ctrl+shift+k'}),
+        detectParameters: new KeyBinding('Detect Parameters', {mac: 'command+shift+p', win:'ctrl+shift+p'})
+      }
+    });
+  }
+
   beforeEach(function (){
     module('alephControllers');
   });
 
   beforeEach(() => {
-    inject(($controller, $rootScope) => {
+    inject((_Query_, $controller, $rootScope, $q) => {
       digest = () => { $rootScope.$digest(); };
+      controllerService = $controller;
+
+      let fakeNewQueryItem = {
+        version: {}
+      };
+
+      [Query, query] = TestUtils.classAndInstance('Query', {
+        save: jasmine.createSpy('query.save').and.returnValue($q.when({ id: 666 })),
+        initItem: jasmine.createSpy('query.initItem').and.callFake(() => {
+          query.item = fakeNewQueryItem;
+          return $q.when(fakeNewQueryItem);
+        }),
+        internalize: jasmine.createSpy('query.internalize').and.callFake(item => {
+          query.item = item;
+        })
+      });
 
       [ResultRunner, resultRunner] = TestUtils.classAndInstance('ResultRunner', {
         run: jasmine.createSpy('resultRunner.run')
@@ -68,7 +107,7 @@ describe('Query REPL Controller', () => {
         }
       };
 
-      query = {
+      optionQuery = {
         item: {
           title: 'mockQueryTitle',
           version: {
@@ -83,27 +122,14 @@ describe('Query REPL Controller', () => {
       };
 
       getResultCsv = jasmine.createSpy('getResultCsv');
-
-      QueryReplController = $controller('QueryReplController', {
-        $scope: $scope,
-        $uibModalInstance: modalInstance,
-        NavigationGuard: NavigationGuard,
-        query: query,
-        DefaultAceConfigurator: DefaultAceConfigurator,
-        hotkeys: hotkeys,
-        Results: Results,
-        getResultCsv: getResultCsv,
-        ResultRunner: ResultRunner,
-        KeyBindings: {
-          saveQuery: new KeyBinding('Save Query', {mac: 'command+shift+s', win:'ctrl+shift+s'}),
-          runQuery: new KeyBinding('Run Query', {mac: 'command+shift+k', win:'ctrl+shift+k'}),
-          detectParameters: new KeyBinding('Detect Parameters', {mac: 'command+shift+p', win:'ctrl+shift+p'})
-        }
-      });
     });
   });
 
-  describe('on initialization', () => {
+  describe('on initialization with a query', () => {
+    beforeEach(() => {
+      QueryReplController = constructQueryReplController({ query: optionQuery });
+    });
+
     it('add keybindings', () => {
       expect(hotkeys.bindTo).toHaveBeenCalledWith($scope);
       expect(hotkeys.add.calls.count()).toEqual(3);
@@ -144,10 +170,25 @@ describe('Query REPL Controller', () => {
     it('register de-polling callback on desotry', () => {
       expect($scope.$on).toHaveBeenCalledWith('$destroy', jasmine.any(Function));
     });
+
+    it('internalizes the query.item that is in passed in options', () => {
+      expect(query.internalize).toHaveBeenCalledWith(optionQuery.item);
+    });
+  });
+
+  describe('on initialization without a query', () => {
+    beforeEach(() => {
+      QueryReplController = constructQueryReplController({});
+    });
+
+    it('inits a new query', () => {
+      expect(query.initItem).toHaveBeenCalled();
+    });
   });
 
   describe('#runQuery', () => {
     beforeEach(() => {
+      QueryReplController = constructQueryReplController({ query: optionQuery });
       QueryReplController.runQuery();
     });
 
@@ -158,6 +199,7 @@ describe('Query REPL Controller', () => {
 
   describe('when title has not be entered', () => {
     beforeEach(() => {
+      QueryReplController = constructQueryReplController({ query: optionQuery });
       query.item.title = '';
     });
 
@@ -172,6 +214,7 @@ describe('Query REPL Controller', () => {
 
   describe('#exit', () => {
     beforeEach(() => {
+      QueryReplController = constructQueryReplController({ query: optionQuery });
       QueryReplController.exit();
     });
 
@@ -187,7 +230,8 @@ describe('Query REPL Controller', () => {
   describe('#save', () => {
     describe('if a substitution value and results exist', () => {
       beforeEach(() => {
-        results.collection = [{ item: 'result' }];
+        QueryReplController = constructQueryReplController({ query: optionQuery });
+        results.collection = [{ item: { id: 123 } }];
         query.item.version.parameters = [{name:'a', type: 'raw', default: undefined}];
         QueryReplController.resultRunner.substitutionValues = { 'a': 1 };
         QueryReplController.save();
@@ -197,18 +241,47 @@ describe('Query REPL Controller', () => {
         expect(query.item.version.parameters[0].default).toBe(1);
       });
 
-      it('passes the last result into the $modalInstance.close', () => {
-        expect(modalInstance.close).toHaveBeenCalledWith({ query: query, result: 'result' });
+      it('calls query.save with result_id parameter populated', () => {
+        expect(query.save).toHaveBeenCalledWith({ result_id: 123});
       });
 
       it('explicity disable the navigation guard', () => {
         expect(navigationGuard.disable).toHaveBeenCalled();
+      });
+
+      describe('on success from save', () => {
+        beforeEach(() => {
+          digest();
+        });
+
+        it('returns from the modal', () => {
+          expect(modalInstance.close).toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('when the skipSave option is true', () => {
+      beforeEach(() => {
+        QueryReplController = constructQueryReplController({ query: optionQuery, skipSave: true });
+        results.collection = [];
+        query.item.version.parameters = [{name:'a', type: 'raw', default: undefined}];
+        QueryReplController.resultRunner.substitutionValues = { 'a': 1 };
+        QueryReplController.save();
+      });
+
+      it('does not call save', () => {
+        expect(query.save).not.toHaveBeenCalled();
+      });
+
+      it('returns the query as is from the modal', () => {
+        expect(modalInstance.close).toHaveBeenCalledWith(query);
       });
     });
   });
 
   describe('#getCsv', () => {
     beforeEach(() => {
+      QueryReplController = constructQueryReplController({ query: optionQuery });
       QueryReplController.getCsv(100);
     });
 

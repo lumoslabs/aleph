@@ -11,7 +11,6 @@ describe('Alert Show Controller', () => {
   let DefaultAceConfigurator;
   let defaultAceConfigurator;
   let OpenReplService;
-  let replSuccess;
   let replQuery;
   let $routeParams;
   let $controller;
@@ -64,12 +63,8 @@ describe('Alert Show Controller', () => {
       },
       save: jasmine.createSpy('replQuery.save').and.returnValue({})
     };
-    replSuccess = {
-      query: replQuery,
-      result: { id: 11 }
-    };
     OpenReplService = {
-      open: jasmine.createSpy('OpenReplService.open').and.returnValue($q.when(replSuccess))
+      open: jasmine.createSpy('OpenReplService.open').and.returnValue($q.when(replQuery))
     };
 
     $scope = {};
@@ -112,8 +107,8 @@ describe('Alert Show Controller', () => {
           expect(query.initItem).toHaveBeenCalled();
         });
 
-        it('calls OpenReplService.open', () => {
-          expect(OpenReplService.open).toHaveBeenCalled();
+        it('calls OpenReplService.open with skipSave == true', () => {
+          expect(OpenReplService.open.calls.argsFor(0)[0]).toEqual({ skipSave: true });
         });
 
         it('sets alert.item.query_title from the repl query.item.title', () => {
@@ -230,11 +225,11 @@ describe('Alert Show Controller', () => {
       });
 
       it('the repl query saves with the result id', () => {
-        expect(replSuccess.query.save).toHaveBeenCalledWith({ result_id: 11 });
+        expect(replQuery.save).toHaveBeenCalled();
       });
 
       it('the repl query becomes the controllers query', () => {
-        expect(replSuccess.query).toBe(AlertShowController.query);
+        expect(replQuery).toBe(AlertShowController.query);
       });
 
       it('calls alert.save', () => {

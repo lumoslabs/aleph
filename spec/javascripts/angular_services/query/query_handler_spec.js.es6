@@ -7,6 +7,8 @@ describe('QueryHandler', () => {
 
   beforeEach(module('alephServices'));
 
+  function toItem(i) { return { item: i } }
+
   beforeEach(inject((_QueryHandler_, _$location_, _AlertFlash_) => {
     QueryHandler = _QueryHandler_;
     $location = _$location_;
@@ -19,12 +21,12 @@ describe('QueryHandler', () => {
 
   describe('#navigateToLatestVersion', () => {
     beforeEach(() => {
-      QueryHandler.navigateToLatestVersion({
+      QueryHandler.navigateToLatestVersion(toItem({
         id: 1,
         version: {
           id: 100
         }
-      });
+      }));
     });
 
     it('navigates to query show for query id 1', () => {
@@ -44,7 +46,7 @@ describe('QueryHandler', () => {
 
   describe('#success', () => {
     beforeEach(() => {
-      QueryHandler.success('create', true, { title: 'whatevz'});
+      QueryHandler.success('create', true, toItem({ title: 'whatevz'}));
     });
 
     it('flashes a success message', () => {
