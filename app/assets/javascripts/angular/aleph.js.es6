@@ -27,9 +27,9 @@
     }])
 
     .value('KeyBindings', {
-      saveQuery: new KeyBinding('Save Query', {mac: 'command+shift+s', win:'ctrl+shift+s'}),
-      runQuery: new KeyBinding('Run Query', {mac: 'command+shift+k', win:'ctrl+shift+k'}),
-      detectParameters: new KeyBinding('Detect Parameters', {mac: 'command+shift+p', win:'ctrl+shift+p'})
+      saveQuery: new KeyBinding('Save Query', { mac: 'command+shift+s', win: 'ctrl+shift+s' }),
+      runQuery: new KeyBinding('Run Query', { mac: 'shift+enter', win: 'shift+enter' }),
+      detectParameters: new KeyBinding('Detect Parameters', { mac: 'command+shift+p', win: 'ctrl+shift+p' })
     })
 
     .config(['$locationProvider', $locationProvider => {
