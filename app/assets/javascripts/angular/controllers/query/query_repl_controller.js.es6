@@ -80,16 +80,10 @@
       if(this._options.skipSave) {
         /* FIXME: this is for alerts where we want to pop up the repl and save later
            We probably have to rethink the alerts UI/UX to take this hack out */
-        let copy = new this._Query();
-        copy.internalize(this.query.item);
-        this._modalInstance.close(copy);
+        this._toModelAndClose(angular.copy(this.query.item));
       } else {
         this.query.save(_.exists(result) ? { result_id: result.item.id } : {})
-          .then(item => {
-            let model = new this._Query();
-            model.internalize(item);
-            this._modalInstance.close(model);
-          })
+          .then(this._toModelAndClose.bind(this))
           .catch(err => {
             console.error('query save failed', err);
             alert('Query save failed!');
@@ -111,6 +105,12 @@
     }
 
     // private methods
+
+    _toModelAndClose(item) {
+      let model = new this._Query();
+      model.internalize(item);
+      this._modalInstance.close(model);
+    }
 
     _queryBody() {
       return this.query.item.version.body;
