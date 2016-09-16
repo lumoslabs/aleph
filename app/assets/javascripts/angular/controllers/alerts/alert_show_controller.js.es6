@@ -19,8 +19,8 @@
       if ($routeParams.alertId === 'new') {
         this.alert.initItem()
           .then(this.query.initItem.bind(this.query, null))
-          .then(this._openReplService.open.bind(this._openReplService, {}))
-          .then(({query, _}) => {
+          .then(this._openReplService.open.bind(this._openReplService, { skipSave: true }))
+          .then(query => {
             this.query = query;
             this.alert.item.query_title = query.item.title;
             this.query.item.tags.push('alert-query');
@@ -59,9 +59,9 @@
     editAlert() {
       this._openReplService.open({
         query: this.query
-      }).then(({query, result}) => {
+      }).then(query => {
         this.query = query;
-        return this.query.save({result_id: result.id});
+        return this.query.save();
       }).then(this.alert.save.bind(this.alert));
     }
 

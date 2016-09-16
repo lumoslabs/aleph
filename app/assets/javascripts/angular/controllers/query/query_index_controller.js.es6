@@ -24,7 +24,7 @@
         this._roleModel = RoleModel;
         this._tagResource = TagResource;
         this._$q = $q;
-        this._openReplService = OpenReplService;
+        this._repl = OpenReplService;
 
         RoleModel.initCollection();
     }
@@ -61,10 +61,7 @@
     }
 
     openRepl() {
-      this._openReplService.open()
-        .then(({query, result}) => {
-          return query.save({ result_id: result.id });
-        })
+      this._repl.open()
         .then(this._handler.navigateToLatestVersion.bind(this._handler))
         .then(this._handler.success.bind(this._handler, 'create', true))
         .catch(this._handler.handleReplExit.bind(this._handler));

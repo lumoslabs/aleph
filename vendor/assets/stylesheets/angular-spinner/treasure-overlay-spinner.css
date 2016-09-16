@@ -82,7 +82,7 @@
 
 .treasure-overlay-spinner {
   position: absolute;
-  z-index: 1;
+  z-index: 10000;
   top: 50%;
   left: 50%;
   margin: -15px 0 0 -15px;
@@ -118,7 +118,7 @@ treasure-overlay-spinner.treasure-overlay-spinner-active-remove {
   top: 0;
   left: 0;
   opacity: 1;
-  z-index: 1000;
+  z-index: 10001;
 }
 
 .treasure-overlay-spinner-active-remove .treasure-overlay-spinner-container,

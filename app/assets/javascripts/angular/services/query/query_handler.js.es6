@@ -12,7 +12,7 @@
       let _action =  action || 'action';
       let _schedule = _.exists(schedule) ? schedule : false;
 
-      this._alertFlash.emitSuccess('Query "' + query.title + '" ' + _action + 'd!', _schedule);
+      this._alertFlash.emitSuccess('Query "' + query.item.title + '" ' + _action + 'd!', _schedule);
       return query;
     }
 
@@ -26,7 +26,7 @@
     }
 
     navigateToLatestVersion(query) {
-      this._$location.path('/queries/' + query.id + '/query_versions/' + query.version.id);
+      this._$location.path('/queries/' + query.item.id + '/query_versions/' + query.item.version.id);
       return query;
     }
 

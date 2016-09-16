@@ -18,7 +18,6 @@
 
     openRepl() {
       this._repl.open( { query: this.query } )
-        .then(({query, result}) => query.save({ result_id: result.id }))
         .then(this._handler.navigateToLatestVersion.bind(this._handler))
         .then(this._handler.success.bind(this._handler, 'update', false))
         .catch(this._handler.handleReplExit.bind(this._handler))
