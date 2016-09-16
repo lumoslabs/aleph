@@ -3,9 +3,8 @@
 
   class OpenReplService {
 
-    constructor($uibModal, Query, AceCompleters) {
+    constructor($uibModal, AceCompleters) {
       this._$modal = $uibModal;
-      this._Query = Query;
       this._AceCompleters = AceCompleters;
     }
 
@@ -28,7 +27,7 @@
     }
   }
 
-  OpenReplService.$inject = ['$uibModal', 'Query', 'AceCompleters'];
+  OpenReplService.$inject = ['$uibModal', 'AceCompleters'];
   angular.module('alephServices.openReplService', []).service('OpenReplService', OpenReplService);
 
 }(angular));
