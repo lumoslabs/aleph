@@ -3,9 +3,8 @@
 
   class OpenReplService {
 
-    constructor($uibModal, Query, AceCompleters) {
+    constructor($uibModal, AceCompleters) {
       this._$modal = $uibModal;
-      this._Query = Query;
       this._AceCompleters = AceCompleters;
     }
 
@@ -21,36 +20,14 @@
         windowClass: 'query-repl-dialog',
         backdrop: 'static',
         keyboard: false,
-        resolve: {
-          query: () =>  _.exists(options.query) ? this._clone(options.query) : this._newQuery()
-        }
+        resolve: { options: () =>  options }
       });
 
-      return modalInstance.result.then(({query, result}) => {
-        return {
-          query: this._clone(query),
-          result: result
-        };
-      });
-    }
-
-    // private methods
-
-    _clone(q) {
-      let copiedItem = angular.copy(q.item);
-      let m = new this._Query();
-      m.internalize(copiedItem);
-      return m;
-    }
-
-    _newQuery() {
-      let m = new this._Query();
-      m.initItem();
-      return m;
+      return modalInstance.result;
     }
   }
 
-  OpenReplService.$inject = ['$uibModal', 'Query', 'AceCompleters'];
+  OpenReplService.$inject = ['$uibModal', 'AceCompleters'];
   angular.module('alephServices.openReplService', []).service('OpenReplService', OpenReplService);
 
 }(angular));

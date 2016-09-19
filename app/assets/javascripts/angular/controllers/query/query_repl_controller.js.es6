@@ -2,12 +2,11 @@
   'use strict';
 
   class QueryReplController {
-    constructor($uibModalInstance, getResultCsv, DefaultAceConfigurator, ResultRunner, query,
-      Results, NavigationGuard, KeyBindings, hotkeys, $scope) {
+    constructor($uibModalInstance, getResultCsv, DefaultAceConfigurator, ResultRunner, Query,
+      Results, NavigationGuard, KeyBindings, hotkeys, options, $scope) {
+        this._initQuery(options, Query);
         this._modalInstance = $uibModalInstance;
-
         this.results = new Results();
-        this.query = query;
         this.resultRunner = new ResultRunner(this.query, this.results, {
           sandbox: true,
           enablePolling: true
@@ -78,11 +77,19 @@
       this._navigationGuard.disable();
       this._setParameterDefaultValues(this.query.item.version.parameters, this.resultRunner.substitutionValues);
       let result = this.results.collection.shift();
+      if(this._options.skipSave) {
+        /* FIXME: this is for alerts where we want to pop up the repl and save later
+           We probably have to rethink the alerts UI/UX to take this hack out */
+        this._toModelAndClose(angular.copy(this.query.item));
+      } else {
+        this.query.save(_.exists(result) ? { result_id: result.item.id } : {})
+          .then(this._toModelAndClose.bind(this))
+          .catch(err => {
+            console.error('query save failed', err);
+            alert('Query save failed!');
+          });
+      }
 
-      this._modalInstance.close({
-        query: this.query,
-        result: _.exists(result) ? result.item : {},
-      });
     }
 
     exit() {
@@ -99,6 +106,12 @@
 
     // private methods
 
+    _toModelAndClose(item) {
+      let model = new this._Query();
+      model.internalize(item);
+      this._modalInstance.close(model);
+    }
+
     _queryBody() {
       return this.query.item.version.body;
     }
@@ -110,6 +123,17 @@
           parameter.default = val;
         }
       });
+    }
+
+    _initQuery(options, Query) {
+      this._Query = Query;
+      this._options = options;
+      this.query = new Query();
+      if(_.exists(options.query)) {
+        this.query.internalize(angular.copy(options.query.item));
+      } else {
+        this.query.initItem();
+      }
     }
 
     _initKeyBindings(KeyBindings, hotkeys, $scope) {
@@ -138,7 +162,7 @@
   }
 
   QueryReplController.$inject = ['$uibModalInstance', 'getResultCsv', 'DefaultAceConfigurator', 'ResultRunner',
-    'query', 'Results', 'NavigationGuard', 'KeyBindings', 'hotkeys', '$scope'];
+    'Query', 'Results', 'NavigationGuard', 'KeyBindings', 'hotkeys', 'options', '$scope'];
 
   angular
     .module('alephControllers.queryReplController', ['alephServices'])

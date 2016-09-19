@@ -173,10 +173,6 @@ describe('QueryIndexController', () => {
         digest();
       });
 
-      it('the repl query saves with the result id', () => {
-        expect(replSuccess.query.save).toHaveBeenCalledWith({ result_id: 11 });
-      });
-
       it('calls displayHandlers.navigateToLatestVersion', () => {
         expect(QueryHandler.navigateToLatestVersion).toHaveBeenCalled();
       });
