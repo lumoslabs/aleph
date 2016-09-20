@@ -79,6 +79,11 @@
           controller: 'AlertShowController',
           controllerAs: 'alertShowCtrl'
         })
+        .when('/results/:resultId', {
+          templateUrl: 'singleResultShow',
+          controller: 'SingleResultShowController',
+          controllerAs: 'singleResultShowCtrl'
+        })
         .when('/snippets', {
           title: 'Snippets',
           templateUrl: 'snippetIndex',
