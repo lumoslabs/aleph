@@ -14,7 +14,7 @@ class QueryVersion < ActiveRecord::Base
     before_create :github_save
   end
 
-  scope :with_role, ->(role) { joins(:query).includes(:query_roles).where(query_roles: { role: role }) }
+  scope :with_role, ->(role) { references(:query).includes(:query_roles).where(query_roles: { role: role }) }
 
   delegate :to_csv, to: :latest_completed_result
 

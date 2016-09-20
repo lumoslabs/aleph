@@ -10,7 +10,7 @@ class Result < ActiveRecord::Base
   serialize :headers, JSON
 
   scope :completed, -> { where(status: 'complete') }
-  scope :with_role, ->(role) { joins(:query).includes(:query_roles).where(query_roles: { role: role }) }
+  scope :with_role, ->(role) { references(:query).includes(:query_roles).where(query_roles: { role: role }) }
 
   delegate :ongoing_row_count, to: :redis_result_row_count
 
