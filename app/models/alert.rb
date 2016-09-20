@@ -18,7 +18,7 @@ class Alert < ActiveRecord::Base
   delegate :latest_query_version, to: :query
   delegate :user, to: :latest_query_version
 
-  scope :with_role, ->(role) { joins(:query).includes(:query_roles).where(query_roles: { role: role }) }
+  scope :with_role, ->(role) { references(:query).includes(:query_roles).where(query_roles: { role: role }) }
 
   LOCATIONS_FOR_ATTRIBUTES = {
     title:       { association: :query, column: :title, type: :text },
