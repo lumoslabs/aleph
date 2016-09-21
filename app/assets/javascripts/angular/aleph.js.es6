@@ -8,7 +8,7 @@
       'alephServices',
       'alephFilters',
       'ngAnimate',
-      'ngClipboard',
+      'angular-clipboard',
       'ui.bootstrap',
       'infinite-scroll',
       'ngTagsInput',

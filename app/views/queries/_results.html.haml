@@ -26,6 +26,13 @@
                     'ng-model' => 'resultsCtrl.resultRunner.substitutionValues[parameter.name]' }
   %ul.list-group
     %li.result.list-group-item.panel.panel-default.result-panel{ 'ng-repeat' => 'result in resultsCtrl.results.collection | orderBy: "item.created_at" : true' }
-      %a.pull-right{ 'ng-href' => '/results/query/{{resultsCtrl.query.item.id}}/query_version/{{resultsCtrl.query.item.version.id}}/result/{{result.item.id}}' }
-        %span.glyphicon.glyphicon-share-alt.glyphicons-sm
+      %a{ 'href' => '',
+          'text' =>  'resultsCtrl.generateResultLink(result)',
+          'supported' => 'supported',
+          'on-copied' => 'resultsCtrl.alertCopied()',
+          'clipboard' => '',
+          'uib-tooltip' => 'Copy link to this result',
+          'tooltip-placement' => 'right',
+          style: 'margin-left:14px' }
+        %span.glyphicon.glyphicon-link.finite-pulsating
       %result{'result' => 'result', 'results' => 'resultsCtrl.results'}
