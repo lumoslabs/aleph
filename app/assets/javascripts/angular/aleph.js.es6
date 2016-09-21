@@ -79,7 +79,7 @@
           controller: 'AlertShowController',
           controllerAs: 'alertShowCtrl'
         })
-        .when('/results/:resultId', {
+        .when('/results/query/:queryId/query_version/:queryVersionId/result/:resultId', {
           templateUrl: 'singleResultShow',
           controller: 'SingleResultShowController',
           controllerAs: 'singleResultShowCtrl'

@@ -1,3 +1,11 @@
 .panel.panel-default
   %span{ 'ng-if' => 'singleResultShowCtrl.result.item.$resolved' }
-    %result{'result' => 'singleResultShowCtrl.result' }
+    .row
+      .col-sm-8
+        {{singleResultShowCtrl.pageTitle}}
+      .col-sm-4
+        %a{ 'ng-href' => '/queries/{{singleResultShowCtrl.queryId}}/query_versions/{{singleResultShowCtrl.queryVersionId}}?tab=results',
+            'uib-tooltip' => 'Return to query results' } Query
+    .row
+      .col-sm-12
+        %result{ 'result' => 'singleResultShowCtrl.result' }
