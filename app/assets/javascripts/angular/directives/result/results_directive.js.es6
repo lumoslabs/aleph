@@ -5,12 +5,7 @@
 
     constructor($location, AlertFlash) {
       this._alertFlash = AlertFlash;
-
-      this._host = $location.host();
-      //FIXME: there must be a way to do this?
-      if(this._host === 'localhost') {
-        this._host = this._host + ':' + $location.port();
-      }
+      this._hostname = $location.host() + (_.exists($location.port()) ? ':' + $location.port() : '');
     }
 
     runQuery() {
@@ -18,7 +13,7 @@
     }
 
     generateResultLink(result) {
-      return this._host + '/results/query/' + this.query.item.id +
+      return this._hostname + '/results/query/' + this.query.item.id +
         '/query_version/' + this.query.item.version.id + '/result/' + result.item.id;
     }
 
