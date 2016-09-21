@@ -3,9 +3,9 @@
 
   class ResultsController {
 
-    constructor($location, AlertFlash) {
+    constructor(AlertFlash) {
       this._alertFlash = AlertFlash;
-      this._hostname = $location.host() + (_.exists($location.port()) ? ':' + $location.port() : '');
+      this._hostname = angular.copy(location.host);
     }
 
     runQuery() {
@@ -22,7 +22,7 @@
     }
   }
 
-  ResultsController.$inject = ['$location', 'AlertFlash'];
+  ResultsController.$inject = ['AlertFlash'];
 
   function resultsComponent() {
     return {
