@@ -8,7 +8,7 @@
       'alephServices',
       'alephFilters',
       'ngAnimate',
-      'ngClipboard',
+      'angular-clipboard',
       'ui.bootstrap',
       'infinite-scroll',
       'ngTagsInput',
@@ -78,6 +78,11 @@
           templateUrl: 'alertShow',
           controller: 'AlertShowController',
           controllerAs: 'alertShowCtrl'
+        })
+        .when('/results/query/:queryId/query_version/:queryVersionId/result/:resultId', {
+          templateUrl: 'singleResultShow',
+          controller: 'SingleResultShowController',
+          controllerAs: 'singleResultShowCtrl'
         })
         .when('/snippets', {
           title: 'Snippets',

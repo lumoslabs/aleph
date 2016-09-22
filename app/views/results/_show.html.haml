@@ -7,6 +7,8 @@
                                        'target' => '_self',
                                        'ng-click' => 'resultCtrl.getCsv()' } Download CSV
   .run_duration{ 'ng-if' => 'resultCtrl.result.item.status == "complete" || resultCtrl.result.item.status == "failed"'}
+    Status: {{resultCtrl.result.item.status | uppercase}}
+    %br
     Started: {{resultCtrl.result.item.started_at | date: 'yyyy-MM-dd hh:mm:ss' : 'UTC'}}
     %br
     Ended: {{resultCtrl.result.item.completed_at | date: 'yyyy-MM-dd hh:mm:ss' : 'UTC'}}

@@ -10,6 +10,7 @@
       'alephControllers.alertIndexController',
       'alephControllers.alertShowController',
       'alephControllers.snippetIndexController',
+      'alephControllers.singleResultShowController',
       'alephServices',
       'ui.ace',
       'ngRoute',

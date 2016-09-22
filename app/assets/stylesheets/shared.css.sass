@@ -148,6 +148,9 @@ a.navbar-text.active
 .no-list-style
   list-style: none
 
+.inline
+  display: inline
+
 .looks-like-clickable
   cursor: pointer
   &:hover
@@ -155,3 +158,45 @@ a.navbar-text.active
     color: tomato
   &:active
     opacity: $opacity-high
+
+// pulsating stuff
+
+// Chrome, Safari, Opera
+@-webkit-keyframes pulsate
+  from
+    opacity: 0.0
+    color: tomato
+
+  to
+    opacity: $opacity-high
+    color: $slate-blue
+
+
+// Standard syntax
+@keyframes pulsate
+  from
+    opacity: 0.0
+    color: tomato
+
+  to
+    opacity: $opacity-high
+    color: $slate-blue
+
+.pulsating
+  -webkit-animation-name: pulsate
+  -webkit-animation-duration: 3s
+  -webkit-animation-direction: alternate
+  animation-name: pulsate
+  animation-duration: 3s
+  animation-direction: alternate
+  animation-iteration-count: infinite
+
+// you know, just give them a taste
+.finite-pulsating
+  -webkit-animation-name: pulsate
+  -webkit-animation-duration: 3s
+  -webkit-animation-direction: alternate
+  animation-name: pulsate
+  animation-duration: 3s
+  animation-direction: alternate
+  animation-iteration-count: 3

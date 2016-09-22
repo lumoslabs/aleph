@@ -1,0 +1,9 @@
+%span{ 'ng-if' => 'singleResultShowCtrl.result.item.$resolved' }
+  .panel
+    .panel-heading.info-box
+      %h4.inline{ 'ng-bind' => 'singleResultShowCtrl.panelTitle' }
+      %a.small-font.pull-right{ 'ng-href' => '/queries/{{singleResultShowCtrl.queryId}}/query_versions/{{singleResultShowCtrl.queryVersionId}}?tab=results' }
+        %span.glyphicon.glyphicon-share-alt.glyphicons-sm
+        Back To Query
+    .panel-body
+      %result{ 'result' => 'singleResultShowCtrl.result' }
