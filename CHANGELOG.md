@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file using [Semantic Versioning](http://semver.org/).
 
-## [0.0.5] - 2016-09-26ß
+## [0.0.5] - 2016-09-26
 ### Features
 - [Link to specific result / single result page](https://github.com/lumoslabs/aleph/issues/12)
 - [Use shift enter as hotkey to run queries in REPL](https://github.com/lumoslabs/aleph/issues/16)
