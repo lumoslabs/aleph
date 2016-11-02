@@ -38,9 +38,9 @@ module PaginationSearch
       end
 
       def separated(search_string)
-        CSV::parse_line(search_string, col_sep: ' ')
+        CSV::parse_line(search_string, col_sep: ' ').compact
       rescue CSV::MalformedCSVError => mce
-        nil
+        CSV::parse_line(search_string.tr('"', ' '), col_sep: ' ').compact
       end
 
       def grouped(terms)
