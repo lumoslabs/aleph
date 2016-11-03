@@ -27,7 +27,7 @@ module PaginationSearch
 
     class << self
       def process(search_string)
-        wrapped attribute_cleaned grouped separated quotation_safe search_string
+        wrapped attribute_cleaned grouped separated search_string
       end
 
       private
@@ -35,14 +35,6 @@ module PaginationSearch
       def wrapped(cleaned_grouped_hash)
         return nil if cleaned_grouped_hash.nil?
         Result.new(cleaned_grouped_hash)
-      end
-
-      def quotation_safe(search_string)
-        if search_string.count('""').odd? || /\S\"\S/.match(search_string)
-          search_string.tr('""', ' ')
-        else
-          search_string
-        end
       end
 
       def separated(search_string)
