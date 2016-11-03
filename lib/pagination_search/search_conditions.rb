@@ -27,7 +27,7 @@ module PaginationSearch
 
     class << self
       def process(search_string)
-        wrapped attribute_cleaned grouped separated search_string
+        wrapped attribute_cleaned grouped separated quotation_safe search_string
       end
 
       private
@@ -37,10 +37,18 @@ module PaginationSearch
         Result.new(cleaned_grouped_hash)
       end
 
+      def quotation_safe(search_string)
+        if search_string.count('""').odd? || /\S\"\S/.match(search_string)
+          search_string.tr('""', ' ')
+        else
+          search_string
+        end
+      end
+
       def separated(search_string)
         CSV::parse_line(search_string, col_sep: ' ').compact
       rescue CSV::MalformedCSVError => mce
-        CSV::parse_line(search_string.tr('"', ' '), col_sep: ' ').compact
+        nil
       end
 
       def grouped(terms)
