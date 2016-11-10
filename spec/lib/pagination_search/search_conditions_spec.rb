@@ -11,11 +11,11 @@ module PaginationSearch
         expect(subject.class).to eq(SearchConditions::Result)
       end
 
-      context 'when term string contains incorrect quotation marks' do
-        let(:term_string) { '"this is an"unfinished" string ' }
+      context 'when term string contains an invalid string' do
+        let(:term_string) { '"this is an unfinished string' }
 
-        it 'removes the quotes' do
-          expect(subject.trait_term_hash).to eq({"" => ['this', 'is', 'an', 'unfinished', 'string']})
+        it 'returns nil' do
+          expect(subject).to be_nil
         end
       end
 
