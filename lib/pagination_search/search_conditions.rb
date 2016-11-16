@@ -38,7 +38,7 @@ module PaginationSearch
       end
 
       def separated(search_string)
-        CSV::parse_line(search_string, col_sep: ' ')
+        CSV::parse_line(search_string, col_sep: ' ').compact
       rescue CSV::MalformedCSVError => mce
         nil
       end

@@ -17,7 +17,7 @@ describe PaginationSearch::HashPaginate do
   describe '#page' do
 
     context 'with no search terms' do
-      
+
       context 'when items is nil' do
         it 'returns empty array' do
           expect(subject.page(nil, first_page)).to eq([])
@@ -71,6 +71,15 @@ describe PaginationSearch::HashPaginate do
 
         expect(subject.page(items, second_page.merge(sort_by: 'id', sort_descending: 'true'))).to eq([
           { 'id' => 1, 'x' => 'square', 'y' => 'hippo' }
+        ])
+      end
+    end
+
+    context  'when search terms are not correctly formated' do
+      it 'returns all items' do
+        expect(subject.page(items, first_page.merge(search: '"triangle'))).to eq([
+          {"id"=>1, "x"=>"square", "y"=>"hippo"}, 
+          {"id"=>2, "x"=>"circle", "y"=>"triangle_monkey"}
         ])
       end
     end

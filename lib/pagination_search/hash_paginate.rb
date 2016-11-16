@@ -29,8 +29,9 @@ module PaginationSearch
     end
 
     def searched(items, search)
-      if search.present?
-        search_conditions = PaginationSearch::SearchConditions.process(search)
+      search_conditions = PaginationSearch::SearchConditions.process(search) if search.present?
+
+      if search_conditions
         items.select { |i| accept?(i, search_conditions) }
       else
         items
