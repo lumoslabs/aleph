@@ -3,7 +3,7 @@
 
   class QueryDetailsController {
     constructor(QueryHandler, QueryTab, TagResource, defaultDateFormat, DefaultAceConfigurator, OpenReplService,
-      RoleModel, $window) {
+      RoleModel, $location) {
         this._handler = QueryHandler;
         this._repl = OpenReplService;
         this._tags = TagResource;
@@ -11,7 +11,7 @@
         this._tabs = QueryTab;
         this.dateFormat = defaultDateFormat;
         this.aceLoaded = editor => new DefaultAceConfigurator(editor).readOnlyConfig();
-        this._$window = $window;
+        this._$location = $location;
 
         RoleModel.initCollection();
         this._closeCommentDialog();
@@ -43,7 +43,7 @@
       let _this = this;
       clone.save().then(
         function (serverQueryItem) {
-          _this._$window.location.href = '/queries/' + serverQueryItem.id + '/query_versions/latest';
+          _this._$location.path('/queries/' + serverQueryItem.id + '/query_versions/latest');
         }
       );
     }
@@ -76,7 +76,7 @@
   }
 
   QueryDetailsController.$inject = ['QueryHandler', 'QueryTab', 'TagResource', 'defaultDateFormat',
-    'DefaultAceConfigurator', 'OpenReplService', 'RoleModel', '$window'];
+    'DefaultAceConfigurator', 'OpenReplService', 'RoleModel', '$location'];
 
   function queryDetailsComponent() {
     return {
