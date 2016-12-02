@@ -40,7 +40,7 @@
       clone._item.title = "Copy of " + clone._item.title;
       let _this = this;
       clone.save().then(
-        function (serverQueryItem) {
+        serverQueryItem => {
           _this.query._item = serverQueryItem;
           _this._handler.navigateToLatestVersion(_this.query);
         }
