@@ -34,7 +34,7 @@
     %span.btn-group#query-btns.pull-right
       %button.btn.btn-sm.btn-warning{ 'uib-tooltip' => 'Click to comment',
                                       'tooltip-append-to-body' => 'true',
-                                      'tooltip-placement' => 'left',
+                                      'tooltip-placement' => 'top',
                                       'tooltip-popup-delay' => 800,
                                       'uib-popover-template' => "'comments-template'",
                                       'popover-is-open' => 'queryDetailsCtrl.commentDialogOpen',
@@ -42,7 +42,11 @@
                                       'ng-click' => 'queryDetailsCtrl.toggleCommentDialog()' }
         %span.glyphicon.glyphicon-comment.glyphicons-lg.glyphicon-low
     %span.btn-group#clone-btn.pull-right
-      %button.btn.btn-sm.btn-info Clone
+      %button.btn.btn-sm.btn-info{ 'uib-tooltip' => 'Clone',
+                                   'tooltip-append-to-body' => 'true',
+                                   'tooltip-placement' => 'top',
+                                   'tooltip-popup-delay' => 800,
+                                   'ng-click' => 'queryDetailsCtrl.cloneQuery()' }
         %span.glyphicon.glyphicon-copy.glyphicons-lg.glyphicon-low
 .row
   .col-md-4

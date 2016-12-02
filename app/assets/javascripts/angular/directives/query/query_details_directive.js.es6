@@ -3,7 +3,7 @@
 
   class QueryDetailsController {
     constructor(QueryHandler, QueryTab, TagResource, defaultDateFormat, DefaultAceConfigurator, OpenReplService,
-      RoleModel) {
+      RoleModel, $window) {
         this._handler = QueryHandler;
         this._repl = OpenReplService;
         this._tags = TagResource;
@@ -11,6 +11,7 @@
         this._tabs = QueryTab;
         this.dateFormat = defaultDateFormat;
         this.aceLoaded = editor => new DefaultAceConfigurator(editor).readOnlyConfig();
+        this._$window = $window;
 
         RoleModel.initCollection();
         this._closeCommentDialog();
@@ -33,6 +34,18 @@
 
     runQuery() {
       this.resultRunner.run().then(this._tabs.navigateToTab.bind(this._tabs, 'results'));
+    }
+
+    cloneQuery() {
+      let clone = angular.copy(this.query);
+      clone._item.id = undefined;
+      clone._item.title = "Copy of " + clone._item.title;
+      let _this = this;
+      clone.save().then(
+        function (serverQueryItem) {
+          _this._$window.location.href = '/queries/' + serverQueryItem.id + '/query_versions/latest';
+        }
+      );
     }
 
     deleteQuery() {
@@ -63,7 +76,7 @@
   }
 
   QueryDetailsController.$inject = ['QueryHandler', 'QueryTab', 'TagResource', 'defaultDateFormat',
-    'DefaultAceConfigurator', 'OpenReplService', 'RoleModel'];
+    'DefaultAceConfigurator', 'OpenReplService', 'RoleModel', '$window'];
 
   function queryDetailsComponent() {
     return {
