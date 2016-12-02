@@ -36,8 +36,7 @@
     }
 
     cloneQuery() {
-      let clone = angular.copy(this.query);
-      clone._item.id = undefined;
+      let clone = this.query.clone();
       clone._item.title = "Copy of " + clone._item.title;
       let _this = this;
       clone.save().then(
