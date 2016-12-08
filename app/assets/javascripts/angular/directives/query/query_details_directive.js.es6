@@ -3,7 +3,7 @@
 
   class QueryDetailsController {
     constructor(QueryHandler, QueryTab, TagResource, defaultDateFormat, DefaultAceConfigurator, OpenReplService,
-      RoleModel) {
+      RoleModel, Query) {
         this._handler = QueryHandler;
         this._repl = OpenReplService;
         this._tags = TagResource;
@@ -11,7 +11,8 @@
         this._tabs = QueryTab;
         this.dateFormat = defaultDateFormat;
         this.aceLoaded = editor => new DefaultAceConfigurator(editor).readOnlyConfig();
-
+        this._Query = Query;
+        
         RoleModel.initCollection();
         this._closeCommentDialog();
     }
@@ -39,12 +40,9 @@
       let clone = this.query.clone();
       clone._item.title = "Copy of " + clone._item.title;
       let _this = this;
-      clone.save().then(
-        serverQueryItem => {
-          _this.query._item = serverQueryItem;
-          _this._handler.navigateToLatestVersion(_this.query);
-        }
-      );
+      clone.save()
+        .then(this._internalizeQueryItem.bind(this))
+        .then(this._handler.navigateToLatestVersion.bind(this._handler));
     }
 
     deleteQuery() {
@@ -72,10 +70,16 @@
       this.form.$setPristine();
       return query;
     }
+
+    _internalizeQueryItem(queryItem) {
+      let query = new this._Query;
+      query.internalize(queryItem);
+      return query;
+    }
   }
 
   QueryDetailsController.$inject = ['QueryHandler', 'QueryTab', 'TagResource', 'defaultDateFormat',
-    'DefaultAceConfigurator', 'OpenReplService', 'RoleModel'];
+    'DefaultAceConfigurator', 'OpenReplService', 'RoleModel', 'Query'];
 
   function queryDetailsComponent() {
     return {
