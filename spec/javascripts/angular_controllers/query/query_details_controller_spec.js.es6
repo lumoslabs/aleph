@@ -162,7 +162,7 @@ describe('QueryDetailsController', () => {
         digest();
       });
 
-      it('whateveer', () => {
+      it('calls _internalizeQueryItem', () => {
         expect(QueryDetailsController._internalizeQueryItem).toHaveBeenCalled();
       });
 
