@@ -10,6 +10,7 @@ describe('QueryDetailsController', () => {
   let replSuccess;
   let QueryHandler;
   let query;
+  let clonedQuery;
   let form;
   let digest;
 
@@ -41,10 +42,18 @@ describe('QueryDetailsController', () => {
       readOnlyConfig: jasmine.createSpy('defaultAceConfigurator.readOnlyConfig')
     });
 
-    // construct and set jup controller
+    // Cloned query
+    clonedQuery = {
+      save: jasmine.createSpy('clonedQuery.save').and.returnValue($q.when('clonedQuery.save')),
+      destroy: jasmine.createSpy('clonedQuery.save').and.returnValue($q.when('clonedQuery.destroy')),
+      _item: { title: "Lol" }
+    };
+
+    // construct and set up controller
     query = {
       save: jasmine.createSpy('query.save').and.returnValue($q.when('query.save')),
-      destroy: jasmine.createSpy('query.save').and.returnValue($q.when('query.destroy'))
+      destroy: jasmine.createSpy('query.save').and.returnValue($q.when('query.destroy')),
+      clone: jasmine.createSpy('query.clone').and.returnValue(clonedQuery)
     };
 
     form = {
@@ -130,6 +139,35 @@ describe('QueryDetailsController', () => {
 
       it('closes the comment dialog', () => {
         expect(QueryDetailsController._closeCommentDialog).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('#cloneQuery', () => {
+    beforeEach(() => {
+      spyOn(QueryDetailsController, '_internalizeQueryItem').and.returnValue(clonedQuery);
+      QueryDetailsController.cloneQuery();
+    });
+
+    it('it calls query.clone', () => {
+      expect(query.clone).toHaveBeenCalled();
+    });
+
+    it('it calls query.save', () => {
+      expect(clonedQuery.save).toHaveBeenCalled();
+    });
+
+    describe('on success', () => {
+      beforeEach(() => {
+        digest();
+      });
+
+      it('whateveer', () => {
+        expect(QueryDetailsController._internalizeQueryItem).toHaveBeenCalled();
+      });
+
+      it('navigates to the cloned query page', () => {
+        expect(QueryHandler.navigateToLatestVersion).toHaveBeenCalledWith(clonedQuery);
       });
     });
   });

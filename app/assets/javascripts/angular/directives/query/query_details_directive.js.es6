@@ -12,7 +12,7 @@
         this.dateFormat = defaultDateFormat;
         this.aceLoaded = editor => new DefaultAceConfigurator(editor).readOnlyConfig();
         this._Query = Query;
-        
+
         RoleModel.initCollection();
         this._closeCommentDialog();
     }
@@ -39,7 +39,7 @@
     cloneQuery() {
       let clone = this.query.clone();
       clone._item.title = "Copy of " + clone._item.title;
-      let _this = this;
+
       clone.save()
         .then(this._internalizeQueryItem.bind(this))
         .then(this._handler.navigateToLatestVersion.bind(this._handler));
