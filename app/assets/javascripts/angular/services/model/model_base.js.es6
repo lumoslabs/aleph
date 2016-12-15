@@ -37,6 +37,12 @@
         return this._resource.destroy({ id: this.item.id }).$promise.then(item => item);
       }
 
+      clone() {
+        let clone = angular.copy(this);
+        clone._item.id = undefined;
+        return clone;
+      }
+
       fetch(params) {
         return this._resource.show(params).$promise.then(i => {
           this.item = i;

@@ -83,6 +83,17 @@ describe('ModelBase', () => {
     });
   });
 
+  describe('#clone', () => {
+    beforeEach(() => {
+      spyOn(model, 'clone');
+      model.item = { id: 1, otherAttribute: 'yeah' }
+    });
+
+    it('returns a clone with an undefined id'), () => {
+        expect(model.clone).toEqual(new ModelBase(resource).internalize({ id: undefined, otherAttribute: 'yeah' }));
+    }
+  });
+
   describe('when _newItem is implemented', () => {
     beforeEach(() => {
       model._newItem = () => { return { a: '', b: ' '}; };
