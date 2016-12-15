@@ -76,7 +76,7 @@
       // need to explicity disable navigationGuard since it sometimes takes angular too long to destroy the scope
       this._navigationGuard.disable();
       this._setParameterDefaultValues(this.query.item.version.parameters, this.resultRunner.substitutionValues);
-      let result = this.results.collection.shift();
+      let result = this.results.collection[0];
       if(this._options.skipSave) {
         /* FIXME: this is for alerts where we want to pop up the repl and save later
            We probably have to rethink the alerts UI/UX to take this hack out */
