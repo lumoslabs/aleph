@@ -35,3 +35,7 @@ Sloppy hosts the lumos/aleph-demo at `aleph-analytics.io`
 
 ## Edit CHANGELOG.MD
 * please!
+
+## Tag the release!
+* `git tag -a release_{ver} -m "release {ver}"`
+* `git push origin release_{ver}`
