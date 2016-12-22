@@ -1,6 +1,15 @@
 # Change Log
 All notable changes to this project will be documented in this file using [Semantic Versioning](http://semver.org/).
 
+## [0.0.6] - 2016-12-21
+### Features
+- [Clone query](https://github.com/lumoslabs/aleph/issues/27)
+
+### Fixed
+- [AWS region configurable](https://github.com/lumoslabs/aleph/issues/32)
+- [Search issues on the schema page](https://github.com/lumoslabs/aleph/issues/24)
+- [Query REPL minor UI issue](https://github.com/lumoslabs/aleph/issues/22)
+
 ## [0.0.5] - 2016-09-26
 ### Features
 - [Link to specific result / single result page](https://github.com/lumoslabs/aleph/issues/12)
