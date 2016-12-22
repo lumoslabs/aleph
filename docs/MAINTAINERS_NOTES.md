@@ -17,6 +17,13 @@
 * `docker build --no-cache -t lumos/aleph-demo .`
 * `docker push lumos/aleph-demo`
 
+#### Update demo in sloppy.io (Optional)
+
+Sloppy hosts the lumos/aleph-demo at `aleph-analytics.io`
+
+1. Log into sloppy.io
+* restart
+
 
 ## Push docker playground image
 
@@ -26,7 +33,4 @@
 * `docker push lumos/aleph-playground`
 
 
-## Update demo in sloppy.io (Optional)
 
-1. Log into sloppy.io
-* restart
