@@ -1,3 +1,4 @@
+Notes on how to put out a release
 
 ## Publish Gem to RubyGem
 
@@ -17,7 +18,7 @@
 * `docker build --no-cache -t lumos/aleph-demo .`
 * `docker push lumos/aleph-demo`
 
-#### Update demo in sloppy.io (Optional)
+#### Update demo in sloppy.io (Recommended)
 
 Sloppy hosts the lumos/aleph-demo at `aleph-analytics.io`
 
@@ -32,5 +33,5 @@ Sloppy hosts the lumos/aleph-demo at `aleph-analytics.io`
 * `docker build --no-cache -t lumos/aleph-playground .`
 * `docker push lumos/aleph-playground`
 
-
-
+## Edit CHANGELOG.MD
+* please!
