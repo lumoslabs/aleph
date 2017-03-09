@@ -290,6 +290,7 @@ Devise.setup do |config|
   config.saml_configure do |settings|
     settings.name_identifier_format             = APP_CONFIG['saml_name_identifier_format']
     settings.issuer                             = APP_CONFIG['saml_issuer']
+    settings.assertion_consumer_service_url     = ENV['SAML_CONSUMER_SERVICE_URL'] if ENV['SAML_CONSUMER_SERVICE_URL']
     settings.idp_slo_target_url                 = ENV['SAML_SLO_TARGET']
     settings.idp_sso_target_url                 = ENV['SAML_SSO_TARGET']
     settings.idp_cert                           = ENV['SAML_IDP_CERT']
