@@ -6,7 +6,7 @@
     return class SchemaCompleter {
 
       constructor() {
-        this.identifierRegexps = [/[a-zA-Z_0-9\$\.\-\u00A2-\uFFFF]/]
+        this.identifierRegexps = [/[a-zA-Z_0-9\$\-\u00A2-\uFFFF]/, /\./]
         this._columns = new SchemaColumns();
         this.loadColumnData();
       }
@@ -23,8 +23,6 @@
       }
 
       getCompletions(editor, session, pos, prefix, callback) {
-        console.log('quotedprefix', '"'+prefix+'"');
-
         let parsedSql = aceSqlParse(session, pos);
         let currentClause = parsedSql.currentClause;
         let isSubstring = this._makeIsSubstringFn(parsedSql.fromClause);

@@ -1429,16 +1429,6 @@ var Autocomplete = function() {
 
 
     this.commands = {
-        '.': function(editor) { editor.completer.detach();
-          editor.insert('.');
-          if (!editor.completer)
-              editor.completer = new Autocomplete();
-          editor.completer.autoInsert = false;
-          editor.completer.autoSelect = true;
-          editor.completer.showPopup(editor);
-          editor.completer.cancelContextMenu();
-          console.log('dot function');
-        },
         "Up": function(editor) { editor.completer.goTo("up"); },
         "Down": function(editor) { editor.completer.goTo("down"); },
         "Ctrl-Up|Ctrl-Home": function(editor) { editor.completer.goTo("start"); },
