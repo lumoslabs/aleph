@@ -148,7 +148,7 @@
       this._triggerAutoComplete = KeyBindings.triggerAutoComplete.withKeyFn((editor) => {
         editor.insert('.');
         if (!editor.completer)
-            editor.completer = new Autocomplete();
+            editor.execCommand("startAutocomplete");
         editor.completer.autoInsert = false;
         editor.completer.autoSelect = true;
         editor.completer.showPopup(editor);
