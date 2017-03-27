@@ -37,7 +37,8 @@ describe('Query REPL Controller', () => {
       KeyBindings: {
         saveQuery: new KeyBinding('Save Query', {mac: 'command+shift+s', win:'ctrl+shift+s'}),
         runQuery: new KeyBinding('Run Query', {mac: 'command+shift+k', win:'ctrl+shift+k'}),
-        detectParameters: new KeyBinding('Detect Parameters', {mac: 'command+shift+p', win:'ctrl+shift+p'})
+        detectParameters: new KeyBinding('Detect Parameters', {mac: 'command+shift+p', win:'ctrl+shift+p'}),
+        triggerAutoComplete: new KeyBinding('Trigger Autocomplete', { mac: '.', win: '.' })
       }
     });
   }
@@ -132,7 +133,7 @@ describe('Query REPL Controller', () => {
 
     it('add keybindings', () => {
       expect(hotkeys.bindTo).toHaveBeenCalledWith($scope);
-      expect(hotkeys.add.calls.count()).toEqual(3);
+      expect(hotkeys.add.calls.count()).toEqual(4);
     });
 
     describe('on ace loaded', () => {
