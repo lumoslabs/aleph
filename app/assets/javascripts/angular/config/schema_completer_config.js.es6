@@ -50,7 +50,8 @@
           contextRelevance: {
             select: 500,
             from: 1000,
-            where: 500
+            where: 500,
+            postDot: 2000
           },
           contextItemFilters: {
             select: [
@@ -58,6 +59,9 @@
               filters.tableRestrictionMet
             ],
             from: [
+              filters.schemaRestrictionMet
+            ],
+            postDot: [
               filters.schemaRestrictionMet
             ],
             where: [

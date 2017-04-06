@@ -10,6 +10,8 @@
 
     execute(currentContext, filterArgs, prefix) {
       let allMatches = [];
+      // override context if user has pressed "." -- which manifests as a prefix ""
+      currentContext = prefix == '' ? 'postDot' : currentContext;
 
       _.each(this._matchers, matcher => {
         if (this._isMatcherRelevant(matcher, currentContext)) {
