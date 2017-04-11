@@ -22,11 +22,22 @@ describe Schemas::Descriptor do
 
   subject { described_class.new('admin') }
 
-  describe '#table_columns' do
-    context 'with no blacklisted items' do
+  describe '#refresh_schema' do
+    before do
+      allow_any_instance_of(described_class).to receive(:exec_schema_query).and_return(query)
+    end
+
+    context 'with blacklisted items' do
+      before do
+        allow(YAML).to receive(:load_file).and_return(false)
+      end
+      it 'returns all tables' do
+        expect(subject.instance_eval { refresh_schema }).to eq(query)
+      end
+    end
+    context 'with blacklisted items' do
       before do
         allow(YAML).to receive(:load_file).and_return({ "verditer"=>['poker', 'ref*'], "pervenche"=>['potato', 'trestle_2'] })
-        allow_any_instance_of(described_class).to receive(:exec_schema_query).and_return(query)
       end
       it 'returns all tables' do
         expect(subject.instance_eval { refresh_schema }).to eq(filtered_query)

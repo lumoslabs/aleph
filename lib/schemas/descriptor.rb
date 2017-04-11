@@ -84,6 +84,7 @@ module Schemas
 
     def filter_tables(schemas)
       blacklist = YAML.load_file("#{Rails.root}/config/table_blacklist.yml")
+      return schemas unless blacklist
       schemas.reject do |column|
         schema_blacklist = blacklist[column['table_schema']]
         next unless schema_blacklist
