@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file using [Semantic Versioning](http://semver.org/).
 
+## [0.1.0] - 2017-04-27
+### Features
+- [Auto-complete on dot](https://github.com/lumoslabs/aleph/issues/48)
+
+### Fixed
+- [change retry configuration for schema query](https://github.com/lumoslabs/aleph/issues/46)
+
 ## [0.0.6] - 2016-12-21
 ### Features
 - [Clone query](https://github.com/lumoslabs/aleph/issues/27)
