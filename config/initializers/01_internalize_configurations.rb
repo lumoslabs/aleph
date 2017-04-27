@@ -68,3 +68,7 @@ end
 # -------------------------------------------------
 ATTRIBUTE_MAP = ingest.slurp('auth-attribute-map.yml')
 File.open(Rails.root.join('config', 'attribute-map.yml'), 'w') { |f| f.write(ATTRIBUTE_MAP.to_yaml) } if ATTRIBUTE_MAP
+
+# Schema Blacklist
+# -------------------------------------------------
+TABLE_BLACKLIST = ingest.slurp('table_blacklist.yml')
