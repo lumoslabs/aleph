@@ -10,6 +10,8 @@
 
     execute(currentContext, filterArgs, prefix) {
       let allMatches = [];
+      // override context if user has pressed "." -- which manifests as a prefix ""
+      currentContext = prefix == '' ? 'postDot' : currentContext;
 
       _.each(this._matchers, matcher => {
         if (this._isMatcherRelevant(matcher, currentContext)) {
@@ -36,7 +38,10 @@
         if (!this._matcherFiltersForContext(matcher, currentContext) ||
           this._itemSatisfiesFilters(matcher.contextItemFilters[currentContext], item, filterArgs)) {
           let itemName = _.exists(matcher.nameProperty) ? item[matcher.nameProperty] : item;
-          if (itemName.indexOf(prefix) === 0) {
+
+          // We want to return everything on empty string because it means that
+          // the typing has just begun and anything matches
+          if (itemName.indexOf(prefix) === 0 || prefix == '') {
             return itemName;
           }
         }

@@ -6,6 +6,7 @@
     return class SchemaCompleter {
 
       constructor() {
+        this.identifierRegexps = [/[a-zA-Z_0-9\$\-\u00A2-\uFFFF]/, /\./]
         this._columns = new SchemaColumns();
         this.loadColumnData();
       }
@@ -22,12 +23,13 @@
       }
 
       getCompletions(editor, session, pos, prefix, callback) {
-        if (prefix.length === 0) { callback(null, []); return; }
-
         let parsedSql = aceSqlParse(session, pos);
         let currentClause = parsedSql.currentClause;
         let isSubstring = this._makeIsSubstringFn(parsedSql.fromClause);
-        let matchingTables = _(this._columns.uniqueTables).filter(isSubstring);
+        let matchingTables = []
+        if (prefix != '') {
+          matchingTables = _(this._columns.uniqueTables).filter(isSubstring);
+        }
         let matchingSchemas = _(this._columns.uniqueSchemas).filter(isSubstring);
 
         if (_.exists(this._matcherRunner)) {
@@ -35,7 +37,6 @@
             tableRestrict: matchingTables,
             schemaRestrict: matchingSchemas
           }, prefix);
-
           callback(null, matches);
         }
       }

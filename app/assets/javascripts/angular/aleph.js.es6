@@ -29,7 +29,8 @@
     .value('KeyBindings', {
       saveQuery: new KeyBinding('Save Query', { mac: 'command+shift+s', win: 'ctrl+shift+s' }),
       runQuery: new KeyBinding('Run Query', { mac: 'shift+enter', win: 'shift+enter' }),
-      detectParameters: new KeyBinding('Detect Parameters', { mac: 'command+shift+p', win: 'ctrl+shift+p' })
+      detectParameters: new KeyBinding('Detect Parameters', { mac: 'command+shift+p', win: 'ctrl+shift+p' }),
+      triggerAutoComplete: new KeyBinding('Trigger Autocomplete', { mac: '.', win: '.' })
     })
 
     .config(['$locationProvider', $locationProvider => {

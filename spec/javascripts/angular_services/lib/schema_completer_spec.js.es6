@@ -102,8 +102,15 @@ describe('SchemaCompleter', () => {
         schemaCompleter.getCompletions(editor, session, pos, prefix, callback);
       });
 
-      it('calls the callback with null and an empty array', () => {
-        expect(callback).toHaveBeenCalledWith(null, []);
+      it('asks the MatcherRunner to execute', () => {
+        expect(matcherRunner.execute).toHaveBeenCalledWith('from', {
+          tableRestrict: [],
+          schemaRestrict: ['warehouse']
+        }, '');
+      });
+
+      it('calls the callback with the matches', () => {
+        expect(callback).toHaveBeenCalledWith(null, ['match_1', 'match_2']);
       });
     });
 

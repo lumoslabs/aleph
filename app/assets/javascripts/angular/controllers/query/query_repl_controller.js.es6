@@ -38,7 +38,8 @@
         let keysForAce = {
           save: this._saveKb,
           detectParameters: this._detectParametersKb,
-          run: this._runKb
+          run: this._runKb,
+          triggerAutoComplete: this._triggerAutoComplete
         };
 
         this.aceLoaded = function aceLoaded(editor) {
@@ -47,6 +48,7 @@
           editor.commands.addCommand(keysForAce.save.aceKeyCmd);
           editor.commands.addCommand(keysForAce.detectParameters.aceKeyCmd);
           editor.commands.bindKey(keysForAce.run.bindKey, keysForAce.run.keyFn);
+          editor.commands.bindKey(keysForAce.triggerAutoComplete.bindKey, keysForAce.triggerAutoComplete.keyFn);
           editor.setOptions({
             maxLines: 500,
             minLines: 2
@@ -143,6 +145,11 @@
         }
       });
 
+      this._triggerAutoComplete = KeyBindings.triggerAutoComplete.withKeyFn((editor) => {
+        editor.insert('.');
+        editor.execCommand("startAutocomplete");
+      });
+
       this._runKb = KeyBindings.runQuery.withKeyFn(() => {
         if(this.validToRun()) {
           this.runQuery();
@@ -157,6 +164,7 @@
       hotkeys.bindTo($scope)
         .add(this._saveKb.hotKey)
         .add(this._runKb.hotKey)
+        .add(this._triggerAutoComplete.hotKey)
         .add(this._detectParametersKb.hotKey);
     }
   }
