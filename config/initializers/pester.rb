@@ -2,8 +2,9 @@ Pester.configure do |c|
   c.logger = Rails.logger
 
   c.environments[:schema_refresh] = {
-    delay_interval:      0,
-    on_retry:            Pester::Behaviors::Sleep::Constant
+    delay_interval:      1,
+    max_attempts:        12,
+    on_retry:            Pester::Behaviors::Sleep::Linear
   }
 
   c.environments[:s3] = {
