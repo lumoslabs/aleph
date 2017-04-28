@@ -27,9 +27,9 @@ describe Schemas::Descriptor do
       allow_any_instance_of(described_class).to receive(:exec_schema_query).and_return(query)
     end
 
-    context 'with blacklisted items' do
+    context 'without blacklisted items' do
       before do
-        allow(YAML).to receive(:load_file).and_return(false)
+        stub_const("TABLE_BLACKLIST", false)
       end
       it 'returns all tables' do
         expect(subject.instance_eval { refresh_schema }).to eq(query)
@@ -37,9 +37,9 @@ describe Schemas::Descriptor do
     end
     context 'with blacklisted items' do
       before do
-        allow(YAML).to receive(:load_file).and_return({ "verditer"=>['poker', 'ref*'], "pervenche"=>['potato', 'trestle_2'] })
+        stub_const("TABLE_BLACKLIST", { "verditer"=>['poker', 'ref*'], "pervenche"=>['potato', 'trestle_2'] })
       end
-      it 'returns all tables' do
+      it 'returns filtered tables' do
         expect(subject.instance_eval { refresh_schema }).to eq(filtered_query)
       end
     end
