@@ -84,6 +84,7 @@ module Schemas
 
     def filter_tables(schemas)
       return schemas unless TABLE_BLACKLIST
+      
       schemas.reject do |column|
         schema_blacklist = TABLE_BLACKLIST[column['table_schema']]
         next unless schema_blacklist
