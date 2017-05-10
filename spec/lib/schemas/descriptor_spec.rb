@@ -31,14 +31,17 @@ describe Schemas::Descriptor do
       before do
         stub_const("TABLE_BLACKLIST", false)
       end
+      
       it 'returns all tables' do
         expect(subject.instance_eval { refresh_schema }).to eq(query)
       end
     end
+
     context 'with blacklisted items' do
       before do
         stub_const("TABLE_BLACKLIST", { "verditer"=>['poker', 'ref*'], "pervenche"=>['potato', 'trestle_2'] })
       end
+
       it 'returns filtered tables' do
         expect(subject.instance_eval { refresh_schema }).to eq(filtered_query)
       end
