@@ -6,6 +6,7 @@ describe QueryExecution do
 
     context 'when it takes longer than we want to wait for' do
       before do
+        stub_github_calls
         allow(Role).to receive(:configured_connections) { ['admin'] }
         allow(RedshiftConnectionPool).to receive_message_chain('instance.get') { sleep(2) }
         APP_CONFIG['query_timeout'] = 1 # 1(one) second
