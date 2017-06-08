@@ -13,25 +13,29 @@ class QueryExecution
     result.mark_running!
     sample_callback = ->(sample) { result.mark_processing_from_sample(sample) }
 
-    connection = RedshiftConnectionPool.instance.get(role)
+    Timeout::timeout(1) do
+      connection = RedshiftConnectionPool.instance.get(role)
 
-    connection.reconnect_on_failure do
-      query_stream = PgStream::Stream.new(connection.pg_connection, body)
-      result.headers = query_stream.headers
-      result.save!
+      connection.reconnect_on_failure do
+        query_stream = PgStream::Stream.new(connection.pg_connection, body)
+        result.headers = query_stream.headers
+        result.save!
 
-      rrrc = result.redis_result_row_count
+        rrrc = result.redis_result_row_count
 
-      stream_processor = PgStream::Processor.new(query_stream)
-      stream_processor.register(ResultCsvGenerator.new(result_id, result.headers).callbacks)
-      stream_processor.register(SampleSkimmer.new(NUM_SAMPLE_ROWS, &sample_callback).callbacks)
-      stream_processor.register(CountPublisher.new(rrrc).callbacks)
+        stream_processor = PgStream::Processor.new(query_stream)
+        stream_processor.register(ResultCsvGenerator.new(result_id, result.headers).callbacks)
+        stream_processor.register(SampleSkimmer.new(NUM_SAMPLE_ROWS, &sample_callback).callbacks)
+        stream_processor.register(CountPublisher.new(rrrc).callbacks)
 
-      row_count = stream_processor.execute
-      result.mark_complete_with_count(row_count)
+        row_count = stream_processor.execute
+        result.mark_complete_with_count(row_count)
+      end
     end
   rescue *RedshiftPG::USER_ERROR_CLASSES => e
     result.mark_failed!(e.message)
+  rescue Timeout::Error => e
+    result.mark_failed!('Your query timed out.')
   rescue => e
     result.mark_failed!(e.message) if result
     raise
