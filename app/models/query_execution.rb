@@ -36,7 +36,7 @@ class QueryExecution
   rescue *RedshiftPG::USER_ERROR_CLASSES => e
     result.mark_failed!(e.message)
   rescue Timeout::Error => e
-    result.mark_failed!('Your query timed out.')
+    result.mark_failed!("Your query timed out because it run for loger than #{QUERY_TIMEOUT}.")
   rescue => e
     result.mark_failed!(e.message) if result
     raise

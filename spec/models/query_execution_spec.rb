@@ -12,7 +12,6 @@ describe QueryExecution do
       end
 
       it 'times out if it takes too long' do
-        binding.pry
         expect(perform(result.id, 'admin')).to raise_error(Timeout::Error)
       end
     end
