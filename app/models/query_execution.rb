@@ -1,6 +1,7 @@
 class QueryExecution
   @queue = :query_exec
   NUM_SAMPLE_ROWS = 100
+  QUERY_TIMEOUT = APP_CONFIG['query_timeout'] || 30.minutes.to_i
 
   def self.perform(result_id, role)
     result = Result.find(result_id)
@@ -13,7 +14,7 @@ class QueryExecution
     result.mark_running!
     sample_callback = ->(sample) { result.mark_processing_from_sample(sample) }
 
-    Timeout::timeout(1) do
+    Timeout::timeout(QUERY_TIMEOUT) do
       connection = RedshiftConnectionPool.instance.get(role)
 
       connection.reconnect_on_failure do
