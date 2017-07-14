@@ -25,6 +25,7 @@ module Github
 
   def self.send_request(verb, url, params={})
     raise "invalid HTTP verb #{verb}" unless VALID_VERBS.include?(verb)
+
     query_params = REQUEST_PARAMS
     query_params.merge!(params) if verb == :get
     url += "?#{query_params.to_query}"
@@ -43,7 +44,7 @@ module Github
       request.content_type = 'application/json'
     end
 
-    http.request(request)
+    Retriable.retriable { http.request(request) }
   end
 
   def self.get(url, params={})
