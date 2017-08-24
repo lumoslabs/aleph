@@ -23,7 +23,7 @@ describe QueryExecution do
         expect(result).to have_received(:mark_failed!)
       end
 
-      it 'does keep the csv' do
+      it 'does not keep the csv' do
         expect(File).to receive(:delete).with(ResultCsvGenerator.new(result.id, result.headers).filepath)
         QueryExecution.perform(result.id, 'admin')
       end

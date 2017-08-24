@@ -1,7 +1,7 @@
 class QueryExecution
   @queue = :query_exec
   NUM_SAMPLE_ROWS = 100
-  QUERY_TIMEOUT = APP_CONFIG['query_timeout'] || 30.minutes.to_i
+  QUERY_TIMEOUT = ENV['DATABASE_TIMEOUT'].to_i || 30.minutes.to_i
 
   def self.perform(result_id, role)
     result = Result.find(result_id)
@@ -38,7 +38,7 @@ class QueryExecution
       result.mark_failed!(e.message)
     rescue Timeout::Error => e
       File.delete(result_csv_generator.filepath) if File.exist?(result_csv_generator.filepath)
-      result.mark_failed!("Your query timed out because it run for loger than #{QUERY_TIMEOUT}.")
+      result.mark_failed!("Your query timed out because it run for longer than #{QUERY_TIMEOUT} seconds.")
     rescue => e
       result.mark_failed!(e.message) if result
       raise
