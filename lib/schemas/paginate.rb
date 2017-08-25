@@ -3,7 +3,7 @@ module Schemas
     protected
 
     def searched(items, search)
-      search = expand_dot_notation(search) if /\A[A-z]+\.[A-z]+\z/ =~ search
+      search = expand_dot_notation(search) if /\A[A-z0-9]+\.[A-z0-9]+\z/ =~ search
       super(items, search)
     end
 
