@@ -105,6 +105,23 @@
         }
       },
 
+      runningResult: {
+        newItem: {
+          query_title: '',
+          query_body: '',
+          created_at: '',
+          owner: '',
+          owner_role: '',
+          query_id: 0,
+          query_version_id 0,
+          version: 0
+        },
+        resource: {
+          path: '/running_result/:id.json',
+          parameters: {id: '@id'}
+        }
+      },
+
       visualization: {
         newItem: {
           html_source: '',
