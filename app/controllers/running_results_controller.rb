@@ -2,7 +2,6 @@ class RunningResultsController < ApplicationController
   RUNNING_RESULTS = <<-SQL
     select
       title as query_title,
-      results.compiled_body as query_body,
       results.created_at,
       users.name as owner,
       users.role as owner_role,
