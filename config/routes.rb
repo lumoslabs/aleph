@@ -17,12 +17,17 @@ Rails.application.routes.draw do
   resources :tags, only: [:index, :create, :destroy]
   resources :alerts, only: [:show, :index, :create, :update, :destroy]
   resources :snippets, only: [:show, :index, :create, :update, :destroy]
-  resources :running_results, only: [:index]
+
   resources :query_versions, only: :show
   resources :results, only: [:show, :create, :destroy]
   resources :visualizations, only: [:create, :update, :destroy]
   resources :schema_comments, only: [:create, :update, :destroy]
   resources :result_csvs, only: :show
+
+  
+  scope module: 'admin' do
+    resources :running_results, only: [:index]
+  end
 
   mount ResqueWeb::Engine => "/resque_web"
 

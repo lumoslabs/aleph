@@ -16,4 +16,8 @@ class User < ActiveRecord::Base
   def self.guest_user
     where(email: 'guest-user@test.com', role: Role::ADMIN_ROLE, name: 'Guest').first_or_create
   end
+
+  def admin?
+    role == 'admin'
+  end
 end
