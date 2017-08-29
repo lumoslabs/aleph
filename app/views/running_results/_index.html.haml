@@ -1,0 +1,5 @@
+.running-results-index
+  .col-md-12.index-items
+    %ul
+      %li{ 'ng-repeat' => "result in runningResultsIdxCtrl.runningResults.collection | orderBy:created_at" }
+        = render partial: 'running_results/index_item'

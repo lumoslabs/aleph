@@ -1,0 +1,9 @@
+.index-item
+  .row
+    .col-md-6.query-title
+      %a{ 'ng-href' => '/queries/{{result.item.query_id}}/query_versions/{{result.item.query_version_id}}' }
+        .ellipsis{ 'ng-bind' => 'result.item.query_title' }
+    .col-md-3
+      %span{ 'ng-bind' => 'result.item.owner' }
+    .col-md-3
+      %span{ 'ng-bind' => 'result.item.created_at' }

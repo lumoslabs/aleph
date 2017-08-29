@@ -9,6 +9,7 @@
       'alephControllers.queryReplController',
       'alephControllers.alertIndexController',
       'alephControllers.alertShowController',
+      'alephControllers.runningResultIndexController',
       'alephControllers.snippetIndexController',
       'alephControllers.singleResultShowController',
       'alephServices',

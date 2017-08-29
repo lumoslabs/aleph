@@ -116,7 +116,7 @@
           version: 0
         },
         resource: {
-          path: '/running_result/:id.json',
+          path: '/running_results/:id.json',
           parameters: {id: '@id'}
         }
       },
