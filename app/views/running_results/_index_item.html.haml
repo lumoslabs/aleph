@@ -1,9 +1,11 @@
 .index-item
   .row
-    .col-md-6.query-title
+    .col-md-4.query-title
       %a{ 'ng-href' => '/queries/{{result.item.query_id}}/query_versions/{{result.item.query_version_id}}' }
         .ellipsis{ 'ng-bind' => 'result.item.query_title' }
+    .col-md-2
+      %span{ 'ng-bind' => 'result.item.author' }
     .col-md-3
-      %span{ 'ng-bind' => 'result.item.owner' }
+      %span{ 'ng-bind' => 'result.item.started_at' }
     .col-md-3
-      %span{ 'ng-bind' => 'result.item.created_at' }
+      %span{ 'ng-bind' => 'result.item.duration_seconds | humanReadableDuration' }

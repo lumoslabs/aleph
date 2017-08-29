@@ -3,7 +3,6 @@
 
   class RunningResultIndexController {
     constructor($scope, ModelManager, $interval) {
-      console.log('construct RunningResultIndexController');
       this._$interval = $interval;
       this._intervalPromises = undefined;
       this._runningResultModelClasses = ModelManager.forModelName('runningResult');
@@ -22,12 +21,10 @@
     // private methods
 
     _pollForRunningResults() {
-      console.log('Inital load of runningResults.initCollection');
       this.runningResults.initCollection();
       this._intervalPromises = this._$interval(() => {
-        console.log('In poll calling runningResults.initCollection');
         this.runningResults.initCollection();
-      }, 10000);
+      }, 25000);
     }
 }
 

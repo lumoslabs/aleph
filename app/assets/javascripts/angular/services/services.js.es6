@@ -106,15 +106,9 @@
       },
 
       runningResult: {
-        newItem: {
-          query_title: '',
-          created_at: '',
-          owner: '',
-          owner_role: '',
-          query_id: 0,
-          query_version_id: 0,
-          version: 0
-        },
+        //runningResult is a read only model
+        // no need for newItem since no need to figure out dirty awareness
+        newItem: {},
         resource: {
           path: '/running_results/:id.json',
           parameters: {id: '@id'}
