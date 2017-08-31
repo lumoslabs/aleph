@@ -16,6 +16,24 @@
           this._$interval.cancel(this._intervalPromises);
         }
       });
+
+      // angular sorting
+      this.predicate = 'started_at';
+      this.reverse = false;
+      this.sortDirState = { started_at: false, author: true, duration_seconds: false, query_title: false };
+    }
+
+    setPredicate(predicate) {
+      if (predicate === this.predicate) {
+         this.reverse = !this.reverse;
+       } else {
+         this.predicate = predicate;
+         this.reverse = !!this.sortDirState[predicate];
+       }
+    }
+
+    getPredicate() {
+      return 'item.' + this.predicate;
     }
 
     // private methods
