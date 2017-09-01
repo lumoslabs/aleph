@@ -20,7 +20,15 @@
       // angular sorting
       this.predicate = 'started_at';
       this.reverse = false;
-      this.sortDirState = { started_at: false, author: true, duration_seconds: false, query_title: false };
+      this.sortDirState = { started_at: true, author: true, duration_seconds: true, query_title: false };
+    }
+
+    isRepl(result) {
+      return !_.exists(result.item.query_id) || !_.exists(result.item.query_version_id);
+    }
+
+    getType(result) {
+      return this.isRepl(result) ? 'REPL' : 'SAVED';
     }
 
     setPredicate(predicate) {

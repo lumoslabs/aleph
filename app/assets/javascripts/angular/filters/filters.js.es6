@@ -37,8 +37,8 @@
         let seconds = Math.round(originalSeconds % SECONDS_IN_MINUTE);
 
         return ((originalSeconds > SECONDS_IN_DAY) ? days + ' days ' : '') +
-               ((originalSeconds > SECONDS_IN_HOUR) ? hours + ':' : '') +
-               ((originalSeconds > SECONDS_IN_MINUTE) ? minutes + ':' : '') +
+               ((originalSeconds > SECONDS_IN_HOUR) ? hours + ':' : '00:') +
+               ((originalSeconds > SECONDS_IN_MINUTE) ? minutes + ':' : '00:') +
                seconds;
       };
     });
