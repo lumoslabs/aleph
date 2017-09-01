@@ -16,6 +16,7 @@ module Admin
         left outer join query_versions on query_versions.id = results.query_version_id
         left outer join queries on query_versions.query_id = queries.id
         join users on results.owner_id = users.id
+      WHERE results.status = 'running'
     SQL
 
     respond_to :json

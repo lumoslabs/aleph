@@ -4,7 +4,6 @@
   class RunningResultIndexController {
     constructor($scope, ModelManager, $interval) {
       this._$interval = $interval;
-      this._intervalPromises = undefined;
       this._runningResultModelClasses = ModelManager.forModelName('runningResult');
       this._RunningResult = this._runningResultModelClasses.modelClass();
       this._RunningResults = this._runningResultModelClasses.collectionClass(this._RunningResult);
@@ -12,15 +11,11 @@
       this._pollForRunningResults();
 
       $scope.$on('$destroy', () => {
-        if (this._intervalPromises !== undefined) {
-          this._$interval.cancel(this._intervalPromises);
-        }
+        this._$interval.cancel(this._intervalPromises);
       });
 
       // angular sorting
-      this.predicate = 'started_at';
-      this.reverse = false;
-      this.sortDirState = { started_at: true, author: true, duration_seconds: true, query_title: false };
+      this.initialSortDirections = { started_at: true, author: true, duration_seconds: true, query_title: false };
     }
 
     isRepl(result) {
@@ -36,7 +31,7 @@
          this.reverse = !this.reverse;
        } else {
          this.predicate = predicate;
-         this.reverse = !!this.sortDirState[predicate];
+         this.reverse = !!this.initialSortDirections[predicate];
        }
     }
 
@@ -48,9 +43,7 @@
 
     _pollForRunningResults() {
       this.runningResults.initCollection();
-      this._intervalPromises = this._$interval(() => {
-        this.runningResults.initCollection();
-      }, 25000);
+      this._intervalPromises = this._$interval(() => this.runningResults.initCollection(), 25000);
     }
 }
 
