@@ -1,7 +1,7 @@
 ---
 # send to travis container infrastructure
 # http://docs.travis-ci.com/user/workers/container-based-infrastructure
-dist: trusty
+dist: precise
 sudo: false
 language: ruby
 cache:
@@ -9,9 +9,6 @@ cache:
   - apt
 rvm:
   - ruby-2.1.6
-
-services:
-  - postgresql
 
 addons:
   postgresql: "9.1"
@@ -36,7 +33,6 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
 
 before_script:
-  - psql -c 'create database aleph_test;' -U postgres
   - npm install
   - cp config/database.yml.travis config/database.yml;
   - bundle exec rake db:create
