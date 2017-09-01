@@ -2,7 +2,7 @@ module Admin
   class RunningResultsController < BaseController
 
     RUNNING_RESULTS = <<-SQL
-      select
+      SELECT
         title query_title,
         compiled_body query_body,
         TO_CHAR(results.started_at, 'YYYY-MM-DD HH24:MI:SS') started_at,
@@ -10,12 +10,12 @@ module Admin
         users.name author,
         users.role author_role,
         queries.id query_id,
-        query_versions.id as query_version_id,
+        query_versions.id AS query_version_id,
         version
-      from results
-        left outer join query_versions on query_versions.id = results.query_version_id
-        left outer join queries on query_versions.query_id = queries.id
-        join users on results.owner_id = users.id
+      FROM results
+        LEFT OUTER JOIN query_versions ON query_versions.id = results.query_version_id
+        LEFT OUTER JOIN queries ON query_versions.query_id = queries.id
+        INNER JOIN users ON results.owner_id = users.id
       WHERE results.status = 'running'
     SQL
 
