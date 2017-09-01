@@ -24,7 +24,6 @@ Rails.application.routes.draw do
   resources :schema_comments, only: [:create, :update, :destroy]
   resources :result_csvs, only: :show
 
-  
   scope module: 'admin' do
     resources :running_results, only: [:index]
   end
