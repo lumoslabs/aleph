@@ -1,0 +1,7 @@
+a_schema:
+  - a_blacklisted_table_for_schema_above
+  - each_entry_is_converted_to_ruby_regexep_and_matched_against_tables
+  - \Alets_say_i_dont_want_tables_starting_with*
+another_schema:
+  - another_disliked_table
+  - ^((?!I_dont_want_any_tables_not_containing_this).)*$

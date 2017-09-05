@@ -70,7 +70,7 @@ module Schemas
       end
 
       if result
-        redis_store!(result.to_a)
+        redis_store!(filter_tables(result.to_a))
         @cache = redis_retrieve
       end
     end
@@ -79,6 +79,16 @@ module Schemas
       connection = RedshiftConnectionPool.instance.get(@role)
       connection.reconnect_on_failure do
         connection.pg_connection.exec(INFORMATION_SCHEMA_QUERY)
+      end
+    end
+
+    def filter_tables(schemas)
+      return schemas unless TABLE_BLACKLIST
+      
+      schemas.reject do |column|
+        schema_blacklist = TABLE_BLACKLIST[column['table_schema']]
+        next unless schema_blacklist
+        schema_blacklist.any? { |bl_item| Regexp.new(bl_item).match(column['table_name']) }
       end
     end
   end
