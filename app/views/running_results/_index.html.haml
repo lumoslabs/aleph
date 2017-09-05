@@ -1,0 +1,14 @@
+.running-results-index
+  .row
+    .col-md-4
+      .input-group.input-group-sm
+        %label.input-group-addon
+          %i.glyphicon.glyphicon-search
+        %input.form-control{ 'id' => 'fulltext-search', 'ng-model' => 'searchText' }
+  .row.top30
+    .col-md-12.index-items
+      %ul
+        %li.item-header
+          = render partial: 'running_results/index_sort_bar'
+        %li.item-container{ 'ng-repeat' => 'result in runningResultsIdxCtrl.runningResults.collection | filter:searchText | orderBy:runningResultsIdxCtrl.getPredicate():runningResultsIdxCtrl.reverse' }
+          = render partial: 'running_results/index_item'

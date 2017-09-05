@@ -1,0 +1,32 @@
+.index-item
+  .row
+    .col-md-1
+      %span.label.type-tag{ 'ng-bind' => 'runningResultsIdxCtrl.getType(result)',
+                            'ng-class' => "{'repl-tag-color': runningResultsIdxCtrl.isRepl(result)}"}
+    .col-md-2
+      %a{ 'ng-href' => '/queries/{{result.item.query_id}}/query_versions/{{result.item.query_version_id}}',
+          'ng-if' => '!runningResultsIdxCtrl.isRepl(result)' }
+        .ellipsis{ 'ng-bind' => 'result.item.query_title' }
+      %span{ 'ng-if' => 'runningResultsIdxCtrl.isRepl(result)' } -
+    .col-md-4
+      .row
+        .col-md-11.query-body-preview{ 'uib-popover' => '{{result.item.query_body}}',
+                                       'popover-trigger' => 'mouseenter',
+                                       'popover-popup-delay' => 1600,
+                                       'popover-placement' => 'right' }
+          %span{ 'ng-bind' => 'result.item.query_body'}
+        .col-md-1
+          %a.clipboard{ 'href' => '',
+                        'text' =>  'result.item.query_body',
+                        'supported' => 'supported',
+                        'clipboard' => '',
+                        'uib-tooltip' => 'Copy SQL to clipboard',
+                        'tooltip-popup-delay' => 1200,
+                        'tooltip-placement' => 'right' }
+            %span.glyphicon.glyphicon-copy
+    .col-md-1
+      %span{ 'ng-bind' => 'result.item.author' }
+    .col-md-2
+      %span{ 'ng-bind' => 'result.item.started_at' }
+    .col-md-2
+      %span{ 'ng-bind' => 'result.item.duration_seconds | runtimeDuration' }

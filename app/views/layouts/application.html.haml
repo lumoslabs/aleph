@@ -38,6 +38,8 @@
       = render partial: 'alerts/show'
     %script#snippetIndex{type: 'text/ng-template'}
       = render partial: 'snippets/index'
+    %script#runningResultIndex{type: 'text/ng-template'}
+      = render partial: 'running_results/index'
     %script#comments-template{type: 'text/ng-template'}
       = render partial: 'queries/comments'
     :javascript
@@ -64,6 +66,10 @@
           %a.navbar-text{href: '/schemas', 'ng-class' => "{active: pathIncludes('schemas')}"}
             %span.glyphicon.glyphicon-list.glyphicons-lg.glyphicon-med
             &nbsp;Schemas
+          %a.navbar-text{href: '/running_results', 'ng-class' => "{active: pathIncludes('running_results')}",
+                        'ng-if' => "current_user.role == admin"}
+            %span.glyphicon.glyphicon-plane.glyphicons-lg.glyphicon-low
+            &nbsp;Inflight
           %ul.nav.navbar-nav.navbar-right
             %li
               - if user_signed_in?

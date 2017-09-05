@@ -91,6 +91,12 @@
           controller: 'SnippetIndexController',
           controllerAs: 'snippetIdxCtrl'
         })
+        .when('/running_results', {
+          title: 'RunningResults',
+          templateUrl: 'runningResultIndex',
+          controller: 'RunningResultIndexController',
+          controllerAs: 'runningResultsIdxCtrl'
+        })
         .otherwise('/queries');
     }]);
 }(angular));

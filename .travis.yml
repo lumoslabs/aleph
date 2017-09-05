@@ -1,6 +1,7 @@
 ---
 # send to travis container infrastructure
 # http://docs.travis-ci.com/user/workers/container-based-infrastructure
+dist: precise
 sudo: false
 language: ruby
 cache:

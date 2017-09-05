@@ -1,0 +1,28 @@
+.sort-bar
+  .row
+    .col-md-1
+      %strong
+        TYPE
+    .col-md-2
+      %strong
+        %a{ 'ng-click' => 'runningResultsIdxCtrl.setPredicate("query_title")' }
+          QUERY
+          .glyphicon.glyphicon-sort.tiny-icon
+    .col-md-4
+      %strong
+        SQL BODY
+    .col-md-1
+      %strong
+        %a{ 'ng-click' => 'runningResultsIdxCtrl.setPredicate("author")' }
+          AUTHOR
+          .glyphicon.glyphicon-sort.tiny-icon
+    .col-md-2
+      %strong
+        %a{ 'ng-click' => 'runningResultsIdxCtrl.setPredicate("started_at")' }
+          STARTED AT
+          .glyphicon.glyphicon-sort.tiny-icon
+    .col-md-2
+      %strong
+        %a{ 'ng-click' => 'runningResultsIdxCtrl.setPredicate("duration_seconds")' }
+          RUN TIME
+          .glyphicon.glyphicon-sort.tiny-icon
