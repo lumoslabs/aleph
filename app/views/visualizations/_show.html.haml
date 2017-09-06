@@ -78,6 +78,6 @@
     %span{ 'ng-switch-when' => 'enqueued' }
       Waiting to run.
       %br
-      Enqueued at {{vizShowCtrl.sourceRenderer.latestResult().updated_at | date:'EEE yyyy-MM-dd hh:mm:ss a' : 'UTC'}}.
-    %span{ 'ng-switch-when' => 'running' } Running since {{vizShowCtrl.sourceRenderer.latestResult().updated_at | date:'EEE yyyy-MM-dd hh:mm:ss a' : 'UTC'}}!
+      Enqueued at {{vizShowCtrl.sourceRenderer.latestResult().updated_at | date:'EEE yyyy-MM-dd HH:mm:ss a' : 'UTC'}}.
+    %span{ 'ng-switch-when' => 'running' } Running since {{vizShowCtrl.sourceRenderer.latestResult().updated_at | date:'EEE yyyy-MM-dd HH:mm:ss a' : 'UTC'}}!
     %span{ 'ng-switch-default' => true } Unknown status: "{{vizShowCtrl.sourceRenderer.latestResult().status}}"
