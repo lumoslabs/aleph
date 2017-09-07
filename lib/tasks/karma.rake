@@ -16,7 +16,7 @@ namespace :karma  do
       f.flush
       pass = system "karma #{command} #{f.path} #{args}"
     end
-    exit(pass)
+    exit(!!pass)
   end
 
   def application_spec_files
