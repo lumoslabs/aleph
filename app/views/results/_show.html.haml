@@ -9,9 +9,9 @@
   .run_duration{ 'ng-if' => 'resultCtrl.result.item.status == "complete" || resultCtrl.result.item.status == "failed"'}
     Status: {{resultCtrl.result.item.status | uppercase}}
     %br
-    Started: {{resultCtrl.result.item.started_at | date: 'yyyy-MM-dd hh:mm:ss' : 'UTC'}}
+    Started: {{resultCtrl.result.item.started_at | date: 'yyyy-MM-dd HH:mm:ss' : 'UTC'}}
     %br
-    Ended: {{resultCtrl.result.item.completed_at | date: 'yyyy-MM-dd hh:mm:ss' : 'UTC'}}
+    Ended: {{resultCtrl.result.item.completed_at | date: 'yyyy-MM-dd HH:mm:ss' : 'UTC'}}
     %br
     Run duration: {{resultCtrl.result.item.run_duration | humanReadableDuration }}
   %span.pull-right{ 'ng-if' => 'resultCtrl.result.item.status == "processing"' } {{resultCtrl.result.item.row_count}} rows returned so far, still processing full result and csv
