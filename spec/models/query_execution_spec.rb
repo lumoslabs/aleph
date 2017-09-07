@@ -4,13 +4,12 @@ describe QueryExecution do
   describe 'perform' do
     let(:result) { create(:result) }
 
-    context 'when it takes longer than we want to wait for' do
+    context 'when there is an error' do
       before do
-        stub_const("QueryExecution::QUERY_TIMEOUT", 1) # 1(one) second
         stub_github_calls
 
         allow(Role).to receive(:configured_connections) { ['admin'] }
-        allow(RedshiftConnectionPool).to receive_message_chain('instance.get') { sleep(2) }
+        allow(RedshiftConnectionPool).to receive_message_chain('instance.get') and_raise "Error!"
 
         allow(result).to receive(:mark_failed!)
         allow(Result).to receive(:find) { result } # force #perform to fetch the same result

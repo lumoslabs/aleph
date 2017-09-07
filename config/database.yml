@@ -7,7 +7,6 @@ production_common: &production_common
   pool: 5
   username:  <%= ENV['ALEPH_DB_USERNAME'] %>
   database:  <%= ENV['ALEPH_DB_DATABASE'] %>
-  statement_timeout: <%= ENV['DATABASE_TIMEOUT'] %>
 
 dev_common: &dev_common
   adapter: postgresql
@@ -16,7 +15,6 @@ dev_common: &dev_common
   password: password
   pool: 5
   username: postgres
-  statement_timeout: <%= ENV['DATABASE_TIMEOUT'] %>
 
 sqlite_common: &sqlite_common
   adapter: sqlite3
