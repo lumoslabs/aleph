@@ -11,6 +11,11 @@ This configures your connection to Redshift. It only holds information about the
   - host
   - database
   - port
+  - statement_timeout
+
+
+`statement_timeout` is in milliseconds. This is field optional.
+[Read more](http://docs.aws.amazon.com/redshift/latest/dg/r_statement_timeout.html)
 
 ## Github
 Connection details to git are in [environment variables](ENVIRONMENT_VARIABLES.md). This only configures which branch your query versions are maintained on. Configuring Github is optional but highly recommended.

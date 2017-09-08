@@ -5,6 +5,7 @@ redshift_common: &redshift_common
   host: warehouse.pub.yourcompany.com
   database: warehouse
   port: '1234'
+  statement_timeout: 1800000
 
 production:
   <<: *redshift_common

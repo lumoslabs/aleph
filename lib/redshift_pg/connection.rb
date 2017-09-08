@@ -12,6 +12,7 @@ module RedshiftPG
 
     def initialize(config)
       @config = config
+      @statement_timeout = config['statement_timeout']
     end
 
     def reconnect_on_failure(&block)
@@ -28,8 +29,11 @@ module RedshiftPG
     end
 
     private
+
     def connect!
-      ::PG.connect(pg_config)
+      ::PG.connect(pg_config).tap do |conn|
+        conn.exec("SET statement_timeout to #{@statement_timeout}") if @statement_timeout
+      end
     end
 
     def pg_config
