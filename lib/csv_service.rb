@@ -9,4 +9,8 @@ class CsvService
       @service_impl = CsvHelper::Local.new(result_id)
     end
   end
+
+  def clear_tmp_file
+    File.delete(filepath) if File.exist?(filepath)
+  end
 end

@@ -4,6 +4,7 @@ class QueryExecution
 
   def self.perform(result_id, role)
     result = Result.find(result_id)
+    csv_service = CsvService.new(result_id)
 
     unless Role.configured_connections.include?(role)
       raise "Role '#{role}' does not have connection credentials configured."
@@ -12,8 +13,6 @@ class QueryExecution
     body = result.compiled_body
     result.mark_running!
     sample_callback = ->(sample) { result.mark_processing_from_sample(sample) }
-
-    result_csv_generator = ResultCsvGenerator.new(result_id, result.headers)
 
     connection = RedshiftConnectionPool.instance.get(role)
 
@@ -25,7 +24,7 @@ class QueryExecution
       rrrc = result.redis_result_row_count
 
       stream_processor = PgStream::Processor.new(query_stream)
-      stream_processor.register(result_csv_generator.callbacks)
+      stream_processor.register(ResultCsvGenerator.new(result_id, result.headers).callbacks)
       stream_processor.register(SampleSkimmer.new(NUM_SAMPLE_ROWS, &sample_callback).callbacks)
       stream_processor.register(CountPublisher.new(rrrc).callbacks)
 
@@ -33,12 +32,12 @@ class QueryExecution
       result.mark_complete_with_count(row_count)
     end
   rescue *RedshiftPG::USER_ERROR_CLASSES => e
-    File.delete(result_csv_generator.filepath) if File.exist?(result_csv_generator.filepath)
+    csv_service.clear_tmp_file
     result.mark_failed!(e.message)
   rescue => e
-    if result
-      File.delete(result_csv_generator.filepath) if File.exist?(result_csv_generator.filepath)
-      result.mark_failed!(e.message) if result
+    if result && csv_service
+      csv_service.clear_tmp_file
+      result.mark_failed!(e.message)
     end
     raise
   end

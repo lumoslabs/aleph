@@ -9,22 +9,21 @@ describe QueryExecution do
         stub_github_calls
 
         allow(Role).to receive(:configured_connections) { ['admin'] }
-        allow(RedshiftConnectionPool).to receive_message_chain('instance.get') and_raise "Error!"
+        allow(RedshiftConnectionPool).to receive_message_chain('instance.get').and_raise("boom")
 
         allow(result).to receive(:mark_failed!)
         allow(Result).to receive(:find) { result } # force #perform to fetch the same result
-        allow(File).to receive(:delete)
-        allow(File).to receive(:exist?) { true }
+        allow_any_instance_of(CsvService).to receive(:clear_tmp_file)
       end
 
       it 'marks the result as failed' do
-        QueryExecution.perform(result.id, 'admin')
+        expect { QueryExecution.perform(result.id, 'admin') }.to raise_error("boom")
         expect(result).to have_received(:mark_failed!)
       end
 
       it 'does not keep the csv' do
-        expect(File).to receive(:delete).with(ResultCsvGenerator.new(result.id, result.headers).filepath)
-        QueryExecution.perform(result.id, 'admin')
+        expect_any_instance_of(CsvService).to receive(:clear_tmp_file)
+        expect { QueryExecution.perform(result.id, 'admin') }.to raise_error("boom")
       end
     end
   end
