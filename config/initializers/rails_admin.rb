@@ -1,6 +1,6 @@
 RailsAdmin.config do |config|
   config.authenticate_with do
-    redirect_to main_app.root_path unless current_user.role == Role::ADMIN_ROLE
+    redirect_to main_app.root_path unless current_user.try(:admin?)
   end
 
   config.included_models = ['User']
