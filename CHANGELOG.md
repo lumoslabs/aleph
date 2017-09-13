@@ -1,6 +1,18 @@
 # Change Log
 All notable changes to this project will be documented in this file using [Semantic Versioning](http://semver.org/).
 
+## [0.2.0] - 2017-09-12
+### Features
+- [Surface Running Queries](https://github.com/lumoslabs/aleph/issues/45)
+- [Site wide, saved filter for schema](https://github.com/lumoslabs/aleph/issues/38)
+
+### Fixed
+- [Use trusty for travis](https://github.com/lumoslabs/aleph/issues/67)
+- [Display 24-hour format](https://github.com/lumoslabs/aleph/issues/53)
+- [Schema search should be able to handle numbers](https://github.com/lumoslabs/aleph/issues/59)
+- [Clean up /tmp result files when query fails](https://github.com/lumoslabs/aleph/issues/37)
+- [Increase schema query reties](https://github.com/lumoslabs/aleph/issues/64)
+
 ## [0.1.0] - 2017-04-27
 ### Features
 - [Auto-complete on dot](https://github.com/lumoslabs/aleph/issues/48)
