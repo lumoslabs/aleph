@@ -134,6 +134,7 @@ You can manage your env variables in a .env file
 
 ## Links
 
+- [Feature Notes](docs/FEATURES.md)
 - [Rubygem](https://rubygems.org/gems/aleph_analytics)
 - [aleph-user group](https://groups.google.com/forum/#!forum/aleph-user)
 
