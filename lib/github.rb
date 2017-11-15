@@ -43,7 +43,7 @@ module Github
       request.content_type = 'application/json'
     end
 
-    http.request(request)
+    Retriable.retriable { http.request(request) }
   end
 
   def self.get(url, params={})

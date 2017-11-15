@@ -4,18 +4,20 @@ module CsvHelper
     S3_FOLDER = APP_CONFIG['s3_folder'] || 'results'
 
     def url
-      Pester.s3.retry do
+      Retriable.with_context(:s3) do
         obj = AwsS3.resource.bucket(S3_BUCKET).object(key)
-        if obj.exists?
-          obj.presigned_url(:get, response_content_disposition: "attachment; filename=result_#{@result_id}.csv", expires_in: 3600)
-        else
-          nil
-        end
+        return nil unless obj.exists?
+
+        obj.presigned_url(
+          :get,
+          response_content_disposition: "attachment; filename=result_#{@result_id}.csv",
+          expires_in: 3600
+        )
       end
     end
 
     def store!
-      Pester.s3.retry do
+      Retriable.with_context(:s3) do
         obj = AwsS3.resource.bucket(S3_BUCKET).object(key)
         obj.upload_file(filepath)
       end

@@ -64,12 +64,8 @@ module Schemas
 
     def refresh_schema
       Rails.logger.info('Schemas::Descriptor.refresh_schema')
-      result = nil
-      Pester.schema_refresh.retry do
-        result = exec_schema_query
-      end
 
-      if result
+      if (result = Retriable.with_context(:schema_refresh) { exec_schema_query })
         redis_store!(filter_tables(result.to_a))
         @cache = redis_retrieve
       end
@@ -84,7 +80,7 @@ module Schemas
 
     def filter_tables(schemas)
       return schemas unless TABLE_BLACKLIST
-      
+
       schemas.reject do |column|
         schema_blacklist = TABLE_BLACKLIST[column['table_schema']]
         next unless schema_blacklist
