@@ -19,11 +19,14 @@
             'ng-click' => "queryIdxCtrl.pagination.setSearch('author:' + query.latest_author_name, true)",
             'uib-tooltip' => "Filter by {{query.latest_author_name}}",
             'tooltip-delay' => 700,
-            'tooltip-placement' => 'top' }
+            'tooltip-placement' => 'top',
+            'class' => 'group-query-items' }
       %div#updated-at
-        %span{ 'ng-bind' => 'query.updated_at | date:dateFormat: "UTC"' }
+        %span{ 'ng-bind' => 'query.updated_at | date:dateFormat: "UTC"',
+               'class' => 'group-query-items' }
       %div#created-at
-        %span{ 'ng-bind' => 'query.created_at | date:dateFormat: "UTC"' }
+        %span{ 'ng-bind' => 'query.created_at | date:dateFormat: "UTC"',
+               'class' => 'group-query-items' }
     .col-md-2
       %span.label.tag{ 'ng-repeat' => 'tag in query.tags | limitTo:5 | orderBy',
                        'ng-bind' => 'tag',

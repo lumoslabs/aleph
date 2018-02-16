@@ -10,17 +10,20 @@
     .col-md-4
       %div#author
         %strong
-          %a{ 'ng-click' => 'queryIdxCtrl.pagination.setSort("author")', 'title' => 'Sort By Author' }
+          %a{ 'ng-click' => 'queryIdxCtrl.pagination.setSort("author")', 'title' => 'Sort By Author',
+              'class' => 'group-query-items' }
             AUTHOR
             .glyphicon.glyphicon-sort.tiny-icon
       %div#updated-at
         %strong
-          %a{ 'ng-click' => 'queryIdxCtrl.pagination.setSort("updated_at")', 'title' => 'Sort By Updated' }
+          %a{ 'ng-click' => 'queryIdxCtrl.pagination.setSort("updated_at")', 'title' => 'Sort By Updated',
+              'class' => 'group-query-items' }
             UPDATED
             .glyphicon.glyphicon-sort.tiny-icon
       %div#created-at
         %strong
-          %a{ 'ng-click' => 'queryIdxCtrl.pagination.setSort("created_at")', 'title' => 'Sort By Created' }
+          %a{ 'ng-click' => 'queryIdxCtrl.pagination.setSort("created_at")', 'title' => 'Sort By Created',
+              'class' => 'group-query-items' }
             CREATED
             .glyphicon.glyphicon-sort.tiny-icon
     .col-md-2
