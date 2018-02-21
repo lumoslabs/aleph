@@ -14,10 +14,8 @@
         this._queryBodyState = this._queryBody();
         this._getResultCsv = getResultCsv;
 
-        /**
-           FIXME: need to think what to do about keybindings and navigation guard and unpolling
-           in a scopeless angular 2.0 world 
-        */
+        /* FIXME: need to think what to do about keybindings and navigation guard and unpolling
+           in a scopeless angular 2.0 world */
         $scope.$on('$destroy', () => {
           _.each(this.results.collection, result => {
             result.poller.unPoll();
