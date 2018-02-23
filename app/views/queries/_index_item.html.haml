@@ -14,16 +14,16 @@
           .ellipsis{ 'ng-bind' => 'query.title' }
     .col-md-4
       %div#author
-        %a{ 'href' => '#',
+        %a.column-spacer{ 'href' => '#',
             'ng-bind' => 'query.latest_author_name',
             'ng-click' => "queryIdxCtrl.pagination.setSearch('author:' + query.latest_author_name, true)",
             'uib-tooltip' => "Filter by {{query.latest_author_name}}",
             'tooltip-delay' => 700,
             'tooltip-placement' => 'top' }
       %div#updated-at
-        %span{ 'ng-bind' => 'query.updated_at | date:dateFormat: "UTC"' }
+        %span.column-spacer{ 'ng-bind' => 'query.updated_at | date:dateFormat: "UTC"' }
       %div#created-at
-        %span{ 'ng-bind' => 'query.created_at | date:dateFormat: "UTC"' }
+        %span.column-spacer{ 'ng-bind' => 'query.created_at | date:dateFormat: "UTC"' }
     .col-md-2
       %span.label.tag{ 'ng-repeat' => 'tag in query.tags | limitTo:5 | orderBy',
                        'ng-bind' => 'tag',
