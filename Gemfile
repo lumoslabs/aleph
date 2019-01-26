@@ -62,7 +62,7 @@ group :test do
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'sham_rack'
-  gem 'timecop'
+  gem 'timecop', '~> 0.8.0'
   gem 'webmock'
 end
 
