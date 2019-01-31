@@ -12,7 +12,7 @@ module AwsS3
     end
 
     def bucket
-      @bucket = resource.bucket(S3_BUCKET)
+      @bucket ||= resource.bucket(S3_BUCKET)
     end
 
     def object(key)
