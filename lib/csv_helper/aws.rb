@@ -1,6 +1,5 @@
 module CsvHelper
   class Aws < Base
-    S3_BUCKET = APP_CONFIG['s3_bucket']
     S3_FOLDER = APP_CONFIG['s3_folder'] || 'results'
 
     def url

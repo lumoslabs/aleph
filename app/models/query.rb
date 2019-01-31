@@ -52,6 +52,10 @@ class Query < ActiveRecord::Base
     query_versions.last
   end
 
+  def latest_result_key
+    @latest_result_key ||= AwsS3.latest_result_key(id)
+  end
+
   def roles
     query_roles.map(&:role).uniq
   end

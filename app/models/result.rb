@@ -24,8 +24,8 @@ class Result < ActiveRecord::Base
 
   def mark_complete_with_count(row_count)
     update_attributes!(status: 'complete', row_count: row_count, completed_at: Time.now)
-    if valid_to_set_latest_result?
-      AwsS3.copy(csv_service.key, query.latest_result_s3_key)
+    if AwsS3.s3_enabled? && query.set_latest_result
+      AwsS3.copy(csv_service.key, query.latest_result_key)
     end
   end
 
@@ -66,9 +66,5 @@ class Result < ActiveRecord::Base
 
   def csv_service
     @csv_service ||= CsvService.new(id)
-  end
-
-  def valid_to_set_latest_result?
-    AwsS3.s3_enabled? && query.set_latest_result && query.latest_result_s3_key.present?
   end
 end

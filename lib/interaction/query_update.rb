@@ -14,6 +14,7 @@ module Interaction
       @query.title = @title
       @query.tag_list = @tags
       @query.set_roles(@roles)
+      @query.set_latest_result = @set_latest_result
 
       @current_query_version.comment = @comment
       @current_query_version.save!

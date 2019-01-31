@@ -8,6 +8,8 @@ module Interaction
       @tags = @params[:tags] || []
       @title = @params[:title]
       @user = @params[:user]
+      @set_latest_result = @params[:set_latest_result]
+
       @result = fetch_result
       @roles = build_roles
 
