@@ -52,6 +52,7 @@ module Interaction
       # -------------------------------------------------------------------------------------------------
       @query.version = next_query_version || @current_query_version
 
+      @result.copy_latest_result # Repl results don't get copied to latest result location so we have to force a call here
       @query
     end
 

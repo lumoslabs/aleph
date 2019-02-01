@@ -24,9 +24,7 @@ class Result < ActiveRecord::Base
 
   def mark_complete_with_count(row_count)
     update_attributes!(status: 'complete', row_count: row_count, completed_at: Time.now)
-    if AwsS3.s3_enabled? && query.set_latest_result
-      AwsS3.copy(csv_service.key, query.latest_result_key)
-    end
+    copy_latest_result
   end
 
   def mark_failed!(message)
@@ -49,6 +47,12 @@ class Result < ActiveRecord::Base
     duration(:created_at, :started_at)
   end
 
+  def copy_latest_result
+    if AwsS3.s3_enabled? && query.present? && query.set_latest_result
+      AwsS3.copy(current_result_s3_key, query.latest_result_key)
+    end
+  end
+
   private
 
   def duration(start_field, end_field)
@@ -64,7 +68,7 @@ class Result < ActiveRecord::Base
     end
   end
 
-  def csv_service
-    @csv_service ||= CsvService.new(id)
+  def current_result_s3_key
+    @result_key ||= CsvHelper::Aws.new(id).key
   end
 end
