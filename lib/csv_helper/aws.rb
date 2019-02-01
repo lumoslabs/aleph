@@ -1,7 +1,5 @@
 module CsvHelper
   class Aws < Base
-    S3_FOLDER = APP_CONFIG['s3_folder'] || 'results'
-
     def url
       Pester.s3.retry do
         obj = AwsS3.object(key)
@@ -21,7 +19,7 @@ module CsvHelper
     end
 
     def key
-      S3_FOLDER ? "#{S3_FOLDER}/#{filename}" : filename
+      AwsS3::S3_FOLDER ? "#{AwsS3::S3_FOLDER}/#{filename}" : filename
     end
   end
 end

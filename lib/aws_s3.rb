@@ -1,8 +1,9 @@
 module AwsS3
-  class << self
-    S3_REGION = APP_CONFIG['s3_region'] || 'us-east-1'
-    S3_BUCKET = APP_CONFIG['s3_bucket'].freeze
+  S3_REGION = APP_CONFIG['s3_region'] || 'us-east-1'
+  S3_BUCKET = APP_CONFIG['s3_bucket']
+  S3_FOLDER = APP_CONFIG['s3_folder'] || 'results'
 
+  class << self
     def resource
       @resource ||= Aws::S3::Resource.new(region: S3_REGION)
     end

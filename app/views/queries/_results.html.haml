@@ -1,4 +1,9 @@
 .panel.panel-default
+  %label.switch
+    %input{ :type => 'checkbox', 'ng-model' => 'resultsCtrl.query.item.set_latest_result', 'ng-change' => 'resultsCtrl.updateQuery()'}
+    %span.slider.round
+    Enable Latest Result Link
+    {{resultsCtrl.query.item.set_latest_result}}
   .panel-heading
     .metadata
       .pull-right

@@ -2,7 +2,7 @@
   'use strict';
 
   function QueryRequestTransformers() {
-    const saveFields =  ['id', 'title', 'body', 'tags', 'result_id', 'version', 'roles'];
+    const saveFields =  ['id', 'title', 'body', 'tags', 'result_id', 'version', 'roles', 'set_latest_result'];
 
     // see https://github.com/mbenford/ngTagsInput
     function transformNgTagsInput(fieldName, query) {

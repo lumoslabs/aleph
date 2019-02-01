@@ -12,6 +12,12 @@
       this.resultRunner.run();
     }
 
+    updateQuery() {
+      this.query.save()
+        .then(this._setPristine.bind(this))
+        .then(this._handler.success.bind(this._handler, 'update', false))
+    }
+
     generateResultLink(result) {
       return this._hostname + '/results/query/' + this.query.item.id +
         '/query_version/' + this.query.item.version.id + '/result/' + result.item.id;
