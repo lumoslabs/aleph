@@ -22,7 +22,6 @@ module AwsS3
 
     # An intra bucket copy
     def copy(source_key, target_key)
-      puts "XZY copy from #{source_key} to #{target_key}"
       client.copy_object(bucket: S3_BUCKET, copy_source: S3_BUCKET + '/' + source_key, key: target_key)
     end
 
@@ -31,7 +30,7 @@ module AwsS3
     end
 
     def latest_result_key(query_id)
-      "latest_#{S3_FOLDER}/#{query_id}.csv"
+      "latest_#{S3_FOLDER}/query_#{query_id}.csv"
     end
   end
 end
