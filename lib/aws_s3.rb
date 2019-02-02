@@ -28,9 +28,5 @@ module AwsS3
     def s3_enabled?
       S3_REGION.present? && S3_BUCKET.present?
     end
-
-    def latest_result_key(query_id)
-      "latest_#{S3_FOLDER}/query_#{query_id}.csv"
-    end
   end
 end

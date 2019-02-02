@@ -1,14 +1,25 @@
 .panel.panel-default
-  %label.switch
-    %input{ :type => 'checkbox', 'ng-model' => 'resultsCtrl.query.item.set_latest_result', 'ng-change' => 'resultsCtrl.updateQuery()'}
-    %span.slider.round
-    Enable Latest Result Link
-    {{resultsCtrl.query.item.set_latest_result}}
   .panel-heading
+    .row.container-fluid
+      %label.switch
+        %input{ 'type' => 'checkbox',
+                'ng-model' => 'resultsCtrl.query.item.set_latest_result',
+                'ng-change' => 'resultsCtrl.updateQuery()' }
+        %span.slider.round{ 'uib-tooltip' => 'Toggle fixed result link',
+                            'tooltip-placement' => 'top' }
+      %a{ 'href' => '',
+          'text' =>  'resultsCtrl.query.item.latest_result_object_url',
+          'supported' => 'supported',
+          'on-copied' => 'resultsCtrl.alertCopied()',
+          'clipboard' => '',
+          'uib-tooltip' => 'Copy s3 url of latest result to clipboard',
+          'tooltip-placement' => 'right',
+          style: 'margin-left:5px;font-size:small'}
+        %span.glyphicon.glyphicon-link{ 'ng-if' => 'resultsCtrl.query.item.set_latest_result' }
     .metadata
       .pull-right
         %button.btn.btn-sm.btn-primary#runQuery{ 'ng-disabled' => '!resultsCtrl.query.item.id',
-                                                 'ng-click' => 'resultsCtrl.runQuery()' }
+                                                 'ng-click' => 'resultsCtrl.runQuery()'}
           Run
           %span.glyphicon.glyphicon-play.glyphicons-lg.glyphicon-low
       %dl.query-metadata

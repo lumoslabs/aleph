@@ -3,9 +3,10 @@
 
   class ResultsController {
 
-    constructor(AlertFlash) {
+    constructor(AlertFlash, QueryHandler) {
       this._alertFlash = AlertFlash;
       this._hostname = angular.copy(location.host);
+      console.log(this.query)
     }
 
     runQuery() {
@@ -14,8 +15,7 @@
 
     updateQuery() {
       this.query.save()
-        .then(this._setPristine.bind(this))
-        .then(this._handler.success.bind(this._handler, 'update', false))
+        .then(this._updateSuccess.bind(this))
     }
 
     generateResultLink(result) {
@@ -25,6 +25,10 @@
 
     alertCopied() {
       this._alertFlash.emitSuccess('Result link copied to clipboard!');
+    }
+
+    _updateSuccess(queryItem) {
+      this._alertFlash.emitSuccess((queryItem.set_latest_result ? 'Enabled' : 'Disabled') + ' fixed link to lastest result')
     }
   }
 
