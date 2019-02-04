@@ -3,10 +3,9 @@
 
   class ResultsController {
 
-    constructor(AlertFlash, QueryHandler) {
+    constructor(AlertFlash) {
       this._alertFlash = AlertFlash;
       this._hostname = angular.copy(location.host);
-      console.log(this.query)
     }
 
     runQuery() {
