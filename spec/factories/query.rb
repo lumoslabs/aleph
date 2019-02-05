@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :query, class: Query do
+  factory :query do
     title 'AAAA Get the current date and time'
     latest_body 'SELECT TIMEOFDAY();'
     latest_result_s3_url_flag false
