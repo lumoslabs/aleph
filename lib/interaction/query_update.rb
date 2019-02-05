@@ -14,6 +14,7 @@ module Interaction
       @query.title = @title
       @query.tag_list = @tags
       @query.set_roles(@roles)
+      @query.latest_result_s3_url_flag = @latest_result_s3_url_flag
 
       @current_query_version.comment = @comment
       @current_query_version.save!
@@ -51,6 +52,7 @@ module Interaction
       # -------------------------------------------------------------------------------------------------
       @query.version = next_query_version || @current_query_version
 
+      @result.copy_latest_result if @result.present?
       @query
     end
 

@@ -24,6 +24,7 @@ class Result < ActiveRecord::Base
 
   def mark_complete_with_count(row_count)
     update_attributes!(status: 'complete', row_count: row_count, completed_at: Time.now)
+    copy_latest_result
   end
 
   def mark_failed!(message)
@@ -32,10 +33,6 @@ class Result < ActiveRecord::Base
 
   def row_count
     super || ongoing_row_count
-  end
-
-  def result_csv
-    @result_csv ||= ResultCsv.new(id)
   end
 
   def redis_result_row_count
@@ -48,6 +45,12 @@ class Result < ActiveRecord::Base
 
   def enqueue_duration
     duration(:created_at, :started_at)
+  end
+
+  def copy_latest_result
+    if AwsS3.s3_enabled? && query.present? && query.latest_result_s3_url_flag
+      AwsS3.copy(current_result_s3_key, query.latest_result_key)
+    end
   end
 
   private
@@ -63,5 +66,9 @@ class Result < ActiveRecord::Base
     else
       0
     end
+  end
+
+  def current_result_s3_key
+    @result_key ||= CsvHelper::Aws.new(id).key
   end
 end

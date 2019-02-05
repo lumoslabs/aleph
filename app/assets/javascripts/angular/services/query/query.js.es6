@@ -15,13 +15,15 @@
             version: {
               body: '',
               parameters: []
-            }
+            },
+            latest_result_s3_url_flag: false
           },
           [
             'title',
             'version.body',
             'roles',
-            'tags'
+            'tags',
+            'latest_result_s3_url_flag'
           ]
         );
       }

@@ -80,7 +80,7 @@
         %uib-alert.alert-fade-out.ellipsis{ 'ng-repeat' => 'alert in alerts',
                                             'type' => '{{alert.type}}',
                                             'close' => 'dismiss()',
-                                            'dismiss-on-timeout' => 9000,
+                                            'dismiss-on-timeout' => 5000,
                                             'ng-bind' => 'alert.message' }
       %div.content.container-fluid
         = yield

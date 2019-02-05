@@ -59,7 +59,8 @@ describe Query do
             body: query_version_body,
             parameters: []
           },
-          user: query_version.user
+          user: query_version.user,
+          latest_result_s3_url_flag: false
         ).execute
       end
 
@@ -82,7 +83,8 @@ describe Query do
           version: {
             parameters: []
           },
-          user: query_version.user
+          user: query_version.user,
+          latest_result_s3_url_flag: false
         )
       end
 
@@ -104,7 +106,8 @@ describe Query do
             body: query_version_body,
             parameters: []
           },
-          user: query_version.user
+          user: query_version.user,
+          latest_result_s3_url_flag: false
         ).execute
       end
 
@@ -125,7 +128,8 @@ describe Query do
             body: new_body,
             parameters: []
           },
-          user: query_version.user
+          user: query_version.user,
+          latest_result_s3_url_flag: false
         ).execute
       end
 
@@ -150,7 +154,8 @@ describe Query do
             body: query_version_body,
             parameters: new_parameters
           },
-          user: query_version.user
+          user: query_version.user,
+          latest_result_s3_url_flag: false
         ).execute
       end
 
@@ -161,6 +166,26 @@ describe Query do
 
       it 'should set the parameters properly on the latest version' do
         expect(query.latest_query_version.parameters).to eq(new_parameters)
+      end
+    end
+
+    context 'with latest_result_s3_url_flag true' do
+      before do
+        Interaction::QueryUpdate.new(
+          query,
+          title: new_title,
+          tags: [{ name: 'lifecycle', id: 1 }, { name: 'analytics', id: 2 }],
+          version: {
+            body: query_version_body,
+            parameters: []
+          },
+          user: query_version.user,
+          latest_result_s3_url_flag: true
+        ).execute
+      end
+
+      it 'should set latest_result_s3_url_flag to true' do
+        expect(query.latest_result_s3_url_flag).to eq(true)
       end
     end
   end

@@ -52,6 +52,14 @@ class Query < ActiveRecord::Base
     query_versions.last
   end
 
+  def latest_result_key
+    @latest_result_key ||= "latest_#{AwsS3::S3_FOLDER}/query_#{id}.csv"
+  end
+
+  def latest_result_object_url
+    @latest_result_object_url ||= "https://s3.amazonaws.com/#{AwsS3::S3_BUCKET}/#{latest_result_key}"
+  end
+
   def roles
     query_roles.map(&:role).uniq
   end
