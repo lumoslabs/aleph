@@ -27,6 +27,7 @@
 
     updateQuery() {
       this.query.save()
+        .then(this._internalizeQueryItem.bind(this))
         .then(this._setPristine.bind(this))
         .then(this._handler.success.bind(this._handler, 'update', false))
         .finally(this._closeCommentDialog.bind(this));

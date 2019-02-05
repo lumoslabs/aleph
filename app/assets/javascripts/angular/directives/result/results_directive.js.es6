@@ -13,8 +13,7 @@
     }
 
     updateQuery() {
-      this.query.save()
-        .then(this._updateSuccess.bind(this))
+      this.query.save().then(this._updateSuccess.bind(this))
     }
 
     generateResultLink(result) {
@@ -27,7 +26,7 @@
     }
 
     _updateSuccess(queryItem) {
-      this._alertFlash.emitSuccess((queryItem.set_latest_result ? 'Enabled' : 'Disabled') + ' fixed link to lastest result')
+      this._alertFlash.emitSuccess((queryItem.latest_result_s3_url_flag ? 'Enabled' : 'Disabled') + ' fixed link to lastest result')
     }
   }
 

@@ -8,7 +8,7 @@ module Interaction
       @tags = @params[:tags] || []
       @title = @params[:title]
       @user = @params[:user]
-      @set_latest_result = @params[:set_latest_result]
+      @latest_result_s3_url_flag = @params[:latest_result_s3_url_flag]
 
       @result = fetch_result
       @roles = build_roles

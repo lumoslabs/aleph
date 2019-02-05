@@ -3,7 +3,7 @@
     .row.container-fluid
       %label.switch
         %input{ 'type' => 'checkbox',
-                'ng-model' => 'resultsCtrl.query.item.set_latest_result',
+                'ng-model' => 'resultsCtrl.query.item.latest_result_s3_url_flag',
                 'ng-change' => 'resultsCtrl.updateQuery()' }
         %span.slider.round{ 'uib-tooltip' => 'Toggle fix s3 result url',
                             'tooltip-placement' => 'top' }
@@ -15,7 +15,7 @@
           'uib-tooltip' => 'Copy fixed s3 result url to clipboard',
           'tooltip-placement' => 'right',
           style: 'margin-left:5px;font-size:small'}
-        %span.glyphicon.glyphicon-link{ 'ng-if' => 'resultsCtrl.query.item.set_latest_result' }
+        %span.glyphicon.glyphicon-link{ 'ng-if' => 'resultsCtrl.query.item.latest_result_s3_url_flag' }
     .metadata
       .pull-right
         %button.btn.btn-sm.btn-primary#runQuery{ 'ng-disabled' => '!resultsCtrl.query.item.id',

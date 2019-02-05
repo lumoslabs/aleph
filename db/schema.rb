@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20190131003650) do
     t.datetime "updated_at"
     t.text     "latest_body"
     t.datetime "deleted_at"
-    t.boolean  "set_latest_result", default: false, null: false
+    t.boolean  "latest_result_s3_url_flag", default: false, null: false
   end
 
   create_table "query_roles", force: :cascade do |t|

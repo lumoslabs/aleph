@@ -16,14 +16,14 @@
               body: '',
               parameters: []
             },
-            set_latest_result: false
+            latest_result_s3_url_flag: false
           },
           [
             'title',
             'version.body',
             'roles',
             'tags',
-            'set_latest_result'
+            'latest_result_s3_url_flag'
           ]
         );
       }

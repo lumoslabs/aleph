@@ -12,7 +12,7 @@
       let _action =  action || 'action';
       let _schedule = _.exists(schedule) ? schedule : false;
 
-      this._alertFlash.emitSuccess('Query "' + query.title + '" ' + _action + 'd!', _schedule);
+      this._alertFlash.emitSuccess('Query "' + query.item.title + '" ' + _action + 'd!', _schedule);
       return query;
     }
 
