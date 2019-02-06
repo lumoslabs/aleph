@@ -28,5 +28,23 @@ module AwsS3
     def s3_enabled?
       S3_REGION.present? && S3_BUCKET.present?
     end
+
+    def presigned_url(key, filename, expires_in)
+      Pester.s3.retry do
+        obj = object(key)
+        if obj.exists?
+          obj.presigned_url(:get, response_content_disposition: "attachment; filename=#{filename}", expires_in: expires_in)
+        else
+          nil
+        end
+      end
+    end
+
+    def store(key, filepath)
+      Pester.s3.retry do
+        obj = AwsS3.object(key)
+        obj.upload_file(filepath)
+      end
+    end
   end
 end
