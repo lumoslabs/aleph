@@ -31,14 +31,16 @@
                                 'tooltip-append-to-body' => 'true',
                                 'tooltip-popup-delay' => 800 }
         %span.glyphicon.glyphicon-trash.glyphicons-lg.glyphicon-low
-    %span.btn-group#right-side-btns.pull-right
-      %button.btn.btn-sm{ 'uib-tooltip' => 'More Options',
+    %span.btn-group.white-btns.pull-right
+      %button.btn.btn-sm{ 'uib-tooltip' => 'Schedule',
                                       'tooltip-append-to-body' => 'true',
                                       'tooltip-placement' => 'top',
                                       'tooltip-popup-delay' => 800,
+                                      'uib-popover-template' => "'options-template'",
+                                      'popover-title' => 'Options',
                                       'ng-click' => 'queryDetailsCtrl.toggleScheduleQuery()' }
         %span.glyphicon.glyphicon-menu-hamburger.glyphicons-lg.glyphicon-low
-    %span.btn-group#right-side-btns.pull-right
+    %span.btn-group.white-btns.pull-right
       %button.btn.btn-sm{ 'uib-tooltip' => 'Comment',
                                       'tooltip-append-to-body' => 'true',
                                       'tooltip-placement' => 'top',
@@ -48,7 +50,7 @@
                                       'popover-title' => 'Comment',
                                       'ng-click' => 'queryDetailsCtrl.toggleCommentDialog()' }
         %span.glyphicon.glyphicon-comment.glyphicons-lg.glyphicon-low
-    %span.btn-group#right-side-btns.pull-right
+    %span.btn-group.white-btns.pull-right
       %button.btn.btn-sm{ 'uib-tooltip' => 'Clone',
                                    'tooltip-append-to-body' => 'true',
                                    'tooltip-placement' => 'top',
