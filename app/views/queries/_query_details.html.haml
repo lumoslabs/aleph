@@ -31,15 +31,15 @@
                                 'tooltip-append-to-body' => 'true',
                                 'tooltip-popup-delay' => 800 }
         %span.glyphicon.glyphicon-trash.glyphicons-lg.glyphicon-low
-    %span.btn-group#clone-btns.pull-right
-      %button.btn.btn-sm.btn-warning{ 'uib-tooltip' => 'Click to schedule query runs',
+    %span.btn-group#right-side-btns.pull-right
+      %button.btn.btn-sm{ 'uib-tooltip' => 'More Options',
                                       'tooltip-append-to-body' => 'true',
                                       'tooltip-placement' => 'top',
                                       'tooltip-popup-delay' => 800,
                                       'ng-click' => 'queryDetailsCtrl.toggleScheduleQuery()' }
         %span.glyphicon.glyphicon-menu-hamburger.glyphicons-lg.glyphicon-low
-    %span.btn-group#clone-btns.pull-right
-      %button.btn.btn-sm.btn-warning{ 'uib-tooltip' => 'Click to comment',
+    %span.btn-group#right-side-btns.pull-right
+      %button.btn.btn-sm{ 'uib-tooltip' => 'Comment',
                                       'tooltip-append-to-body' => 'true',
                                       'tooltip-placement' => 'top',
                                       'tooltip-popup-delay' => 800,
@@ -48,8 +48,8 @@
                                       'popover-title' => 'Comment',
                                       'ng-click' => 'queryDetailsCtrl.toggleCommentDialog()' }
         %span.glyphicon.glyphicon-comment.glyphicons-lg.glyphicon-low
-    %span.btn-group#clone-btn.pull-right
-      %button.btn.btn-sm.btn-info{ 'uib-tooltip' => 'Clone',
+    %span.btn-group#right-side-btns.pull-right
+      %button.btn.btn-sm{ 'uib-tooltip' => 'Clone',
                                    'tooltip-append-to-body' => 'true',
                                    'tooltip-placement' => 'top',
                                    'tooltip-popup-delay' => 800,
