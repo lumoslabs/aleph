@@ -31,7 +31,14 @@
                                 'tooltip-append-to-body' => 'true',
                                 'tooltip-popup-delay' => 800 }
         %span.glyphicon.glyphicon-trash.glyphicons-lg.glyphicon-low
-    %span.btn-group#query-btns.pull-right
+    %span.btn-group#clone-btns.pull-right
+      %button.btn.btn-sm.btn-warning{ 'uib-tooltip' => 'Click to schedule query runs',
+                                      'tooltip-append-to-body' => 'true',
+                                      'tooltip-placement' => 'top',
+                                      'tooltip-popup-delay' => 800,
+                                      'ng-click' => 'queryDetailsCtrl.toggleScheduleQuery()' }
+        %span.glyphicon.glyphicon-menu-hamburger.glyphicons-lg.glyphicon-low
+    %span.btn-group#clone-btns.pull-right
       %button.btn.btn-sm.btn-warning{ 'uib-tooltip' => 'Click to comment',
                                       'tooltip-append-to-body' => 'true',
                                       'tooltip-placement' => 'top',
