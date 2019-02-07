@@ -96,7 +96,7 @@ class Query < ActiveRecord::Base
 
   def summary
     Summarizer.new(query_versions).reduce(version: 0, comments: 0) do |qv|
-      { versions: 1, comments: qv.comment.blank? ? 0 : 1}
+      { versions: 1, comments: qv.comment.blank? ? 0 : 1 }
     end
   end
 

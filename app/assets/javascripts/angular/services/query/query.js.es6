@@ -16,14 +16,18 @@
               body: '',
               parameters: []
             },
-            latest_result_s3_url_flag: false
+            latest_result_s3_url_flag: false,
+            scheduled_flag: false,
+            email: ''
           },
           [
             'title',
             'version.body',
             'roles',
             'tags',
-            'latest_result_s3_url_flag'
+            'latest_result_s3_url_flag'.
+            'scheduled_flag',
+            'email'
           ]
         );
       }
