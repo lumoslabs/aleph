@@ -1,20 +1,23 @@
 .options
-  .row.container{ style: "width:250px;"}
-    .col-sm-2{ style: "padding:1px"}
-      On/Off
-    .col-sm-10
+  .row.container{ style: "width:275px;padding-top:5px"}
+    .col-sm-3
+    .col-sm-1{ style: "padding:1px"}
+      Off
+    .col-sm-4.center{ style:"width:60px"}
       %label.switch.switch-section
         %input{ 'type' => 'checkbox',
                'ng-model' => 'resultsCtrl.query.item.latest_result_s3_url_flag',
                'ng-change' => 'resultsCtrl.updateQuery()' }
-          %span.slider.round{ 'uib-tooltip' => 'Toggle fix s3 result url',
-                           'tooltip-placement' => 'top' }
-  .row.container{ style: "width:250px;padding-right:0px"}
+          %span.slider.round
+    .col-sm-1{ style: "padding:1px"}
+      On
+    .col-sm-3
+  .row.container{ style: "width:250px;padding-right:0px;padding-top:10px;padding-bottom:5px"}
     .col-sm-2{ style: "padding:1px"}
-      Email
-    .col-sm-10
+      Email to:
+    .col-sm-10{ style: "padding-right:0px" }
       %form{ name: 'queryEmailForm', id: 'queryEmailForm', novalidate: '' }
-        %input.input-xs{ 'type' => 'text',
+        %input.input-sm{ 'type' => 'text',
                 'ng-model' => 'alertShowCtrl.alert.item.query_title',
                 'class' => 'form-control',
                 'placeholder' => 'Email' }
