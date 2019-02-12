@@ -28,6 +28,14 @@
       }
     }
 
+    queryIsPersistedAsScheduled() {
+      return (this.query.isPristine() && this.query.item.scheduled_flag) || (this.query.isDirty() && !this.query.item.scheduled_flag);
+    }
+
+    alertResultLinkCopied() {
+      this._alertFlash.emitSuccess('S3 URL copied to clipboard!');
+    }
+
     loadQueryByVersion(queryVersionId) {
       this._$location.path('/queries/' + this.query.item.id + '/query_versions/' + queryVersionId);
     }
