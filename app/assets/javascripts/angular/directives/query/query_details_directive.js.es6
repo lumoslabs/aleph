@@ -39,20 +39,20 @@
       }
     }
 
-    updateCommentDialog() {
-      this._updateCommentDialog(false);
-    }
-
     updateCommentDialogAndClose() {
-      this._updateCommentDialog(true);
-    }
-
-    updateScheduleDialog() {
-      this._updateScheduleDialog(false);
+      if(this.query.isDirty()) {
+        this._updateQuery().finally(this._closeCommentDialog.bind(this));
+      } else {
+        this._closeCommentDialog();
+      }
     }
 
     updateScheduleDialogAndClose() {
-      this._updateScheduleDialog(true);
+      if(this.query.isDirty()) {
+        this._updateQuery().finally(this._closeScheduleDialog.bind(this));
+      } else {
+        this._closeScheduleDialog();
+      }
     }
 
     runQuery() {
@@ -95,30 +95,6 @@
     }
 
     // private methods
-    _updateCommentDialog(close) {
-      if(this.query.isDirty()) {
-        this._updateQuery().finally(query => {
-          if(close == true) {
-            this._closeCommentDialog();
-          }
-        });
-      } else if(close == true) {
-        this._closeCommentDialog();
-      }
-    }
-
-    _updateScheduleDialog(close) {
-      if(this.query.isDirty()) {
-        this._updateQuery().finally(query => {
-          if(close == true) {
-            this._closeScheduleDialog();
-          }
-        });
-      } else if(close == true) {
-        this._closeScheduleDialog();
-      }
-    }
-
     _updateQuery() {
       return this.query.save()
       .then(this._internalizeQueryItem.bind(this))
