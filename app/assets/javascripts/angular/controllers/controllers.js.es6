@@ -42,13 +42,20 @@
       function ($scope, $rootScope) {
         $scope.alerts = [];
 
+        function addAlert(alert) {
+          var latest = _.last($scope.alerts);
+          if ($scope.alerts.length == 0 || latest.message != alert.message || latest.type != alert.type) {
+            $scope.alerts.push(alert);
+          }
+        }
+
         $scope.dismiss = function dismiss() {
           $scope.alerts.length = 0;
         };
 
         $rootScope.$on('$routeChangeSuccess', () => {
           if ($scope.scheduledAlert) {
-            $scope.alerts.push($scope.scheduledAlert);
+            addAlert($scope.scheduledAlert)
             $scope.scheduledAlert = null;
           } else {
             $scope.dismiss();
@@ -60,7 +67,7 @@
         });
 
         $rootScope.$on('setAlert', (event, alert) => {
-          $scope.alerts.push(alert);
+          addAlert(alert)
         });
       }
     ]);

@@ -29,16 +29,13 @@
       if(this.query.isDirty()) {
         this._updateQuery()
           .then(this._setPristine.bind(this))
-          .then(this._handler.success.bind(this._handler, 'update', false))
           .finally(this._closeDialogBoxes.bind(this));
       }
     }
 
     updateTagsAndRoles() {
       if(this.query.isDirty()) {
-        this._updateQuery()
-          .then(this._handler.success.bind(this._handler, 'update', false))
-          .finally(this._closeDialogBoxes.bind(this));
+        this._updateQuery().finally(this._closeDialogBoxes.bind(this));
       }
     }
 
@@ -123,7 +120,9 @@
     }
 
     _updateQuery() {
-      return this.query.save().then(this._internalizeQueryItem.bind(this))
+      return this.query.save()
+      .then(this._internalizeQueryItem.bind(this))
+      .then(this._handler.success.bind(this._handler, 'update', false))
     }
 
     _closeDialogBoxes() {
