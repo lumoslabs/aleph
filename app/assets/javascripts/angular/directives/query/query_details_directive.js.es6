@@ -14,7 +14,7 @@
         this._Query = Query;
 
         RoleModel.initCollection();
-        this._closeCommentDialog();
+        this._closeDialogBoxes();
     }
 
     openRepl() {
@@ -25,12 +25,37 @@
         .finally(this._closeCommentDialog.bind(this));
     }
 
-    updateQuery() {
-      this.query.save()
-        .then(this._internalizeQueryItem.bind(this))
-        .then(this._setPristine.bind(this))
-        .then(this._handler.success.bind(this._handler, 'update', false))
-        .finally(this._closeCommentDialog.bind(this));
+    updateTitle() {
+      if(this.query.isDirty()) {
+        this._updateQuery()
+          .then(this._setPristine.bind(this))
+          .then(this._handler.success.bind(this._handler, 'update', false))
+          .finally(this._closeDialogBoxes.bind(this));
+      }
+    }
+
+    updateTagsAndRoles() {
+      if(this.query.isDirty()) {
+        this._updateQuery()
+          .then(this._handler.success.bind(this._handler, 'update', false))
+          .finally(this._closeDialogBoxes.bind(this));
+      }
+    }
+
+    updateCommentDialog() {
+      this._updateCommentDialog(false);
+    }
+
+    updateCommentDialogAndClose() {
+      this._updateCommentDialog(true);
+    }
+
+    updateScheduleDialog() {
+      this._updateScheduleDialog(false);
+    }
+
+    updateScheduleDialogAndClose() {
+      this._updateScheduleDialog(true);
     }
 
     runQuery() {
@@ -60,11 +85,58 @@
 
     toggleCommentDialog() {
       this.commentDialogOpen = !this.commentDialogOpen;
+      if(this.commentDialogOpen == true) {
+        this._closeScheduleDialog();
+      }
+    }
+
+    toggleScheduleDialog() {
+      this.scheduleDialogOpen = !this.scheduleDialogOpen;
+      if(this.scheduleDialogOpen == true) {
+        this._closeCommentDialog();
+      }
     }
 
     // private methods
+    _updateCommentDialog(close) {
+      if(this.query.isDirty()) {
+        this._updateQuery().finally(query => {
+          if(close == true) {
+            this._closeCommentDialog();
+          }
+        });
+      } else if(close == true) {
+        this._closeCommentDialog();
+      }
+    }
+
+    _updateScheduleDialog(close) {
+      if(this.query.isDirty()) {
+        this._updateQuery().finally(query => {
+          if(close == true) {
+            this._closeScheduleDialog();
+          }
+        });
+      } else if(close == true) {
+        this._closeScheduleDialog();
+      }
+    }
+
+    _updateQuery() {
+      return this.query.save().then(this._internalizeQueryItem.bind(this))
+    }
+
+    _closeDialogBoxes() {
+      this._closeScheduleDialog();
+      this._closeCommentDialog();
+    }
+
     _closeCommentDialog() {
       this.commentDialogOpen = false;
+    }
+
+    _closeScheduleDialog() {
+      this.scheduleDialogOpen = false;
     }
 
     _setPristine(query) {
