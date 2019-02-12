@@ -2,4 +2,4 @@
   %span.glyphicon.glyphicon-remove.pull-right.click-and-close{ style: "font-size:xx-small; padding-bottom:10px", 'ng-click' => 'queryDetailsCtrl.updateCommentDialogAndClose()', 'uib-tooltip' => 'Close', 'tooltip-placement' => 'top' }
   %textarea.form-control{ 'ng-model' => 'queryDetailsCtrl.query.item.version.comment',
                           'placeholder' => 'Add a comment',
-                          'ng-blur' => 'queryDetailsCtrl.updateCommentDialog()' }
+                          'ng-blur' => 'queryDetailsCtrl.updateCommentDialogAndClose()' }

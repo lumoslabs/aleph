@@ -15,6 +15,7 @@
             roles: [],
             version: {
               body: '',
+              comment: '',
               parameters: []
             },
             latest_result_s3_url_flag: false,
@@ -24,6 +25,7 @@
           [
             'title',
             'version.body',
+            'version.comment',
             'roles',
             'tags',
             'latest_result_s3_url_flag',
