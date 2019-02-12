@@ -1,5 +1,13 @@
 .comments
-  %span.glyphicon.glyphicon-remove.pull-right.click-and-close{ style: "font-size:xx-small; padding-bottom:10px", 'ng-click' => 'queryDetailsCtrl.updateCommentDialogAndClose()', 'uib-tooltip' => 'Close', 'tooltip-placement' => 'top' }
+  %span.glyphicon.pull-right.subdued-clickable{ style: "font-size:x-small;padding-right:5px;padding-bottom:10px",
+                                                'ng-click' => 'queryDetailsCtrl.updateCommentDialogAndClose()',
+                                                'ng-class' => "{ 'glyphicon-remove': queryDetailsCtrl.query.isPristine(),  'glyphicon-save': queryDetailsCtrl.query.isDirty()}",
+                                                'uib-tooltip' => "{{queryDetailsCtrl.query.isDirty() ? 'Save' : 'Close'}}",
+                                                'tooltip-placement' => 'top' }
+  %span.glyphicon.glyphicon-refresh.pull-right.subdued-clickable{ style: "font-size:x-small;padding-right:5px",
+                                                                'ng-click' => 'queryDetailsCtrl.query.revert()',
+                                                                'uib-tooltip' => 'Refresh',
+                                                                'ng-if' => 'queryDetailsCtrl.query.isDirty()',
+                                                                'tooltip-placement' => 'top' }
   %textarea.form-control{ 'ng-model' => 'queryDetailsCtrl.query.item.version.comment',
-                          'placeholder' => 'Add a comment',
-                          'ng-blur' => 'queryDetailsCtrl.updateCommentDialogAndClose()' }
+                          'placeholder' => 'Add a comment' }

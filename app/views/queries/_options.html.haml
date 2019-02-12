@@ -1,6 +1,15 @@
 .options
   .row.container{ style: "width:275px;padding-top:0px;padding-right:10px"}
-    %span.glyphicon.glyphicon-remove.pull-right.click-and-close{ style: "font-size:xx-small", 'ng-click' => 'queryDetailsCtrl.updateScheduleDialogAndClose()', 'uib-tooltip' => 'Close', 'tooltip-placement' => 'top' }
+    %span.glyphicon.pull-right.subdued-clickable{ style: "font-size:x-small;padding-right:5px",
+                                                'ng-click' => 'queryDetailsCtrl.updateScheduleDialogAndClose()',
+                                                'ng-class' => "{ 'glyphicon-remove': queryDetailsCtrl.query.isPristine(),  'glyphicon-save': queryDetailsCtrl.query.isDirty()}",
+                                                'uib-tooltip' => "{{queryDetailsCtrl.query.isDirty() ? 'Save' : 'Close'}}",
+                                                'tooltip-placement' => 'top' }
+    %span.glyphicon.glyphicon-refresh.pull-right.subdued-clickable{ style: "font-size:x-small;padding-right:5px",
+                                                                  'ng-click' => 'queryDetailsCtrl.query.revert()',
+                                                                  'uib-tooltip' => 'Refresh',
+                                                                  'ng-if' => 'queryDetailsCtrl.query.isDirty()',
+                                                                  'tooltip-placement' => 'top' }
   .row.container{ style: "width:275px;padding-top:5px"}
     .col-sm-3
     .col-sm-1{ style: "padding:1px"}
@@ -8,20 +17,17 @@
     .col-sm-4.center{ style:"width:60px"}
       %label.switch.switch-section
         %input{ 'type' => 'checkbox',
-                'ng-model' => 'queryDetailsCtrl.query.item.latest_result_s3_url_flag',
-                'ng-change' => 'queryDetailsCtrl.updateScheduleDialog()' }
+                'ng-model' => 'queryDetailsCtrl.query.item.latest_result_s3_url_flag' }
           %span.slider.round
     .col-sm-1{ style: "padding:1px"}
       On
     .col-sm-3
   .row.container{ style: "width:250px;padding-right:0px;padding-top:10px;padding-bottom:5px" }
-    .col-sm-1.email-label{ 'ng-disabled' => '!queryDetailsCtrl.query.item.latest_result_s3_url_flag' }
+    .col-sm-1.email-label
       %span.glyphicon.glyphicon-envelope.glyphicons-lg.glyphicon-low
     .col-sm-11{ style: "padding-right:0px" }
       %form{ name: 'queryEmailForm', id: 'queryEmailForm', novalidate: '' }
         %input.input-xs{ 'type' => 'text',
-                'ng-disabled' => '!queryDetailsCtrl.query.item.latest_result_s3_url_flag',
                 'ng-model' => 'queryDetailsCtrl.query.item.email',
                 'class' => 'form-control',
-                'placeholder' => 'Email',
-                'ng-blur' => 'queryDetailsCtrl.updateScheduleDialogAndClose()' }
+                'placeholder' => 'Email' }
