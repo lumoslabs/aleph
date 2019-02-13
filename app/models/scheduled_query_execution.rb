@@ -17,7 +17,7 @@ class ScheduledQueryExecution
       query.add_result(result)
       query.save!
       QueryExecution.perform(result.id, role)
-      query.send_result_email
+      query.send_result_email if query.email.present?
     end
   end
 end
