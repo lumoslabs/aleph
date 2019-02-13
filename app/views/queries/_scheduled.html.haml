@@ -12,8 +12,7 @@
     .col-sm-3
     .col-sm-1.pad1
       Off
-    .col-sm-4.toggle-center{ 'uib-tooltip' => 'Toggle Query Scheduling',
-                             'tooltip-popup-delay' => 1000 }
+    .col-sm-4.toggle-center
       %label.switch.switch-section
         %input{ 'type' => 'checkbox',
                 'ng-model' => 'queryDetailsCtrl.query.item.scheduled_flag' }
@@ -24,8 +23,7 @@
   .row.container.email-bar
     .col-sm-1.email-label
       %span.glyphicon.glyphicon-envelope.glyphicons-lg.glyphicon-low
-    .col-sm-11.email-input-col{ 'uib-tooltip' => 'Enter email recipients for results of the scheduled query',
-                                'tooltip-popup-delay' => 1000 }
+    .col-sm-11.email-input-col
       %form{ name: 'queryEmailForm', id: 'queryEmailForm', novalidate: '' }
         %input.input-xs{ 'type' => 'text',
                          'ng-model' => 'queryDetailsCtrl.query.item.email',
