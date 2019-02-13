@@ -14,7 +14,6 @@ module Interaction
       @query.title = @title
       @query.tag_list = @tags
       @query.set_roles(@roles)
-      @query.latest_result_s3_url_flag = @latest_result_s3_url_flag
       @query.scheduled_flag = @scheduled_flag
       @query.email = @email
 

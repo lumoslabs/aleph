@@ -35,8 +35,7 @@ ActiveRecord::Schema.define(version: 20190205234108) do
     t.datetime "updated_at"
     t.text     "latest_body"
     t.datetime "deleted_at"
-    t.boolean  "latest_result_s3_url_flag", default: false, null: false
-    t.boolean  "scheduled_flag",            default: false, null: false
+    t.boolean  "scheduled_flag", default: false, null: false
     t.string   "email"
   end
 

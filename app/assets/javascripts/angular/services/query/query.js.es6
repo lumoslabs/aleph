@@ -18,7 +18,6 @@
               comment: '',
               parameters: []
             },
-            latest_result_s3_url_flag: false,
             scheduled_flag: false,
             email: ''
           },
@@ -28,7 +27,6 @@
             'version.comment',
             'roles',
             'tags',
-            'latest_result_s3_url_flag',
             'scheduled_flag',
             'email'
           ],

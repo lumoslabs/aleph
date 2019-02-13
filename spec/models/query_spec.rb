@@ -60,7 +60,7 @@ describe Query do
             parameters: []
           },
           user: query_version.user,
-          latest_result_s3_url_flag: false
+          scheduled_flag: false
         ).execute
       end
 
@@ -84,7 +84,7 @@ describe Query do
             parameters: []
           },
           user: query_version.user,
-          latest_result_s3_url_flag: false
+          scheduled_flag: false
         )
       end
 
@@ -107,7 +107,7 @@ describe Query do
             parameters: []
           },
           user: query_version.user,
-          latest_result_s3_url_flag: false
+          scheduled_flag: false
         ).execute
       end
 
@@ -129,7 +129,7 @@ describe Query do
             parameters: []
           },
           user: query_version.user,
-          latest_result_s3_url_flag: false
+          scheduled_flag: false
         ).execute
       end
 
@@ -155,7 +155,7 @@ describe Query do
             parameters: new_parameters
           },
           user: query_version.user,
-          latest_result_s3_url_flag: false
+          scheduled_flag: false
         ).execute
       end
 
@@ -169,7 +169,7 @@ describe Query do
       end
     end
 
-    context 'with latest_result_s3_url_flag true' do
+    context 'with scheduled_flag true' do
       before do
         Interaction::QueryUpdate.new(
           query,
@@ -180,12 +180,33 @@ describe Query do
             parameters: []
           },
           user: query_version.user,
-          latest_result_s3_url_flag: true
+          scheduled_flag: true
         ).execute
       end
 
-      it 'should set latest_result_s3_url_flag to true' do
-        expect(query.latest_result_s3_url_flag).to eq(true)
+      it 'should set scheduled_flag to true' do
+        expect(query.scheduled_flag).to eq(true)
+      end
+    end
+
+    context 'with email' do
+      before do
+        Interaction::QueryUpdate.new(
+          query,
+          title: new_title,
+          tags: [{ name: 'lifecycle', id: 1 }, { name: 'analytics', id: 2 }],
+          version: {
+            body: query_version_body,
+            parameters: []
+          },
+          user: query_version.user,
+          scheduled_flag: false,
+          email: 'odb@wu.tang'
+        ).execute
+      end
+
+      it 'should set email correctly' do
+        expect(query.email).to eq('odb@wu.tang')
       end
     end
   end
