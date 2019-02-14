@@ -1,5 +1,5 @@
 %head
   %meta{content: 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}
 %body
-  %h1= "Aleph query '#{@query.query_title}' has run as scheduled"
+  %h1= "Aleph query '#{@query.title}' has run as scheduled"
   = link_to('Download result', result_url(@presigned_url))
