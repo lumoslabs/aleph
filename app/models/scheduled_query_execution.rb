@@ -1,8 +1,8 @@
 class ScheduledQueryExecution
   @queue = :query_exec
 
-  def self.perform(alert_id, role)
-    query = Query.find(alert_id)
+  def self.perform(query_id, role)
+    query = Query.find(query_id)
 
     interaction = Interaction::ResultCreation.new(
       query_version_id: query.latest_query_version.id,

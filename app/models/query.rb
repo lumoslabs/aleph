@@ -20,6 +20,7 @@ class Query < ActiveRecord::Base
   delegate :version, :author_name, :results, to: :latest_query_version, prefix: :latest, allow_nil: true
   delegate :id, to: :latest_query_version, prefix: true, allow_nil: true
   delegate :to_csv, to: :latest_completed_result, allow_nil: true
+  delegate :user, to: :latest_query_version
 
   scope :with_role, ->(role) { includes(:query_roles).where(query_roles: { role: role }) }
   scope :scheduled, -> { where(scheduled_flag: true) }
@@ -38,7 +39,7 @@ class Query < ActiveRecord::Base
   paginate_with LOCATIONS_FOR_ATTRIBUTES
 
   def self.run_scheduled
-    Query.scheduled.each do |query|
+    scheduled.each do |query|
       Resque.enqueue(ScheduledQueryExecution, query.id, query.user.role)
     end
   end
