@@ -69,6 +69,8 @@ describe('QueryDetailsController', () => {
     });
 
     spyOn(QueryDetailsController, '_closeCommentDialog').and.callThrough();
+    spyOn(QueryDetailsController, '_closeScheduleDialog').and.callThrough();
+    spyOn(QueryDetailsController, '_closeDialogBoxes').and.callThrough();
   }));
 
   describe('on constructions', () => {
@@ -87,9 +89,10 @@ describe('QueryDetailsController', () => {
     });
   });
 
-  describe('#updateQuery', () => {
+  describe('#updateTitle', () => {
     beforeEach(() => {
-      QueryDetailsController.updateQuery();
+      query.isDirty = () => true;
+      QueryDetailsController.updateTitle();
     });
 
     it('calls query.save and calls down the promise chain', () => {
@@ -110,7 +113,82 @@ describe('QueryDetailsController', () => {
       });
 
       it('closes the comment dialog', () => {
+        expect(QueryDetailsController._closeDialogBoxes).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('#updateTagsAndRoles', () => {
+    beforeEach(() => {
+      query.isDirty = () => true;
+      QueryDetailsController.updateTagsAndRoles();
+    });
+
+    it('calls query.save and calls down the promise chain', () => {
+      expect(query.save).toHaveBeenCalled();
+    });
+
+    describe('on success', () => {
+      beforeEach(() => {
+        digest();
+      });
+
+      it('flash success to user', () => {
+        expect(QueryHandler.success).toHaveBeenCalled();
+      });
+
+      it('closes the comment dialog', () => {
+        expect(QueryDetailsController._closeDialogBoxes).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('#updateCommentDialogAndClose', () => {
+    beforeEach(() => {
+      query.isDirty = () => true;
+      QueryDetailsController.updateCommentDialogAndClose();
+    });
+
+    it('calls query.save and calls down the promise chain', () => {
+      expect(query.save).toHaveBeenCalled();
+    });
+
+    describe('on success', () => {
+      beforeEach(() => {
+        digest();
+      });
+
+      it('flash success to user', () => {
+        expect(QueryHandler.success).toHaveBeenCalled();
+      });
+
+      it('closes the comment dialog', () => {
         expect(QueryDetailsController._closeCommentDialog).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('#updateScheduleDialogAndClose', () => {
+    beforeEach(() => {
+      query.isDirty = () => true;
+      QueryDetailsController.updateScheduleDialogAndClose();
+    });
+
+    it('calls query.save and calls down the promise chain', () => {
+      expect(query.save).toHaveBeenCalled();
+    });
+
+    describe('on success', () => {
+      beforeEach(() => {
+        digest();
+      });
+
+      it('flash success to user', () => {
+        expect(QueryHandler.success).toHaveBeenCalled();
+      });
+
+      it('closes the comment dialog', () => {
+        expect(QueryDetailsController._closeScheduleDialog).toHaveBeenCalled();
       });
     });
   });
