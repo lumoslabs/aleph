@@ -14,7 +14,7 @@ module Interaction
       @query.title = @title
       @query.tag_list = @tags
       @query.set_roles(@roles)
-      @query.scheduled_flag = @scheduled_flag
+      @query.scheduled_flag = !!@scheduled_flag
       @query.email = @email
 
       @current_query_version.comment = @comment
