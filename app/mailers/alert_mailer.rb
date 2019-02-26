@@ -1,5 +1,5 @@
 class AlertMailer < ActionMailer::Base
-  default from: ALERTS_CONFIG['from']
+  default from: EMAIL_CONFIG['from']
 
   def alert_failing_email(alert)
     @alert = alert

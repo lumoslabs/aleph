@@ -86,4 +86,4 @@ You can configure Aleph to email recipients about the status of Alerts. To do th
 
 This configurational is optional but important if you want to get the most out of Alerts. The below example file provides a pretty good guide.
 
-*File* - [alerts.yml](../config/example/ALERTS_CONFIG.yml)
+*File* - [alerts.yml](../config/example/email.yml)
