@@ -20,8 +20,10 @@ class Query < ActiveRecord::Base
   delegate :version, :author_name, :results, to: :latest_query_version, prefix: :latest, allow_nil: true
   delegate :id, to: :latest_query_version, prefix: true, allow_nil: true
   delegate :to_csv, to: :latest_completed_result, allow_nil: true
+  delegate :user, to: :latest_query_version
 
   scope :with_role, ->(role) { includes(:query_roles).where(query_roles: { role: role }) }
+  scope :scheduled, -> { where(scheduled_flag: true) }
 
   LOCATIONS_FOR_ATTRIBUTES = {
     title:       { association: :base, column: :title, type: :text },
@@ -36,6 +38,12 @@ class Query < ActiveRecord::Base
 
   paginate_with LOCATIONS_FOR_ATTRIBUTES
 
+  def self.run_scheduled
+    scheduled.each do |query|
+      Resque.enqueue(ScheduledQueryExecution, query.id, query.user.role)
+    end
+  end
+
   def latest_completed_result
     latest_results.completed.last
   end
@@ -46,6 +54,10 @@ class Query < ActiveRecord::Base
       tag = tags.find { |t| t.id == tagging.tag_id }
       tag.name if tag
     end
+  end
+
+  def send_result_email
+    QueryMailer.query_result_email(self).deliver_now!
   end
 
   def latest_query_version
@@ -85,7 +97,7 @@ class Query < ActiveRecord::Base
 
   def summary
     Summarizer.new(query_versions).reduce(version: 0, comments: 0) do |qv|
-      { versions: 1, comments: qv.comment.blank? ? 0 : 1}
+      { versions: 1, comments: qv.comment.blank? ? 0 : 1 }
     end
   end
 

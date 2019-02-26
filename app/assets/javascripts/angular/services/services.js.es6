@@ -13,6 +13,7 @@
       'alephServices.queryTab',
       'alephServices.query',
       'alephServices.queryLoader',
+      'alephServices.tagsAndRolesComparator',
 
       // visualzations
       'alephServices.visualizationService',

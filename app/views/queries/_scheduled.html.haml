@@ -1,0 +1,31 @@
+.scheduled
+  .row.container.control-bar
+    %span.glyphicon.pull-right.control-btn.subdued-clickable{ 'ng-click' => 'queryDetailsCtrl.updateScheduleDialogAndClose()',
+                                                              'ng-class' => "{ 'glyphicon-remove': queryDetailsCtrl.query.isPristine(), 'glyphicon-save': queryDetailsCtrl.query.isDirty()}",
+                                                              'uib-tooltip' => "{{queryDetailsCtrl.query.isDirty() ? 'Save' : 'Close'}}",
+                                                              'tooltip-placement' => 'top' }
+    %span.glyphicon.glyphicon-refresh.pull-right.control-btn.subdued-clickable{ 'ng-click' => 'queryDetailsCtrl.query.revert()',
+                                                                                'uib-tooltip' => 'Refresh',
+                                                                                'ng-if' => 'queryDetailsCtrl.query.isDirty()',
+                                                                                'tooltip-placement' => 'top' }
+  .row.container.toggle-bar
+    .col-sm-3
+    .col-sm-1.pad1
+      Off
+    .col-sm-4.toggle-center
+      %label.switch.switch-section
+        %input{ 'type' => 'checkbox',
+                'ng-model' => 'queryDetailsCtrl.query.item.scheduled_flag' }
+          %span.slider.round
+    .col-sm-1.pad1
+      On
+    .col-sm-3
+  .row.container.email-bar
+    .col-sm-1.email-label
+      %span.glyphicon.glyphicon-envelope.glyphicons-lg.glyphicon-low
+    .col-sm-11.email-input-col
+      %form{ name: 'queryEmailForm', id: 'queryEmailForm', novalidate: '' }
+        %input.input-xs{ 'type' => 'text',
+                         'ng-model' => 'queryDetailsCtrl.query.item.email',
+                         'class' => 'form-control',
+                         'placeholder' => 'Email' }

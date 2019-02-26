@@ -8,7 +8,8 @@ module Interaction
       @tags = @params[:tags] || []
       @title = @params[:title]
       @user = @params[:user]
-      @latest_result_s3_url_flag = @params[:latest_result_s3_url_flag]
+      @scheduled_flag = !!@params[:scheduled_flag]
+      @email = @params[:email]
 
       @result = fetch_result
       @roles = build_roles

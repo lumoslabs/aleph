@@ -48,7 +48,7 @@ class Result < ActiveRecord::Base
   end
 
   def copy_latest_result
-    if AwsS3.s3_enabled? && query.present? && query.latest_result_s3_url_flag
+    if AwsS3.s3_enabled? && query.present? && query.scheduled_flag
       AwsS3.copy(current_result_s3_key, query.latest_result_key)
     end
   end

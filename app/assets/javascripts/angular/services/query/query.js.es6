@@ -1,7 +1,7 @@
 !(angular => {
   'use strict';
 
-  function QueryModelImports(QueryResource, ParameterMethods, StandardModel, $q) {
+  function QueryModelImports(QueryResource, ParameterMethods, StandardModel, TagsAndRolesComparator, $q) {
 
     return class Query extends StandardModel {
 
@@ -12,19 +12,28 @@
           {
             title: '',
             tags: [],
+            roles: [],
             version: {
               body: '',
+              comment: '',
               parameters: []
             },
-            latest_result_s3_url_flag: false
+            scheduled_flag: false,
+            email: ''
           },
           [
             'title',
             'version.body',
+            'version.comment',
             'roles',
             'tags',
-            'latest_result_s3_url_flag'
-          ]
+            'scheduled_flag',
+            'email'
+          ],
+          {
+            tags: ((l, r) => TagsAndRolesComparator.compare(l, r)),
+            roles: ((l, r) => TagsAndRolesComparator.compare(l, r))
+          }
         );
       }
 
@@ -51,7 +60,7 @@
     };
   }
 
-  QueryModelImports.$inject = ['QueryResource', 'ParameterMethods', 'StandardModel', '$q'];
+  QueryModelImports.$inject = ['QueryResource', 'ParameterMethods', 'StandardModel', 'TagsAndRolesComparator', '$q'];
   angular.module('alephServices.query', []).service('Query', QueryModelImports);
 
 }(angular));

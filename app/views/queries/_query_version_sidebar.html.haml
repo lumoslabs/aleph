@@ -3,24 +3,42 @@
     .current-version
       %strong Current Version: {{qvSidebarCtrl.query.item.version.version}}
       %p
-      .octicon.octicon-calendar
-      {{qvSidebarCtrl.query.item.version.created_at | date:dateFormat: "UTC"}}
-      %br
-      .octicon.octicon-pencil
-      {{qvSidebarCtrl.query.item.version.author_name}}
+      .version-item
+        .octicon.octicon-calendar
+        {{qvSidebarCtrl.query.item.version.created_at | date:dateFormat: "UTC"}}
+      .version-item
+        .octicon.octicon-pencil
+        {{qvSidebarCtrl.query.item.version.author_name}}
+  .row{ 'ng-if' => 'qvSidebarCtrl.queryIsPersistedAsScheduled()' }
+    .scheduled-info
+      .version-item
+        .octicon.octicon-clock
+        Scheduled
+      .version-item
+        .octicon.octicon-clippy
+        %a{ 'href' => '',
+            'text' =>  'qvSidebarCtrl.query.item.latest_result_object_url',
+            'supported' => 'supported',
+            'on-copied' => 'qvSidebarCtrl.alertResultLinkCopied()',
+            'clipboard' => '',
+            'tooltip-append-to-body' => 'true',
+            'uib-tooltip' => 'Copy latest result s3 URL',
+            'tooltip-placement' => 'left' }
+          Result S3 URL
   .row{ 'ng-if' => 'qvSidebarCtrl.githubIsEnabled()' }
     .github-links
-      %span.octicon.octicon-mark-github
-      %a{'ng-href' => '{{qvSidebarCtrl.githubHistory}}'} Git History
-      %br
-      %span.octicon.octicon-mark-github
-      %a{'ng-href' => '{{qvSidebarCtrl.githubCommit}}'} Git Commit
-      %br
-      %span.octicon.octicon-mark-github
-      %span{ 'ng-if' => 'qvSidebarCtrl.selectedVersions.length !== 2',
-             'style' => 'opacity:0.5' } Git Compare
-      %a{ 'ng-if' => 'qvSidebarCtrl.selectedVersions.length === 2',
-          'ng-href' => '{{qvSidebarCtrl.githubCompare}}' } Git Compare
+      .version-item
+        .octicon.octicon-mark-github
+        %a{'ng-href' => '{{qvSidebarCtrl.githubHistory}}'} Git History
+      .version-item
+        .octicon.octicon-mark-github
+        %a{'ng-href' => '{{qvSidebarCtrl.githubCommit}}'} Git Commit
+      .version-item
+        .octicon.octicon-mark-github
+        %span{ 'ng-if' => 'qvSidebarCtrl.selectedVersions.length !== 2',
+               'style' => 'opacity:0.5' } Git Compare
+        %a{ 'ng-if' => 'qvSidebarCtrl.selectedVersions.length === 2',
+            'ng-href' => '{{qvSidebarCtrl.githubCompare}}' } Git Compare
   .row
     .versions
       %ul

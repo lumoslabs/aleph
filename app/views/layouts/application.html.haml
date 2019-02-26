@@ -42,6 +42,8 @@
       = render partial: 'running_results/index'
     %script#comments-template{type: 'text/ng-template'}
       = render partial: 'queries/comments'
+    %script#scheduled-template{type: 'text/ng-template'}
+      = render partial: 'queries/scheduled'
     :javascript
       window.flash = #{flash.to_hash.to_json};
   %body{ 'ng-controller' => 'BodyController',

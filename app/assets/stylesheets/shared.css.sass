@@ -48,6 +48,9 @@ body
 .small-font
   font-size: small
 
+.x-small-font
+  font-size: x-small
+
 .info-box
   background-color: $gray-lighter
   border: 1px solid $gray-light
@@ -159,6 +162,12 @@ a.navbar-text.active
   &:active
     opacity: $opacity-high
 
+.subdued-clickable
+  color: $dark-slate-blue
+  cursor: pointer
+  &:hover
+    color: black
+
 // pulsating stuff
 
 // Chrome, Safari, Opera
@@ -200,3 +209,61 @@ a.navbar-text.active
   animation-duration: 3s
   animation-direction: alternate
   animation-iteration-count: 3
+
+
+/* css for slider toggle switch */
+.switch
+  position: relative
+  display: inline-block
+  width: 28px
+  height: 18px
+
+$slider-checked: lighten($slate-blue, 5%) !default
+$slider-bg: lighten(#ccc, 5%) !default
+
+/* Hide default HTML checkbox */
+.switch input
+  opacity: 0
+  width: 0
+  height: 0
+
+/* The slider */
+.slider
+  position: absolute
+  cursor: pointer
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background-color: $slider-bg
+  -webkit-transition: .4s
+  transition: .4s
+
+.slider:before
+  position: absolute
+  content: ""
+  height: 14px
+  width: 14px
+  left: 2px
+  bottom: 2px
+  background-color: white
+  -webkit-transition: .4s
+  transition: .4s
+
+input:checked + .slider
+  background-color: $slider-checked
+
+input:focus + .slider
+  box-shadow: 0 0 0px $slider-checked
+
+input:checked + .slider:before
+  -webkit-transform: translateX(10px)
+  -ms-transform: translateX(10px)
+  transform: translateX(10px)
+
+/* Rounded sliders */
+.slider.round
+  border-radius: 5px
+
+.slider.round:before
+  border-radius: 25%
