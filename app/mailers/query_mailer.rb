@@ -1,5 +1,5 @@
 class QueryMailer < ActionMailer::Base
-  default from: ALERTS_CONFIG['from']
+  default from: EMAIL_CONFIG['from']
 
   def query_result_email(query)
     @query = query

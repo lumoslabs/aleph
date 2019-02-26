@@ -81,9 +81,9 @@ This file used for ingesting IDP provided user attributes into the user record; 
 
 Additionally, you need to configure `saml_issuer`, and `saml_name_identifier_format` in [config.yml](../config/example/config.yml) and have the `SAML_IDP_CERT`, `SAML_METADATA_URL`, and `SAML_SSO_TARGET` env variables set.
 
-## Alert Emails
-You can configure Aleph to email recipients about the status of Alerts. To do this you have to supply `smtp_settings` and a `default_url_host`. You will also need to set the `SMTP_PASSWORD` environment variable.
+## Emails
+You can configure Aleph to email recipients about the status of Alerts or scheduled queries. To do this you have to supply `smtp_settings` and a `default_url_host`. You will also need to set the `SMTP_PASSWORD` environment variable.
 
 This configurational is optional but important if you want to get the most out of Alerts. The below example file provides a pretty good guide.
 
-*File* - [alerts.yml](../config/example/ALERTS_CONFIG.yml)
+*File* - [email.yml](../config/example/email.yml)

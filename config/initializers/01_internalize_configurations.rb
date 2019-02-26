@@ -47,17 +47,17 @@ end
 
 # smtp_settings
 # -------------------------------------------------
-unless defined? ALERTS_CONFIG
-  alerts = ingest.slurp('alerts.yml')
-  ALERTS_CONFIG = alerts && alerts[Rails.env.to_s] ? alerts[Rails.env.to_s] : {}
-  if ALERTS_CONFIG
-    smtp = ALERTS_CONFIG['smpt_settings']
+unless defined? EMAIL_CONFIG
+  alerts = ingest.slurp('email.yml')
+  EMAIL_CONFIG = alerts && alerts[Rails.env.to_s] ? alerts[Rails.env.to_s] : {}
+  if EMAIL_CONFIG
+    smtp = EMAIL_CONFIG['smpt_settings']
     if smtp
       smtp['password'] = ENV['SMTP_PASSWORD']
       ActionMailer::Base.smtp_settings = smtp.symbolize_keys
     end
 
-    default_url_host = ALERTS_CONFIG['default_url_host']
+    default_url_host = EMAIL_CONFIG['default_url_host']
     if default_url_host
       ActionMailer::Base.default_url_options[:host] = default_url_host
     end
