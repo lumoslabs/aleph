@@ -98,7 +98,7 @@
     _updateQuery() {
       return this.query.save()
       .then(this._internalizeQueryItem.bind(this))
-      .then(this._handler.success.bind(this._handler, 'update', false))
+      .then(this._handler.success.bind(this._handler, 'update', false));
     }
 
     _closeDialogBoxes() {

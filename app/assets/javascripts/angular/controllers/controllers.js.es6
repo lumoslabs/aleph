@@ -55,7 +55,7 @@
 
         $rootScope.$on('$routeChangeSuccess', () => {
           if ($scope.scheduledAlert) {
-            addAlert($scope.scheduledAlert)
+            addAlert($scope.scheduledAlert);
             $scope.scheduledAlert = null;
           } else {
             $scope.dismiss();
@@ -67,7 +67,7 @@
         });
 
         $rootScope.$on('setAlert', (event, alert) => {
-          addAlert(alert)
+          addAlert(alert);
         });
       }
     ]);
