@@ -60,7 +60,7 @@ For a proper production installation, Aleph needs an external Redis instance and
 ### The app
 There are a number of ways to install and deploy Aleph. The simplest is to set up a Dockerfile that installs aleph as a gem:
 
-    FROM ruby:2.1.6
+    FROM ruby:2.2.4
 
     # we need postgres client libs
     RUN apt-get update && apt-get install -y postgresql-client --no-install-recommends && rm -rf /var/lib/apt/lists/*
@@ -124,6 +124,7 @@ While the demo/playground version does not use a git repo or S3, we *highly* rec
 
 ### Testing
 
+    export PATH="$PWD/node_modules/karma-cli/bin:$PATH"
     RAILS_ENV=test bundle exec rspec spec
     bundle exec rake karma:run
 
@@ -135,6 +136,8 @@ You can manage your env variables in a .env file
 ## Links
 
 - [Feature Notes](docs/FEATURES.md)
+- [Development Notes](docs/DEVELOPMENT_NOTES.md)
+- [Operational Notes](docs/OPERATIONAL_NOTES.md)
 - [Rubygem](https://rubygems.org/gems/aleph_analytics)
 - [aleph-user group](https://groups.google.com/forum/#!forum/aleph-user)
 
