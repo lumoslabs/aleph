@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file using [Semantic Versioning](http://semver.org/).
 
-## [0.3.0] - 2010-02-26
+## [0.3.0] - 2019-02-26
 ### Features
 - [Scheduled Query Execution](https://github.com/lumoslabs/aleph/issues/42)
 - Fixed s3 location for latest result (useful for GoogleSheet integration)
