@@ -46,5 +46,21 @@ module AwsS3
         obj.upload_file(filepath)
       end
     end
+
+
+    def pipe_reader(s3_key)
+      bucket = Aws::S3::Resource.new(region: S3_REGION).bucket(S3_BUCKET)
+      reader, writer = IO.pipe
+      writer.instance_eval('undef :rewind')
+      writer.binmode()
+
+      t = Thread.new do
+        bucket.object(s3_key).get(response_target: writer)
+        writer.close
+      end
+
+      t.abort_on_exception = true
+      reader
+    end
   end
 end

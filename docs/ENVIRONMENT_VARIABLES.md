@@ -13,6 +13,9 @@ ALEPH_DB_PASSWORD=fakepassword
 ALEPH_DB_USERNAME=someusername
 ALEPH_DB_DATABASE=database_name
 
+# database type: redshift or snowflake.  Default is redshift
+ANALYTIC_DB_TYPE=redshift
+
 # configurations for specific redshift users that correspond to roles
 # you may create as many of these as you like
 # using the format <role>_REDSHIFT_USERNAME and <role>_REDSHIFT_PASSWORD
@@ -20,6 +23,14 @@ ADMIN_REDSHIFT_USERNAME=some_user1
 ADMIN_REDSHIFT_PASSWORD=some_password1
 GENERAL_REDSHIFT_USERNAME=some_user4
 GENERAL_REDSHIFT_PASSWORD=some_password4
+
+# configurations for specific snowflake users that correspond to roles
+# you may create as many of these as you like
+# using the format <role>_SNOWFLAKE_USERNAME and <role>_SNOWFLAKE_PASSWORD
+ADMIN_SNOWFLAKE_USERNAME=some_user1
+ADMIN_SNOWFLAKE_PASSWORD=some_password1
+GENERAL_SNOWFLAKE_USERNAME=some_user4
+GENERAL_SNOWFLAKE_PASSWORD=some_password4
 
 # number of workers for query and alert execution (you can throttle use of your cluster this way)
 ALEPH_QUERY_EXEC_WORKER_POOL=8

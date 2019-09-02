@@ -1,7 +1,10 @@
 # Advanced Configuration
 Configuration examples can be found in the example [config directory](../config/example). The directory for your configurations is specified by the [environment variable](ENVIRONMENT_VARIABLES.md) `ALEPH_CONFIG_PATH`. If this is not set, Aleph will try to find them in `/tmp/aleph/configuration` by default.
 
-## Redshift
+## Analytic Database
+Configures connection to either Redshift or Snowflake
+
+### Redshift
 This configures your connection to Redshift. It only holds information about the *host*, *database*, and *port*. *Username* and *password* are stored as [environment variables](ENVIRONMENT_VARIABLES.md) on a per role bases (see more about roles below). As you can imagine, this configuration is mandatory.
 
 *File* - [redshift.yml](../config/example/redshift.yml)
@@ -13,8 +16,23 @@ This configures your connection to Redshift. It only holds information about the
   - port
   - statement_timeout
 
-
 `statement_timeout` is in milliseconds. This is field optional.
+
+### Snowflake
+This configures your connection to Snowflake. It only holds information about the *ODBC DSN*. *Username* and *password* are stored as [environment variables](ENVIRONMENT_VARIABLES.md) on a per role bases (see more about roles below). As you can imagine, this configuration is mandatory.
+
+*File* - [snowflake.yml](../config/example/snowflake.yml)
+
+*Properties*
+- Rails env
+  - dsn
+  - unload_target
+  - statement_timeout
+  - max_file_size
+
+
+`max_file_size` and `statement_timeout` are optional.  `statement_timeout` is in milliseconds.  The default `max_file_size` is 5 GB.
+
 [Read more](http://docs.aws.amazon.com/redshift/latest/dg/r_statement_timeout.html)
 
 ## Github
@@ -39,7 +57,7 @@ Connection credentials for s3 are in [environment variables](ENVIRONMENT_VARIABL
 ## Role
 Access control on the query and table level is determined via Roles. For example, a query with role *Admin* will be only visible to an *Admin* user. Queries can multiple roles.
 
-Additionally, roles  specify a Redshift connection; there is username/password pair per role. E.g, for role *Admin* you will have to specify `ADMIN_REDSHIFT_USERNAME` and `ADMIN_REDSHIFT_PASSWORD` in the [environment variables](ENVIRONMENT_VARIABLES.md).
+Additionally, roles  specify a Redshift/Snowflake connection; there is username/password pair per role. E.g, for role *Admin* you will have to specify `ADMIN_REDSHIFT_USERNAME` and `ADMIN_REDSHIFT_PASSWORD` (or `ADMIN_SNOWFLAKE_USERNAME` and `ADMIN_SNOWFLAKE_PASSWORD`) in the [environment variables](ENVIRONMENT_VARIABLES.md).
 
 ### Role Hierarchy
 You can define the hierarchy of your roles which determine roles maybe autofilled. In this [example](../config/example/role_hierarchy.yml), *General* is set as one of the child roles of *Admin*. This means that whenever *General* is set on a query, *Admin* will be as well, ensuring that queries made by *General* will be visible to *Admin*.

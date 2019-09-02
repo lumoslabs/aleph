@@ -33,6 +33,10 @@ class CommandParser
         @options[:worker_processes]  = w
       end
 
+      opts.on('-t', '--db_type DB_TYPE', 'redshift or snowflake.  Default is redshift') do |t|
+        @options[:db_type] = t
+      end
+
       opts.on('-H', '--redshift-host REDSHIFT_HOST', 'Redshift Hostname') do |rhost|
         @options[:redshift_host]  = rhost
       end
@@ -45,12 +49,40 @@ class CommandParser
         @options[:redshift_port]  = rport
       end
 
-      opts.on('-U', '--redshift-user REDSHIFT_USER', 'Redshift User') do |ruser|
-        @options[:redshift_user]  = ruser
+      opts.on('-U', '--db-user DB_USER', 'Redshift or Snowflake User') do |dbuser|
+        @options[:db_user]  = dbuser
       end
 
-      opts.on('-P', '--redshift-password REDSHIFT_PASSWORD', 'Redshift Password') do |rpw|
-        @options[:redshift_password]  = rpw
+      opts.on('--redshift-user DB_USER', 'Same as --db-user (for backward compatibility)') do |dbuser|
+        @options[:db_user]  = dbuser
+      end
+
+      opts.on('-P', '--db-password DB_PASSWORD', 'Redshift or Snowflake Password') do |dbpw|
+        @options[:db_password]  = dbpw
+      end
+
+      opts.on('--redshift-password DB_PASSWORD', 'Same as --db-password (for backward compatibility)') do |dbpw|
+        @options[:db_password]  = dbpw
+      end
+
+      opts.on('-S', '---dsn ODBC_DSN', 'Snowflake ODBC DSN') do |dsn|
+        @options[:dsn]  = dsn
+      end
+
+      opts.on('-L', '---snowflake_unload_target STAGE_OR_LOCATION', 'Snowflake only.  Stage or location where result files are unloaded') do |target|
+        @options[:snowflake_unload_target]  = target
+      end
+
+      opts.on('-R', '---s3_region S3_REGION', 's3 Region') do |region|
+        @options[:s3_region]  = region
+      end
+
+      opts.on('-B', '---s3_bucket S3_BUCKET', 's3 bucket which result files are unloaded.  Required for Snowflake DB') do |bucket|
+        @options[:s3_bucket]  = bucket
+      end
+
+      opts.on('-F', '---s3_bucket S3_FOLDER', 's3 folder where result files are unloaded') do |folder|
+        @options[:s3_folder]  = folder
       end
 
       opts.on('-h', '--help', 'Halp!') do |h|

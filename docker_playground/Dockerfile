@@ -11,6 +11,12 @@ RUN cd /usr/src \
 # postgres client libs for streaming from redshift
 RUN apt-get update && apt-get install -y postgresql-client --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
+# install unix odbc (for snowflake)
+RUN apt-get update && apt-get install -y unixodbc-dev
+
+# snowflake
+RUN curl -o /tmp/snowflake_linux_x8664_odbc-2.19.8.tgz https://sfc-repo.snowflakecomputing.com/odbc/linux/latest/snowflake_linux_x8664_odbc-2.19.8.tgz && cd /tmp && gunzip snowflake_linux_x8664_odbc-2.19.8.tgz && tar -xvf snowflake_linux_x8664_odbc-2.19.8.tar && cp -r snowflake_odbc /usr/bin && rm -r /tmp/snowflake_odbc
+
 # log location
 RUN mkdir -p /var/log/aleph
 ENV SERVER_LOG_ROOT /var/log/aleph

@@ -76,7 +76,7 @@ module Schemas
     end
 
     def exec_schema_query
-      connection = RedshiftConnectionPool.instance.get(@role)
+      connection = AnalyticDBConnectionPool.instance.get(@role)
       connection.reconnect_on_failure do
         connection.pg_connection.exec(INFORMATION_SCHEMA_QUERY)
       end

@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'csv'
 
 class CsvSerializer
@@ -19,5 +21,29 @@ class CsvSerializer
         csv << headers.map { |key| data_hash[key] }
       end
     end
+  end
+
+  def self.load_from_s3_file(key, num_rows=nil, headers=true)
+    # load from an CSV file in s3 and returns the headers (if headers=true) and the rows in 2-D array
+    # params:
+    #   file: s3 key
+    #   num_rows: maximum number of rows to return
+    #   headers: does the csv file has a header row?
+    #
+
+    reader = AwsS3.pipe_reader(key)
+    rows = []
+    header_row = nil
+    CSV.new(reader, headers: true, return_headers: true).each_with_index do |row, n|
+      break if num_rows && n > num_rows
+
+      if headers && n == 0
+        header_row = row.fields
+      else
+        rows << row.fields
+      end
+    end
+
+    return [header_row, rows]
   end
 end
