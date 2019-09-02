@@ -19,6 +19,14 @@ common: &common
   # saml_issuer: <My App>
   # saml_name_identifier_format: <"urn:oasis:names:tc:SAML:2.0:nameid-format:transient">
 
+  # Convert database identifiers to lowercase
+  # If true, schema information (schema, table, column names) will be converted to lowercase
+  # in the Schema tab as well as autocomplete in the Query editor.  It is recommended to set
+  # this to true only if your Snowflake `QUOTED_IDENTIFIERS_IGNORE_CASE` account setting
+  # is true (so `SELECT * FROM "mytable"` can reference MYTABLE table even when Snowflake
+  # stores the table name in uppercase).
+  lowercase_db_identifiers: false
+
 development:
   <<: *common
   github_ref: heads/development

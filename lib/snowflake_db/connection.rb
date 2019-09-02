@@ -28,11 +28,22 @@ module SnowflakeDB
       @connection ||= connect!
     end
 
+    def fetch_all_hash(query)
+      # execute a query and return the entire result as an array of hashes keyed by column names
+      result = []
+      reconnect_on_failure do
+        connection.fetch(query) do |row|
+          result << Hash[row.map { |k, v| [k.to_s, v] }]
+        end
+      end
+      result
+    end
+
     private
 
-    # Whether the given exception is due connection expired error.  e.g.
-    # ODBC::Error: 08001 (390114) Authentication token has expired.  The user must authenticate again.
     def connection_expired_error?(exception)
+      # Whether the given exception is due connection expired error.  e.g.
+      # ODBC::Error: 08001 (390114) Authentication token has expired.  The user must authenticate again.
       exception.message =~ /\(39011[0-5]\)/
     end
 

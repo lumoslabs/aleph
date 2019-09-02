@@ -28,6 +28,13 @@ module RedshiftPG
       @pg_connection ||= connect!
     end
 
+    def fetch_all_hash(query)
+      # execute a query and return the entire result as an array of hashes keyed by column names
+      reconnect_on_failure do
+        pg_connection.exec(query).to_a
+      end
+    end
+
     private
 
     def connect!
