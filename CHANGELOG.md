@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file using [Semantic Versioning](http://semver.org/).
 
-## [0.3.1] - 2019-09-02
+## [0.4.0] - 2019-09-02
 ### Features
 - Added support for Snowflake
 
