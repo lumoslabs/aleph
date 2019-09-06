@@ -9,7 +9,7 @@ describe QueryExecution do
         stub_github_calls
 
         allow(Role).to receive(:configured_connections) { ['admin'] }
-        allow(RedshiftConnectionPool).to receive_message_chain('instance.get').and_raise("boom")
+        allow(AnalyticDBConnectionPool).to receive_message_chain('instance.get').and_raise("boom")
 
         allow(result).to receive(:mark_failed!)
         allow(Result).to receive(:find) { result } # force #perform to fetch the same result

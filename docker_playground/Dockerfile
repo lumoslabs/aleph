@@ -11,6 +11,9 @@ RUN cd /usr/src \
 # postgres client libs for streaming from redshift
 RUN apt-get update && apt-get install -y postgresql-client --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
+# install unix odbc
+RUN apt-get update && apt-get install -y unixodbc-dev
+
 # log location
 RUN mkdir -p /var/log/aleph
 ENV SERVER_LOG_ROOT /var/log/aleph

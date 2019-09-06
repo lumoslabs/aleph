@@ -1,19 +1,21 @@
 module Schemas
   class Descriptor
     include RedisStore
+
+    SCHEMA_REFRESH_INTERVAL = APP_CONFIG['schema_refresh_interval'] || 1.day
+    LOWERCASE_DB_IDENTIFIERS = APP_CONFIG['lowercase_db_identifiers'] || false
+
     INFORMATION_SCHEMA_QUERY = <<-SQL
       SELECT
-        table_schema,
-        table_name,
-        column_name,
+        #{LOWERCASE_DB_IDENTIFIERS ? 'LOWER(table_schema) AS ': ''}table_schema,
+        #{LOWERCASE_DB_IDENTIFIERS ? 'LOWER(table_name) AS ': ''}table_name,
+        #{LOWERCASE_DB_IDENTIFIERS ? 'LOWER(column_name) AS ': ''}column_name,
         udt_name,
         character_maximum_length
       FROM information_schema.columns
-      WHERE table_schema NOT IN ('information_schema', 'pg_catalog', 'public')
+      WHERE table_schema NOT IN ('INFORMATION_SCHEMA', 'information_schema', 'pg_catalog', 'public')
       ORDER BY table_schema, table_name, ordinal_position;
     SQL
-
-    SCHEMA_REFRESH_INTERVAL = APP_CONFIG['schema_refresh_interval'] || 1.day
 
     def initialize(role)
       @role = role
@@ -76,10 +78,8 @@ module Schemas
     end
 
     def exec_schema_query
-      connection = RedshiftConnectionPool.instance.get(@role)
-      connection.reconnect_on_failure do
-        connection.pg_connection.exec(INFORMATION_SCHEMA_QUERY)
-      end
+      connection = AnalyticDBConnectionPool.instance.get(@role)
+      connection.fetch_all_hash(INFORMATION_SCHEMA_QUERY)
     end
 
     def filter_tables(schemas)

@@ -53,6 +53,14 @@ class Result < ActiveRecord::Base
     end
   end
 
+  def current_result_filename
+    @result_filename ||= CsvHelper::Base.new(id).filename
+  end
+
+  def current_result_s3_key
+    @result_key ||= CsvHelper::Aws.new(id).key
+  end
+
   private
 
   def duration(start_field, end_field)
@@ -66,9 +74,5 @@ class Result < ActiveRecord::Base
     else
       0
     end
-  end
-
-  def current_result_s3_key
-    @result_key ||= CsvHelper::Aws.new(id).key
   end
 end

@@ -2,8 +2,8 @@ class Role
   ADMIN_ROLE = 'admin'.freeze
 
   class << self
-    USERNAME_POSTFIX = '_REDSHIFT_USERNAME'.freeze
-    PASSWORD_POSTFIX = '_REDSHIFT_PASSWORD'.freeze
+    USERNAME_POSTFIX = "_#{AnalyticDBConnectionFactory::DB_TYPE}_USERNAME".upcase.freeze
+    PASSWORD_POSTFIX = "_#{AnalyticDBConnectionFactory::DB_TYPE}_PASSWORD".upcase.freeze
 
     def name_to_username_key(name)
       "#{name.upcase}#{USERNAME_POSTFIX}"

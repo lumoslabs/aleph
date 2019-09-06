@@ -1,0 +1,20 @@
+# Config for your Snowflake ODBC DSN
+# Usernames and passwords are provided using environment variables
+
+snowflake_common: &snowflake_common
+  dsn: snowflake
+  unload_target: @mydb.myschema.aleph_stage/
+  statement_timeout: 1800000
+  max_file_size: 5368709120
+
+production:
+  <<: *snowflake_common
+
+staging:
+  <<: *snowflake_common
+
+test:
+  <<: *snowflake_common
+
+development:
+  <<: *snowflake_common

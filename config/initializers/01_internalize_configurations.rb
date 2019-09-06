@@ -15,6 +15,8 @@ class AlephConfigIngest
 end
 
 ingest = AlephConfigIngest.new
+db_type = (ENV['ANALYTIC_DB_TYPE'] || 'redshift').downcase.freeze
+db_yml = "#{db_type}.yml".freeze
 
 # Application Configuration
 # -------------------------------------------------
@@ -31,16 +33,16 @@ unless defined? ROLE_HIERARCHY
   ROLES = ROLE_HIERARCHY.flat_map { |k, v| [k] + v }.uniq
 end
 
-# Redshift Connections
+# Redshift/Snowflake Connections
 # -------------------------------------------------
-unless defined? REDSHIFT_DB_CONFIG
-  redshift = ingest.slurp('redshift.yml')
-  raise "Invalid redshift.yml file for env = #{Rails.env.to_s}" unless redshift && redshift[Rails.env.to_s]
-  REDSHIFT_DB_CONFIG = {}
+unless defined? ANALYTIC_DB_CONFIG
+  db = ingest.slurp(db_yml)
+  raise "Invalid #{db_yml} file for env = #{Rails.env.to_s}" unless db && db[Rails.env.to_s]
+  ANALYTIC_DB_CONFIG = {}
   Role.configured_connections.each do |role|
-    REDSHIFT_DB_CONFIG[role] = redshift[Rails.env.to_s].merge(
-      'username' => ENV[Role.name_to_username_key(role)],
-      'password' => ENV[Role.name_to_password_key(role)]
+    ANALYTIC_DB_CONFIG[role] = db[Rails.env.to_s].merge(
+        'username' => ENV[Role.name_to_username_key(role)],
+        'password' => ENV[Role.name_to_password_key(role)]
     )
   end
 end

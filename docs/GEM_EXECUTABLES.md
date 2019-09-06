@@ -10,11 +10,23 @@ This will list available executables and options
 
 ## Quickstart
 ##### Setup Minimal
-Configure and setup a minimal Aleph with your Redshift connection.
+Configure and setup a minimal Aleph with either a Redshift or a Snowflake connection.
 
-    aleph setup_minimal -H HOST -D DB -p PORT -U USER -P PASSWORD
+* Redshift
 
-All options are mandatory
+      aleph setup_minimal -H HOST -D DB -p PORT -U USER -P PASSWORD
+
+    All options are mandatory
+
+* Snowflake
+
+  [Setup ODBC](../README.md#for-snowflake) and run
+
+      export AWS_ACCESS_KEY_ID="{aws key id}"
+      export AWS_SECRET_ACCESS_KEY="{aws secret key}"
+      aleph setup_minimal -t snowflake -S DSN -U USER -P PASSWORD -L UNLOAD_TARGET -R S3_REGION -B S3_BUCKET -F S3_FOLDER
+            
+    All options are mandatory
 
 
 ##### Run Demo

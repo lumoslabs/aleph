@@ -12,7 +12,7 @@ module AlephExecutables
 
     def execute!
       options = @options.select{ |k,v| k == :config_path}.merge(seed_db: true)
-      Playground.setup(HOST, DB, PORT, USER, PASSWORD, options)
+      Playground.setup('redshift', HOST, nil, DB, PORT, USER, PASSWORD, options)
     end
   end
 end

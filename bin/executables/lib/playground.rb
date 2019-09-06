@@ -1,8 +1,9 @@
 module AlephExecutables
   class Playground
-    def self.setup(host, db, port, user, password, options = {})
-      config_path = options[:config_path] || '/tmp/aleph/demo/configuration'
+    CONFIG_OPTIONS = [:s3_region, :s3_bucket, :s3_folder]
 
+    def self.setup(db_type, host, dsn, db, port, user, password, options = {})
+      config_path = options[:config_path] || '/tmp/aleph/demo/configuration'
       seed_db = options[:seed_db]
 
       config_generator = ConfigGenerator.new(config_path, 'playground')
@@ -10,9 +11,18 @@ module AlephExecutables
       config_generator.merge_envs(redis_url: 'redis://localhost:6379')
       config_generator.merge_envs(aleph_query_exec_worker_pool: 1)
       config_generator.merge_envs(aleph_alert_exec_worker_pool: 1)
-      properties = { 'auth_type' => 'disabled' }
+      config_generator.merge_envs(analytic_db_type: db_type)
+
+      properties = options.select{ |k,_| CONFIG_OPTIONS.include?(k) }.map{ |k, v| [k.to_s, v] }.to_h.
+          merge({ 'auth_type' => 'disabled' })
       config_generator.write_yaml('config.yml', properties, environments: [:playground])
-      config_generator.write_redshift(host, db, port, user, password)
+
+      if db_type == 'snowflake'
+        config_generator.write_snowflake(dsn, user, password, options[:snowflake_unload_target])
+      else
+        config_generator.write_redshift(host, db, port, user, password)
+      end
+
       config_generator.write_envs!
 
       Bundler.with_clean_env do

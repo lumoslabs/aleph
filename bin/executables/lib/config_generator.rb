@@ -22,7 +22,16 @@ module AlephExecutables
       write_yaml('redshift.yml', redshift_properties, environments: [@rails_env.to_sym])
       @env_writer.merge(admin_redshift_username: user, admin_redshift_password: password)
     end
-    
+
+    def write_snowflake(dsn, user, password, unload_target)
+      snowflake_properties = {
+          'dsn' => dsn,
+          'unload_target' => unload_target
+      }
+      write_yaml('snowflake.yml', snowflake_properties, environments: [@rails_env.to_sym])
+      @env_writer.merge(admin_snowflake_username: user, admin_snowflake_password: password)
+    end
+
     def write_envs!
       @env_writer.write!
     end
