@@ -1,6 +1,6 @@
 
 # Aleph
-Aleph is a Redshift or Snowflake analytics platform that focuses on aggregating institutional data investigation techniques.
+Aleph is a business analytics platform that focuses on ease-of-use and operational simplicity. It allows analysts to quickly author and iterate on queries, then share result sets and visualizations. Most components are modular, but it was designed to version-control queries (and analyze their differences) using Github and store result sets long term in Amazon S3.
 
 ![aleph](images/aleph_repo_banner.png)
 
