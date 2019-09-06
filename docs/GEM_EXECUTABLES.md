@@ -10,7 +10,7 @@ This will list available executables and options
 
 ## Quickstart
 ##### Setup Minimal
-Configure and setup a minimal Aleph with either Redshift or Snowflake connection.
+Configure and setup a minimal Aleph with either a Redshift or a Snowflake connection.
 
 * Redshift
 

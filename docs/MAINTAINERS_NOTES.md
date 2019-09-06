@@ -26,12 +26,17 @@ Sloppy hosts the lumos/aleph-demo at `aleph-analytics.io`
 * restart
 
 
-## Push docker playground image
+## Push docker playground images
 
 1. Publish gem to RubyGems
 * `cd docker_playground`
 * `docker build --no-cache -t lumos/aleph-playground .`
 * `docker push lumos/aleph-playground`
+
+
+* `cd docker_snowflake_playground`
+* `docker build --no-cache -t lumos/aleph-snowflake-playground .`
+* `docker push lumos/aleph-snowflake-playground`
 
 ## Edit CHANGELOG.MD
 * please!

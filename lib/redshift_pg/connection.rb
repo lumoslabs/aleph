@@ -20,7 +20,7 @@ module RedshiftPG
         return yield
       rescue PG::UnableToSend, PG::ConnectionBad
         pg_connection.reset
-        return yield
+        retry
       end
     end
 

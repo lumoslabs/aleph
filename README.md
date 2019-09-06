@@ -35,7 +35,7 @@ The fastest way to get started: [Docker](https://docs.docker.com/mac/step_one/)
 
 * For Snowflake, run
 
-      docker run -ti -p 3000:3000 lumos/aleph-playground /bin/bash -c "export AWS_ACCESS_KEY_ID=\"{aws_key_id}\" ; export AWS_SECRET_ACCESS_KEY=\"{aws_secret_key}\" ; cd /usr/bin/snowflake_odbc && sed -i 's/SF_ACCOUNT/{your_snowflake_account}/g' ./unixodbc_setup.sh && ./unixodbc_setup.sh && aleph setup_minimal -t snowflake -S snowflake -U {user} -P {password} -L {snowflake_unload_target} -R {s3_region}  -B {s3_bucket} -F {s3_folder}; redis-server & aleph run_demo"
+      docker run -ti -p 3000:3000 lumos/aleph-snowflake-playground /bin/bash -c "export AWS_ACCESS_KEY_ID=\"{aws_key_id}\" ; export AWS_SECRET_ACCESS_KEY=\"{aws_secret_key}\" ; cd /usr/bin/snowflake_odbc && sed -i 's/SF_ACCOUNT/{your_snowflake_account}/g' ./unixodbc_setup.sh && ./unixodbc_setup.sh && aleph setup_minimal -t snowflake -S snowflake -U {user} -P {password} -L {snowflake_unload_target} -R {s3_region}  -B {s3_bucket} -F {s3_folder}; redis-server & aleph run_demo"
     `snowflake_unload_target` is the external stage and location in snowflake.  e.g. `@mydb.myschema.aleph_stage/results/`
 
 ###### Open in browser

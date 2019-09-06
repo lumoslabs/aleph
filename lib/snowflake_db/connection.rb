@@ -5,7 +5,7 @@ module SnowflakeDB
     attr_reader :config, :unload_target, :max_file_size
 
     PG_INCLUDE_KEYS = %w(host dbname port user password)
-    MAX_FILE_SIZE = (5*1024*1024*1024).freeze
+    MAX_FILE_SIZE = 5.gigabytes.freeze
 
     def initialize(config)
       @config = config
@@ -20,7 +20,7 @@ module SnowflakeDB
       rescue Sequel::DatabaseError => e
         raise unless connection_expired_error?(e)
         connection.reset
-        return yield
+        retry
       end
     end
 
@@ -33,7 +33,7 @@ module SnowflakeDB
       result = []
       reconnect_on_failure do
         connection.fetch(query) do |row|
-          result << Hash[row.map { |k, v| [k.to_s, v] }]
+          result << row.stringify_keys
         end
       end
       result
