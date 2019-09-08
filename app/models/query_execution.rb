@@ -69,6 +69,7 @@ EOF
     # then read in the first 100 rows from the file as sample rows
     # Note: snowflake unload currently has a max file size of 5 GB.
     connection.reconnect_on_failure do
+      body = body.strip.gsub(/;$/, '')
       location = File.join(connection.unload_target, result.current_result_filename)
       sql = SNOWFLAKE_UNLOAD_SQL % {location: location, query: body, max_file_size: connection.max_file_size}
       row = connection.connection.fetch(sql).first
