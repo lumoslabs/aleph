@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file using [Semantic Versioning](http://semver.org/).
 
+## [0.4.1] - 2019-09-10
+### Fixed
+- [Bug fixes for v0.4.0](https://github.com/lumoslabs/aleph/pull/89) 
+
 ## [0.4.0] - 2019-09-02
 ### Features
 - Added support for Snowflake
