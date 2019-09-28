@@ -1,11 +1,11 @@
 Gem::Specification.new do |s|
   s.name        = 'aleph_analytics'
-  s.version     = '0.4.1'
-  s.date        = '2019-09-10'
+  s.version     = '0.4.2'
+  s.date        = '2019-09-25'
   s.summary     = 'Redshift/Snowflake analytics platform'
   s.description = 'The best way to develop and share queries/investigations/results within an analytics team'
-  s.authors     = ['Andrew Xue', 'Rob Froetscher']
-  s.email       = 'andrew@lumoslabs.com'
+  s.authors     = ['Andrew Xue', 'Rob Froetscher', 'Joyce Lau']
+  s.email       = 'eng-data@lumoslabs.com'
   s.files       = Dir.glob('{app,bin,lib,config,vendor}/**/*') +
                   # need to find the hidden sprockets manifest in public/assets
                   Dir.glob('public/assets/**/*', File::FNM_DOTMATCH) +

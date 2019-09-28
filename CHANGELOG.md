@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file using [Semantic Versioning](http://semver.org/).
 
+## [0.4.2] - 2019-09-25
+### Fixed
+- [Error when Snowflake query returns empty result set](https://github.com/lumoslabs/aleph/issues/91)
+
 ## [0.4.1] - 2019-09-10
 ### Fixed
 - [Bug fixes for v0.4.0](https://github.com/lumoslabs/aleph/pull/89) 
@@ -23,7 +27,7 @@ All notable changes to this project will be documented in this file using [Seman
 - [Site wide, saved filter for schema](https://github.com/lumoslabs/aleph/issues/38)
 
 ### Fixed
-- [Use trusty for travis](https://github.com/lumoslabs/aleph/issues/67)
+- [Use trusty for travis](https://github.com/lumoslabs/al eph/issues/67)
 - [Display 24-hour format](https://github.com/lumoslabs/aleph/issues/53)
 - [Schema search should be able to handle numbers](https://github.com/lumoslabs/aleph/issues/59)
 - [Clean up /tmp result files when query fails](https://github.com/lumoslabs/aleph/issues/37)
@@ -31,8 +35,7 @@ All notable changes to this project will be documented in this file using [Seman
 
 ## [0.1.0] - 2017-04-27
 ### Features
-- [Auto-complete on dot](https://github.com/lumoslabs/aleph/issues/48)
-
+- [Auto-complete on dot](https://github.com/lumoslabs/aleph/issues/48)auser
 ### Fixed
 - [change retry configuration for schema query](https://github.com/lumoslabs/aleph/issues/46)
 
