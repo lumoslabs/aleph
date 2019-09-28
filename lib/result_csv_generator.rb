@@ -3,10 +3,15 @@ require 'csv'
 class ResultCsvGenerator
   attr_accessor :csv
 
-  def initialize(result_id, headers)
+  def initialize(result_id, headers, create_empty = false)
     @result_id = result_id
     @headers = headers
     @csv_service = CsvService.new(@result_id)
+
+    if create_empty
+      setup_csv.call()
+      finish_csv.call(0)
+    end
   end
 
   def callbacks

@@ -73,9 +73,16 @@ EOF
       location = File.join(connection.unload_target, result.current_result_filename)
       sql = SNOWFLAKE_UNLOAD_SQL % {location: location, query: body, max_file_size: connection.max_file_size}
       row = connection.connection.fetch(sql).first
-      row_count = row[:rows_unloaded]
+      row_count = row[:rows_unloaded].to_i
 
-      headers, samples = CsvSerializer.load_from_s3_file(result.current_result_s3_key, NUM_SAMPLE_ROWS)
+      if row_count.zero?
+        # snowflake unload does not create a file if query returns empty result set; create an empty file
+        headers = ['']
+        samples = []
+        ResultCsvGenerator.new(result.id, headers, true)
+      else
+        headers, samples = CsvSerializer.load_from_s3_file(result.current_result_s3_key, NUM_SAMPLE_ROWS)
+      end
 
       result.headers = headers
       result.save!
