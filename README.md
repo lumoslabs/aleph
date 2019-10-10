@@ -51,7 +51,7 @@ You must be using [PostgreSQL 9.2beta3 or later client libraries](https://kkob.u
 You must install `unixodbc-dev` and setup and configure [snowflake ODBC](https://docs.snowflake.net/manuals/user-guide/odbc.html).  e.g.
 
     apt-get update && apt-get install -y unixodbc-dev
-    curl -o /tmp/snowflake_linux_x8664_odbc-2.19.8.tgz https://sfc-repo.snowflakecomputing.com/odbc/linux/latest/snowflake_linux_x8664_odbc-2.19.8.tgz && cd /tmp && gunzip snowflake_linux_x8664_odbc-2.19.8.tgz && tar -xvf snowflake_linux_x8664_odbc-2.19.8.tar && cp -r snowflake_odbc /usr/bin && rm -r /tmp/snowflake_odbc
+    curl -o /tmp/snowflake_linux_x8664_odbc-2.19.15.tgz https://sfc-repo.snowflakecomputing.com/odbc/linux/latest/snowflake_linux_x8664_odbc-2.19.15.tgz && cd /tmp && gunzip snowflake_linux_x8664_odbc-2.19.15.tgz && tar -xvf snowflake_linux_x8664_odbc-2.19.15.tar && cp -r snowflake_odbc /usr/bin && rm -r /tmp/snowflake_odbc
     cd /usr/bin/snowflake_odbc 
     ./unixodbc_setup.sh  # and following the instructions to setup Snowflake DSN
 
@@ -103,7 +103,7 @@ There are a number of ways to install and deploy Aleph. The simplest is to set u
     # for Snowflake, install unix odbc and Snowflake ODBC driver and setup DSN
     # replace {your snowflake account} below
     RUN apt-get update && apt-get install -y unixodbc-dev
-    RUN curl -o /tmp/snowflake_linux_x8664_odbc-2.19.8.tgz https://sfc-repo.snowflakecomputing.com/odbc/linux/latest/snowflake_linux_x8664_odbc-2.19.8.tgz && cd /tmp && gunzip snowflake_linux_x8664_odbc-2.19.8.tgz && tar -xvf snowflake_linux_x8664_odbc-2.19.8.tar && cp -r snowflake_odbc /usr/bin && rm -r /tmp/snowflake_odbc
+    RUN curl -o /tmp/snowflake_linux_x8664_odbc-2.19.15.tgz https://sfc-repo.snowflakecomputing.com/odbc/linux/latest/snowflake_linux_x8664_odbc-2.19.15.tgz && cd /tmp && gunzip snowflake_linux_x8664_odbc-2.19.15.tgz && tar -xvf snowflake_linux_x8664_odbc-2.19.15.tar && cp -r snowflake_odbc /usr/bin && rm -r /tmp/snowflake_odbc
     RUN cd /usr/bin/snowflake_odbc && sed -i 's/SF_ACCOUNT/{your snowflake account}/g' ./unixodbc_setup.sh && ./unixodbc_setup.sh
     
     # make a log location
