@@ -10,7 +10,7 @@ module Schemas
         #{LOWERCASE_DB_IDENTIFIERS ? 'LOWER(table_schema) AS ': ''}table_schema,
         #{LOWERCASE_DB_IDENTIFIERS ? 'LOWER(table_name) AS ': ''}table_name,
         #{LOWERCASE_DB_IDENTIFIERS ? 'LOWER(column_name) AS ': ''}column_name,
-        COALESCE(udt_name, data_type),
+        COALESCE(udt_name, data_type) AS udt_name,
         character_maximum_length
       FROM information_schema.columns
       WHERE table_schema NOT IN ('INFORMATION_SCHEMA', 'information_schema', 'pg_catalog', 'public')
