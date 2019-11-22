@@ -13,7 +13,7 @@ module Schemas
         (COALESCE(udt_name, data_type) || 
           CASE 
             WHEN character_maximum_length IS NOT NULL THEN '(' || character_maximum_length || ')'
-            WHEN numeric_precision IS NOT NULL THEN '(' || numeric_precision || ')'
+            WHEN numeric_precision IS NOT NULL THEN '(' || numeric_precision || ', ' || numeric_scale || ')'
             ELSE ''
           END) AS udt_name,
         character_maximum_length
