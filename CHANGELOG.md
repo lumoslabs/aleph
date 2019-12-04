@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file using [Semantic Versioning](http://semver.org/).
 
+## [0.4.3] - 2019-12-04
+### Fixed
+- Fix connection reset for Snowflake
+
 ## [0.4.2] - 2019-09-25
 ### Fixed
 - [Error when Snowflake query returns empty result set](https://github.com/lumoslabs/aleph/issues/91)
