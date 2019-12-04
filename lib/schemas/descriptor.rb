@@ -10,7 +10,12 @@ module Schemas
         #{LOWERCASE_DB_IDENTIFIERS ? 'LOWER(table_schema) AS ': ''}table_schema,
         #{LOWERCASE_DB_IDENTIFIERS ? 'LOWER(table_name) AS ': ''}table_name,
         #{LOWERCASE_DB_IDENTIFIERS ? 'LOWER(column_name) AS ': ''}column_name,
-        udt_name,
+        (COALESCE(udt_name, data_type) || 
+          CASE 
+            WHEN character_maximum_length IS NOT NULL THEN '(' || character_maximum_length || ')'
+            WHEN numeric_precision IS NOT NULL THEN '(' || numeric_precision || ', ' || numeric_scale || ')'
+            ELSE ''
+          END) AS udt_name,
         character_maximum_length
       FROM information_schema.columns
       WHERE table_schema NOT IN ('INFORMATION_SCHEMA', 'information_schema', 'pg_catalog', 'public')
