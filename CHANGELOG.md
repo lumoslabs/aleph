@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file using [Seman
 ## [0.4.3] - 2019-12-04
 ### Fixed
 - Fix connection reset for Snowflake
+- Fix data types for Snowflake (use data_type instead of udt_name)
 
 ## [0.4.2] - 2019-09-25
 ### Fixed
