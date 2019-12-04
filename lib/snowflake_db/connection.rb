@@ -19,7 +19,7 @@ module SnowflakeDB
         return yield
       rescue Sequel::DatabaseError => e
         raise unless connection_expired_error?(e)
-        connection.reset
+        @connection = nil
         return yield   # retry once
       end
     end
