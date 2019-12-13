@@ -1,4 +1,5 @@
-Notes on how to put out a release
+Notes On How To Put Out A Release
+=================================
 
 ## Publish Gem to RubyGem
 
@@ -7,8 +8,8 @@ Notes on how to put out a release
 * `RAILS_ENV=production bundle exec rake assets:precompile`
 * remove the old gem (`rm -rf *.gem` ?)
 * `gem build aleph.gemspec`
-* `gem install aleph-analytics-{version}.gem`
-* `gem push aleph-analytics-{version}.gem` (need rubygem creds)
+* `gem install aleph_analytics-{version}.gem`
+* `gem push aleph_analytics-{version}.gem` (need rubygem creds)
 
 
 ## Push docker demo image

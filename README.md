@@ -1,5 +1,7 @@
 
-# Aleph
+Aleph
+=====
+
 Aleph is a business analytics platform that focuses on ease-of-use and operational simplicity. It allows analysts to quickly author and iterate on queries, then share result sets and visualizations. Most components are modular, but it was designed to version-control queries (and analyze their differences) using Github and store result sets long term in Amazon S3.
 
 ![aleph](images/aleph_repo_banner.png)
@@ -52,7 +54,7 @@ You must install `unixodbc-dev` and setup and configure [snowflake ODBC](https:/
 
     apt-get update && apt-get install -y unixodbc-dev
     curl -o /tmp/snowflake_linux_x8664_odbc-2.19.8.tgz https://sfc-repo.snowflakecomputing.com/odbc/linux/latest/snowflake_linux_x8664_odbc-2.19.8.tgz && cd /tmp && gunzip snowflake_linux_x8664_odbc-2.19.8.tgz && tar -xvf snowflake_linux_x8664_odbc-2.19.8.tar && cp -r snowflake_odbc /usr/bin && rm -r /tmp/snowflake_odbc
-    cd /usr/bin/snowflake_odbc 
+    cd /usr/bin/snowflake_odbc
     ./unixodbc_setup.sh  # and following the instructions to setup Snowflake DSN
 
 ###### Install and run Redis
@@ -73,12 +75,12 @@ See [Database Configuration](#database-configuration) above
       aleph run_demo
 
 * For Snowflake
-      
+
       export AWS_ACCESS_KEY_ID="{aws key id}"
       export AWS_SECRET_ACCESS_KEY="{aws secret key}"
       aleph setup_minimal -t snowflake -S snowflake -U {user} -P {password} -L {snowflake_unload_target} -R {s3_region}  -B {s3_bucket} -F {s3_folder}
       aleph run_demo
-      
+
 Aleph should be running at `localhost:3000`
 
 ## Aleph Gem
@@ -105,7 +107,7 @@ There are a number of ways to install and deploy Aleph. The simplest is to set u
     RUN apt-get update && apt-get install -y unixodbc-dev
     RUN curl -o /tmp/snowflake_linux_x8664_odbc-2.19.8.tgz https://sfc-repo.snowflakecomputing.com/odbc/linux/latest/snowflake_linux_x8664_odbc-2.19.8.tgz && cd /tmp && gunzip snowflake_linux_x8664_odbc-2.19.8.tgz && tar -xvf snowflake_linux_x8664_odbc-2.19.8.tar && cp -r snowflake_odbc /usr/bin && rm -r /tmp/snowflake_odbc
     RUN cd /usr/bin/snowflake_odbc && sed -i 's/SF_ACCOUNT/{your snowflake account}/g' ./unixodbc_setup.sh && ./unixodbc_setup.sh
-    
+
     # make a log location
     RUN mkdir -p /var/log/aleph
     ENV SERVER_LOG_ROOT /var/log/aleph
@@ -127,8 +129,8 @@ There are a number of ways to install and deploy Aleph. The simplest is to set u
 You can then deploy and run the main components of Aleph as separate services using the gem executables:
 
 - web_server - `aleph web_server --worker-process 2`
-- query workers - `aleph workers`  
-- clock (used to trigger alerts) - `aleph clock`  
+- query workers - `aleph workers`
+- clock (used to trigger alerts) - `aleph clock`
 
 At runtime, you can inject all the secrets as environment variables.
 
