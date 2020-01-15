@@ -3,6 +3,10 @@ Change Log
 
 All notable changes to this project will be documented in this file using [Semantic Versioning](http://semver.org/).
 
+## [0.4.5] - 2020-01-15
+### Fixed
+- Fix style for schemas page
+
 ## [0.4.4] - 2019-12-13
 ### Removed
 - Remove hard-coded STDOUT and STDERR log redirection by environment so that the user can decide where they want this to go.
@@ -38,7 +42,7 @@ All notable changes to this project will be documented in this file using [Seman
 - [Site wide, saved filter for schema](https://github.com/lumoslabs/aleph/issues/38)
 
 ### Fixed
-- [Use trusty for travis](https://github.com/lumoslabs/al eph/issues/67)
+- [Use trusty for travis](https://github.com/lumoslabs/aleph/issues/67)
 - [Display 24-hour format](https://github.com/lumoslabs/aleph/issues/53)
 - [Schema search should be able to handle numbers](https://github.com/lumoslabs/aleph/issues/59)
 - [Clean up /tmp result files when query fails](https://github.com/lumoslabs/aleph/issues/37)
