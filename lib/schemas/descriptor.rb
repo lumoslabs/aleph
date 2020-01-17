@@ -74,6 +74,7 @@ module Schemas
 
       if result
         redis_store!(filter_tables(result.to_a))
+        redis_retrieve
       end
     end
 
