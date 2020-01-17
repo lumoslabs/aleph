@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'aleph_analytics'
-  s.version     = '0.4.6'
-  s.date        = '2020-01-15'
+  s.version     = '0.4.7'
+  s.date        = '2020-01-17'
   s.summary     = 'Redshift/Snowflake analytics platform'
   s.description = 'The best way to develop and share queries/investigations/results within an analytics team'
   s.authors     = ['Andrew Xue', 'Rob Froetscher', 'Joyce Lau']
