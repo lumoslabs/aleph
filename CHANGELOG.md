@@ -3,7 +3,7 @@ Change Log
 
 All notable changes to this project will be documented in this file using [Semantic Versioning](http://semver.org/).
 
-## [0.4.6] - 2020-01-17
+## [0.4.7] - 2020-01-17
 ### Fixed
 - Fix issue with schema cache
 - Fix style for schemas page
