@@ -24,7 +24,6 @@ module Schemas
 
     def initialize(role)
       @role = role
-      @cache = []
 
       Rails.logger.info("Start schema refresher thread for #{@role}")
       @refresher_thread = Thread.new{ schema_refresher }
@@ -56,10 +55,7 @@ module Schemas
     private
 
     def retrieve
-      if !@cache.present?
-        @cache = redis_retrieve
-      end
-      return @cache
+      redis_retrieve
     end
 
     def schema_refresher
@@ -78,7 +74,7 @@ module Schemas
 
       if result
         redis_store!(filter_tables(result.to_a))
-        @cache = redis_retrieve
+        redis_retrieve
       end
     end
 
