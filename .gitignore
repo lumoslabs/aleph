@@ -11,3 +11,4 @@ coverage
 tmp
 log
 config/attribute-map.yml
+.idea/

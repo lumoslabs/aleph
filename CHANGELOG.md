@@ -3,6 +3,10 @@ Change Log
 
 All notable changes to this project will be documented in this file using [Semantic Versioning](http://semver.org/).
 
+## [0.4.8] - 2020-01-20
+### Fixed
+- [Fix issue with thread refresh_schema](https://github.com/lumoslabs/aleph/issues/103)
+
 ## [0.4.7] - 2020-01-17
 ### Fixed
 - Fix issue with schema cache
