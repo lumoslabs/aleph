@@ -27,6 +27,7 @@ module Schemas
 
       Rails.logger.info("Start schema refresher thread for #{@role}")
       @refresher_thread = Thread.new{ schema_refresher }
+      @refresher_thread.abort_on_exception = true
     end
 
     def schemas
@@ -61,7 +62,7 @@ module Schemas
     def schema_refresher
       loop do
         refresh_schema
-        sleep(SCHEMA_REFRESH_INTERVAL)
+        sleep(SCHEMA_REFRESH_INTERVAL.to_i)
       end
     end
 
