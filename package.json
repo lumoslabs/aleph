@@ -17,6 +17,7 @@
     "karma-cli": "^2.0.0",
     "karma-coverage": "douglasduteil/karma-coverage#next",
     "karma-coveralls": "^2.1.0",
-    "karma-sourcemap-loader": "^0.3.8"
+    "karma-sourcemap-loader": "^0.3.8",
+    "natives": "^1.1.6"
   }
 }
