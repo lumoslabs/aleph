@@ -23,7 +23,7 @@ env:
     - CHROME_BIN=chromium-browser
     - BASIC_REDSHIFT_USERNAME=username
     - ADMIN_REDSHIFT_USERNAME=username
-    - TRAVIS_NODE_VERSION="12.6.0"
+    - TRAVIS_NODE_VERSION="11.0.0"
 
   matrix:
     - TEST_SUITE="rspec spec --color --format documentation"
