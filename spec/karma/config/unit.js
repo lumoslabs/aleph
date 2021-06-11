@@ -64,11 +64,11 @@ module.exports = function (config) {
     // Preprocessors
     preprocessors: {
       // Transpile ES6 to ES5 and check coverage
-      '/**/*.js.es6': ['babel', 'sourcemap', 'coverage'],
+      '/**/*.js.es6': ['babel']
       // Check coverage for ES5
-      'app/assets/javascripts/angular/**/*.js': ['coverage'],
-      'app/assets/javascripts/*.js': ['coverage'],
-      'app/assets/javascripts/lib/*.js': ['coverage']
+      // 'app/assets/javascripts/angular/**/*.js': ['coverage'],
+      // 'app/assets/javascripts/*.js': ['coverage'],
+      // 'app/assets/javascripts/lib/*.js': ['coverage']
     },
 
     babelPreprocessor: {
@@ -80,7 +80,7 @@ module.exports = function (config) {
       }
     },
 
-    plugins: ['karma-babel-preprocessor', 'karma-sourcemap-loader', 'karma-coverage', 'karma-jasmine'],
+    plugins: ['karma-babel-preprocessor', 'karma-sourcemap-loader', 'karma-jasmine'],
 
     coverageReporter: {
       instrumenters: {
@@ -96,7 +96,7 @@ module.exports = function (config) {
 
   if (process.env.TRAVIS) {
     cfg.browsers = ['Chrome_travis_ci'];
-    cfg.reporters = ['progress', 'coverage'];
+    cfg.reporters = ['progress'];
     cfg.coverageReporter = {
       instrumenters: {
         isparta: require('isparta')
