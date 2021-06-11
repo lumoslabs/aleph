@@ -27,7 +27,7 @@ env:
 
   matrix:
     - TEST_SUITE="rspec spec --color --format documentation"
-    - TEST_SUITE="rake karma:run"
+    # - TEST_SUITE="rake karma:run"
 
 before_install:
   - 'export DISPLAY=:99.0'
