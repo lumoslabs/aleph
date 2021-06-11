@@ -3,6 +3,7 @@
   "dependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-strict-mode": "^7.5.2",
     "karma": "^6.3.3",
     "karma-jasmine": "^4.0.1",
     "natives": "^1.1.6",

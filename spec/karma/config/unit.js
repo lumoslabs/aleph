@@ -77,7 +77,8 @@ module.exports = function (config) {
       },
       sourceFileName: function (file) {
         return file.originalPath;
-      }
+      },
+      plugins: ['@babel/plugin-transform-strict-mode']
     },
 
     coverageReporter: {
