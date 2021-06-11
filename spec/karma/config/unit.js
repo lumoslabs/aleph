@@ -80,18 +80,7 @@ module.exports = function (config) {
       }
     },
 
-    plugins: [
-      '@babel/plugin-transform-arrow-functions',
-      '@babel/preset-env',
-      'karma-babel-preprocessor',
-      'karma-sourcemap-loader',
-      'karma-coverage',
-      'karma-jasmine',
-      'karma-ng-jade2js-preprocessor',
-      'karma-module-resolver-preprocessor',
-      'karma-es6-module-preprocessor',
-      'karma-es6-preprocessor'
-    ],
+    plugins: ['@babel/plugin-transform-arrow-functions', '@babel/preset-env', 'karma-*'],
 
     coverageReporter: {
       instrumenters: {
@@ -107,7 +96,7 @@ module.exports = function (config) {
 
   if (process.env.TRAVIS) {
     cfg.browsers = ['Chrome_travis_ci'];
-    cfg.reporters = ['progress', 'coverage', 'coveralls'];
+    cfg.reporters = ['progress', 'coverage'];
     cfg.coverageReporter = {
       instrumenters: {
         isparta: require('isparta')
