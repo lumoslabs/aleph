@@ -81,6 +81,8 @@ module.exports = function (config) {
     },
 
     plugins: [
+      '@babel/plugin-transform-arrow-functions',
+      '@babel/preset-env',
       'karma-babel-preprocessor',
       'karma-sourcemap-loader',
       'karma-coverage',
