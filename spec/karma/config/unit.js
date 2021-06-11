@@ -80,8 +80,6 @@ module.exports = function (config) {
       }
     },
 
-    plugins: ['karma-babel-preprocessor', 'karma-sourcemap-loader', 'karma-coverage'],
-
     coverageReporter: {
       instrumenters: {
         isparta: require('isparta')
