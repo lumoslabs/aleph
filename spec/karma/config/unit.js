@@ -80,31 +80,31 @@ module.exports = function (config) {
       }
     },
 
-    coverageReporter: {
-      instrumenters: {
-        isparta: require('isparta')
-      },
-      instrumenter: {
-        '**/*.js': 'isparta'
-      },
-      dir: 'tmp/',
-      type: 'lcovonly'
-    }
+    // coverageReporter: {
+    //   instrumenters: {
+    //     isparta: require('isparta')
+    //   },
+    //   instrumenter: {
+    //     '**/*.js': 'isparta'
+    //   },
+    //   dir: 'tmp/',
+    //   type: 'lcovonly'
+    // }
   };
 
   if (process.env.TRAVIS) {
     cfg.browsers = ['Chrome_travis_ci'];
     cfg.reporters = ['progress', 'coverage', 'coveralls'];
-    cfg.coverageReporter = {
-      instrumenters: {
-        isparta: require('isparta')
-      },
-      instrumenter: {
-        '**/*.js': 'isparta'
-      },
-      dir: 'tmp/',
-      type: 'lcovonly'
-    };
+    // cfg.coverageReporter = {
+    //   instrumenters: {
+    //     isparta: require('isparta')
+    //   },
+    //   instrumenter: {
+    //     '**/*.js': 'isparta'
+    //   },
+    //   dir: 'tmp/',
+    //   type: 'lcovonly'
+    // };
   }
 
   config.set(cfg);
