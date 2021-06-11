@@ -81,7 +81,7 @@ module.exports = function (config) {
       }
     },
 
-    plugins: ['karma-babel-preprocessor'],
+    plugins: ['karma-babel-preprocessor', 'karma-sourcemap-loader', 'karma-coverage'],
 
     coverageReporter: {
       instrumenters: {
