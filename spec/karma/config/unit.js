@@ -73,13 +73,15 @@ module.exports = function (config) {
 
     babelPreprocessor: {
       options: {
+        presets: ['@babel/preset-env'],
         sourceMap: 'inline'
       },
       sourceFileName: function (file) {
         return file.originalPath;
-      },
-      plugins: ['@babel/plugin-transform-strict-mode']
+      }
     },
+
+    plugins: ['@babel/plugin-transform-strict-mode'],
 
     coverageReporter: {
       instrumenters: {
