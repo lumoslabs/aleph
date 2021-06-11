@@ -73,14 +73,15 @@ module.exports = function (config) {
 
     babelPreprocessor: {
       options: {
-        sourceMap: 'inline'
+        sourceMap: 'inline',
+        presets: ['es2015']
       },
       sourceFileName: function (file) {
         return file.originalPath;
       }
     },
 
-    plugins: ['@babel/plugin-transform-strict-mode'],
+    plugins: ['karma-babel-preprocessor'],
 
     coverageReporter: {
       instrumenters: {
