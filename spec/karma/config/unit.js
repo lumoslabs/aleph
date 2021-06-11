@@ -97,7 +97,7 @@ module.exports = function (config) {
 
   if (process.env.TRAVIS) {
     cfg.browsers = ['Chrome_travis_ci'];
-    cfg.reporters = ['progress', 'coverage', 'coveralls'];
+    cfg.reporters = ['progress', 'coverage'];
     cfg.coverageReporter = {
       instrumenters: {
         isparta: require('isparta')
