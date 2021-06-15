@@ -3,6 +3,10 @@ Change Log
 
 All notable changes to this project will be documented in this file using [Semantic Versioning](http://semver.org/).
 
+## [0.4.9] - 2021-06-15
+### Fixed
+- Move Github access_token from query params to header params
+
 ## [0.4.8] - 2020-01-20
 ### Fixed
 - [Fix issue with thread refresh_schema](https://github.com/lumoslabs/aleph/issues/103)

@@ -4,11 +4,6 @@ module Github
   APP_NAME        = APP_CONFIG['github_app_name']
   OWNER           = APP_CONFIG['github_owner']
   REPO            = APP_CONFIG['github_repo']
-  REQUEST_PARAMS = {
-    'access_token' => ENV['GITHUB_APPLICATION_ACCESS_TOKEN'],
-    'client_id' => ENV['GITHUB_APPLICATION_CLIENT_ID'],
-    'client_secret' => ENV['GITHUB_APPLICATION_CLIENT_SECRET']
-  }
   VALID_VERBS = {
     get: Net::HTTP::Get,
     post: Net::HTTP::Post,
@@ -25,7 +20,7 @@ module Github
 
   def self.send_request(verb, url, params={})
     raise "invalid HTTP verb #{verb}" unless VALID_VERBS.include?(verb)
-    query_params = REQUEST_PARAMS
+    query_params = ''
     query_params.merge!(params) if verb == :get
     url += "?#{query_params.to_query}"
 
@@ -36,6 +31,7 @@ module Github
 
     request = VALID_VERBS[verb].new(uri.request_uri)
     request['Accept'] = 'application/vnd.github.v3+json'
+    request['Authorization: token '] = ENV['GITHUB_APPLICATION_ACCESS_TOKEN']
     request['User-Agent'] = APP_NAME
 
     if request.request_body_permitted?
